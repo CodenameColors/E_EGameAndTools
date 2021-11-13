@@ -3436,6 +3436,32 @@
 					</Grid>
 				</Grid>
 			</TabItem>
+			<TabItem Header="Recipes">
+
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="30"/>
+						<RowDefinition Height="2"/>
+						<RowDefinition Height="*"/>
+						<RowDefinition Height="30"/>
+					</Grid.RowDefinitions>
+
+					<Button Content="Change to Edit" Width="100" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+				        Click="ChangeGridToEdit"/>
+					<Button Content="Change to Add" Width="100" Margin="160,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+				        Click="ChangeGridToAdd"/>
+
+					<Grid x:Name="Add_Recipe_Grid" Grid.Row="2">
+						
+					</Grid>
+
+					<Grid x:Name="Edit_Recipe_Grid" Grid.Row="2" Visibility="Hidden">
+						
+					</Grid>
+					
+				</Grid>
+
+			</TabItem>
 
 		</TabControl>
 		<TextBlock Grid.Row="2" Text="Status:" Foreground="White" Margin="5,5,400,5"></TextBlock>

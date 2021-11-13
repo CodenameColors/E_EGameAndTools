@@ -992,6 +992,10 @@ namespace DatabaseTool
 						Weapons_Add_Grid.Visibility = Visibility.Visible;
 						Weapons_Edit_Grid.Visibility = Visibility.Hidden;
 						break;
+					case ("Recipes"):
+						Add_Recipe_Grid.Visibility = Visibility.Visible;
+						Edit_Recipe_Grid.Visibility = Visibility.Hidden;
+						break;
 					default:
 						throw new NoNullAllowedException();
 						break;
@@ -1039,6 +1043,10 @@ namespace DatabaseTool
 					case ("Weapons"):
 						Weapons_Add_Grid.Visibility = Visibility.Hidden;
 						Weapons_Edit_Grid.Visibility = Visibility.Visible;
+						break;
+					case ("Recipes"):
+						Add_Recipe_Grid.Visibility = Visibility.Hidden;
+						Edit_Recipe_Grid.Visibility = Visibility.Visible;
 						break;
 					default:
 						throw new NoNullAllowedException();
@@ -1247,9 +1255,9 @@ namespace DatabaseTool
 						ModifierData moddata = CurrenGameplayModifiersInDatabase.Single(x => x.Id == mod_key.Modifier_ID);
 						if (moddata == null) continue;
 						if (moddata.bEffect)
-							item.ItemEffects.Add(moddata);
+							item.Effects.Add(moddata);
 						else
-							item.ItemTraits.Add(moddata);
+							item.Traits.Add(moddata);
 					}
 
 					#endregion
@@ -1321,9 +1329,9 @@ namespace DatabaseTool
 						ModifierData moddata =  CurrenGameplayModifiersInDatabase.Single(x => x.Id == mod_key.Modifier_ID);
 						if (moddata == null) continue;
 						if(moddata.bEffect)
-							w.WeaponEffects.Add(moddata);
+							w.Effects.Add(moddata);
 						else
-							w.WeaponTraits.Add(moddata);
+							w.Traits.Add(moddata);
 					}
 
 					#endregion
@@ -1858,7 +1866,7 @@ namespace DatabaseTool
 					if (!WeaponEffectEquip_Edit_IC.Items.Contains(effectname))
 					{
 						WeaponEffectEquip_Edit_IC.Items.Add(effectname);
-						CurrentWeaponsInDatabase[WeaponName_Edit_CB.SelectedIndex].WeaponEffects.Add(
+						CurrentWeaponsInDatabase[WeaponName_Edit_CB.SelectedIndex].Effects.Add(
 							CurrenGameplayModifiersInDatabase_Effects[WeaponEffects_Edit_CB.SelectedIndex]
 							);
 						WeaponEffectEquip_Edit_IC.UpdateLayout();
@@ -1899,7 +1907,7 @@ namespace DatabaseTool
 					{
 						WeaponTraitsEquip_Edit_IC.Items.Add(traitname);
 
-						CurrentWeaponsInDatabase[WeaponName_Edit_CB.SelectedIndex].WeaponTraits.Add(
+						CurrentWeaponsInDatabase[WeaponName_Edit_CB.SelectedIndex].Traits.Add(
 							CurrenGameplayModifiersInDatabase_Effects[WeaponTraits_Edit_CB.SelectedIndex]);
 						WeaponTraitsEquip_Edit_IC.UpdateLayout();
 					}
@@ -1928,7 +1936,7 @@ namespace DatabaseTool
 					{
 						ID = WeaponName_Add_TB.Text,
 						bDamage = (bool) WeaponDamage_Add_CB.IsChecked,
-						Inflicting_value = inflictval,
+						//Inflicting_value = inflictval,  // This doesn't exist anymore. was phased out by Str&weak stats
 						Weapon_Type = (int) ((EWeaponType)WeaponType_Add_CB.SelectedValue),
 						Weight = weightval,
 						Rarity = (int) ((ERarityType)WeaponRarity_Add_CB.SelectedValue)
@@ -2069,7 +2077,7 @@ namespace DatabaseTool
 				Weapon tempWeapon = CurrentWeaponsInDatabase[cb.SelectedIndex] ?? throw new ArgumentNullException("CurrentWeaponsInDatabase[cb.SelectedIndex]");
 
 				WeaponDamage_Edit_CB.IsChecked = tempWeapon.bDamage;
-				WeapondDamage_Edit_TB.Text = tempWeapon.Inflicting_value.ToString();
+				//WeapondDamage_Edit_TB.Text = tempWeapon.Inflicting_value.ToString(); //// This doesn't exist anymore. was phased out by Str&weak stats
 				WeaponType_Edit_CB.SelectedIndex = tempWeapon.Weapon_Type;
 				WeaponWeight_Edit_TB.Text = tempWeapon.Weight.ToString();
 				WeaponRarity_Edit_CB.SelectedIndex = tempWeapon.Rarity;
@@ -2085,11 +2093,11 @@ namespace DatabaseTool
 
 				#region Effect/Traits Binding
 
-				foreach (ModifierData modd in tempWeapon.WeaponEffects)
+				foreach (ModifierData modd in tempWeapon.Effects)
 				{
 					WeaponEffectEquip_Edit_IC.Items.Add(modd.Id);
 				}
-				foreach (ModifierData modd in tempWeapon.WeaponTraits)
+				foreach (ModifierData modd in tempWeapon.Traits)
 				{
 					WeaponTraitsEquip_Edit_IC.Items.Add(modd.Id);
 				}
@@ -2218,7 +2226,7 @@ namespace DatabaseTool
 
 			
 			WeaponEffectEquip_Edit_IC.Items.RemoveAt(index);
-			CurrentWeaponsInDatabase[WeaponName_Edit_CB.SelectedIndex].WeaponEffects.RemoveAt(index);
+			CurrentWeaponsInDatabase[WeaponName_Edit_CB.SelectedIndex].Effects.RemoveAt(index);
 		}
 
 		private void RemoveWeaponTrait_Edit_BTN_Click(object sender, RoutedEventArgs e)
@@ -2227,7 +2235,7 @@ namespace DatabaseTool
 			int index = WeaponTraitsEquip_Edit_IC.Items.IndexOf(item);
 			
 			WeaponTraitsEquip_Edit_IC.Items.RemoveAt(index);
-			CurrentWeaponsInDatabase[WeaponName_Edit_CB.SelectedIndex].WeaponTraits.RemoveAt(index);
+			CurrentWeaponsInDatabase[WeaponName_Edit_CB.SelectedIndex].Traits.RemoveAt(index);
 
 		}
 
@@ -2241,7 +2249,7 @@ namespace DatabaseTool
 				Weapon wepdata = CurrentWeaponsInDatabase[absindex];
 
 				wepdata.bDamage = (bool)WeaponDamage_Edit_CB.IsChecked;
-				wepdata.Inflicting_value = inflictval;
+				//wepdata.Inflicting_value = inflictval; // This doesn't exist anymore. was phased out by Str&weak stats
 				wepdata.Weapon_Type = WeaponType_Edit_CB.SelectedIndex;
 				wepdata.Weight = weightval;
 				wepdata.Rarity = WeaponRarity_Edit_CB.SelectedIndex;
@@ -2280,8 +2288,8 @@ namespace DatabaseTool
 					Createsql = "UPDATE `weapons` " +
 					            "SET " +
 					            String.Format("{0} = {1},", "bdamage", wepdata.bDamage) +
-					            String.Format("{0} = {1},", "inflicting_value", wepdata.Inflicting_value) +
-					            String.Format("{0} = {1},", "elemental", wepdata.Elemental.GetValueOrDefault(0)) +
+											//String.Format("{0} = {1},", "inflicting_value", wepdata.Inflicting_value) + // This doesn't exist anymore. was phased out by Str&weak stats
+											String.Format("{0} = {1},", "elemental", wepdata.Elemental.GetValueOrDefault(0)) +
 					            String.Format("{0} = {1},", "weapon_type", wepdata.Weapon_Type) +
 					            String.Format("{0} = {1},", "weight", wepdata.Weight) +
 
@@ -2298,7 +2306,7 @@ namespace DatabaseTool
 					Createsql = String.Format("DELETE FROM `modifier_keys` WHERE req_name = '{0}';", wepdata.ID);
 					_sqlite_conn.Query<ModifierData>(Createsql); //delete
 
-					foreach (ModifierData mdata in wepdata.WeaponEffects)
+					foreach (ModifierData mdata in wepdata.Effects)
 					{
 						Modifier_Keys mod_key = new Modifier_Keys()
 						{
@@ -2308,7 +2316,7 @@ namespace DatabaseTool
 						};
 						_sqlite_conn.Insert(mod_key);
 					}
-					foreach (ModifierData mdata in wepdata.WeaponTraits)
+					foreach (ModifierData mdata in wepdata.Traits)
 					{
 						Modifier_Keys mod_key = new Modifier_Keys()
 						{
@@ -2361,7 +2369,7 @@ namespace DatabaseTool
 					if (!ItemEffectEquip_Edit_IC.Items.Contains(effectname))
 					{
 						ItemEffectEquip_Edit_IC.Items.Add(effectname);
-						CurrentItemsInDatabase[ItemName_Edit_CB.SelectedIndex].ItemEffects.Add(
+						CurrentItemsInDatabase[ItemName_Edit_CB.SelectedIndex].Effects.Add(
 							CurrenGameplayModifiersInDatabase_Effects[ItemEquipEffects_edit_CB.SelectedIndex]
 						);
 						ItemEffectEquip_Edit_IC.UpdateLayout();
@@ -2401,7 +2409,7 @@ namespace DatabaseTool
 
 			ItemEffectEquip_Edit_IC.Items.RemoveAt(index);
 
-			CurrentItemsInDatabase[ItemName_Edit_CB.SelectedIndex].ItemEffects.RemoveAt(index);
+			CurrentItemsInDatabase[ItemName_Edit_CB.SelectedIndex].Effects.RemoveAt(index);
 
 		}
 
@@ -2415,7 +2423,7 @@ namespace DatabaseTool
 					if (!ItemTraitsEquip_Edit_IC.Items.Contains(traitname))
 					{
 						ItemTraitsEquip_Edit_IC.Items.Add(traitname);
-							CurrentItemsInDatabase[ItemName_Edit_CB.SelectedIndex].ItemTraits.Add(
+							CurrentItemsInDatabase[ItemName_Edit_CB.SelectedIndex].Traits.Add(
 							CurrenGameplayModifiersInDatabase_Traits[ItemEquipTraits_Edit_CB.SelectedIndex]
 						);
 						ItemTraitsEquip_Edit_IC.UpdateLayout();
@@ -2454,7 +2462,7 @@ namespace DatabaseTool
 
 			ItemTraitsEquip_Edit_IC.Items.RemoveAt(index);
 
-			CurrentItemsInDatabase[ItemName_Edit_CB.SelectedIndex].ItemTraits.RemoveAt(index);
+			CurrentItemsInDatabase[ItemName_Edit_CB.SelectedIndex].Traits.RemoveAt(index);
 		}
 
 		//Updated this method to include the AoE and targeting variables -AM 8/29/2020 1.0.0.2v
@@ -2480,7 +2488,7 @@ namespace DatabaseTool
 					{
 						ID = ItemName_Add_TB.Text,
 						bDamage = (bool)ItemIsDamage_Add_CB.IsChecked,
-						Inflicting_Value = inflictval,
+						//Inflicting_Value = inflictval, // This doesn't exist anymore. was phased out by Str&weak stats
 						Weapon_Type = (int)((EWeaponType)ItemWeaponType_Add_CB.SelectedValue),
 						Rarity = (int)((ERarityType)ItemRarity_Add_CB.SelectedValue),
 						bAllies = (bool)ItemAllies_Add_CB.IsChecked, //1.0.0.2v
@@ -2561,7 +2569,7 @@ namespace DatabaseTool
 			//We need to populate the data to the GUI.
 			Item currentItem = CurrentItemsInDatabase[ItemName_Edit_CB.SelectedIndex];
 			ItemIsDamage_Edit_CB.IsChecked = currentItem.bDamage;
-			ItemInflictingVal_Edit_TB.Text = currentItem.Inflicting_Value.ToString();
+			//ItemInflictingVal_Edit_TB.Text = currentItem.Inflicting_Value.ToString(); // This doesn't exist anymore. was phased out by Str&weak stats
 			ItemWeaponType_Edit_CB.SelectedItem = (EWeaponType)currentItem.Weapon_Type;
 			ItemRarity_Edit_CB.SelectedItem = (ERarityType) currentItem.Rarity;
 			ItemAoEWidth_Edit_TB.Text = currentItem.AoE_W.ToString();		//1.0.0.3v
@@ -2584,11 +2592,11 @@ namespace DatabaseTool
 
 			#region Effect/Traits Binding
 
-			foreach (ModifierData modd in currentItem.ItemEffects)
+			foreach (ModifierData modd in currentItem.Effects)
 			{
 				ItemEffectEquip_Edit_IC.Items.Add(modd.Id);
 			}
-			foreach (ModifierData modd in currentItem.ItemTraits)
+			foreach (ModifierData modd in currentItem.Traits)
 			{
 				ItemTraitsEquip_Edit_IC.Items.Add(modd.Id);
 			}
@@ -2619,7 +2627,7 @@ namespace DatabaseTool
 				Item itemdata = CurrentItemsInDatabase[absindex];
 
 				itemdata.bDamage = (bool)ItemIsDamage_Edit_CB.IsChecked;
-				itemdata.Inflicting_Value = inflictval;
+				// itemdata.Inflicting_Value = inflictval; // This doesn't exist anymore. was phased out by Str&weak stats
 				itemdata.Weapon_Type = ItemWeaponType_Edit_CB.SelectedIndex;
 				itemdata.Rarity = ItemRarity_Edit_CB.SelectedIndex;
 				itemdata.AoE_H = AoE_H_Val; //1.0.0.2v
@@ -2678,7 +2686,7 @@ namespace DatabaseTool
 					Createsql = "UPDATE `items` " +
 											"SET " +
 											String.Format("{0} = {1},", "bdamage", itemdata.bDamage) +
-											String.Format("{0} = {1},", "inflicting_value", itemdata.Inflicting_Value) +
+											//String.Format("{0} = {1},", "inflicting_value", itemdata.Inflicting_Value) + // This doesn't exist anymore. was phased out by Str&weak stats
 											String.Format("{0} = {1},", "elemental", itemdata.Elemental) +
 											String.Format("{0} = {1},", "weapon_type", itemdata.Weapon_Type) +
 											String.Format("{0} = {1},", "item_type", itemdata.Item_Type) +
@@ -2688,7 +2696,7 @@ namespace DatabaseTool
 											String.Format("{0} = '{1}',", "function_ptr", itemdata.Function_PTR) + //1.0.0.3v
 
 											String.Format("{0} = {1},", "rarity", itemdata.Rarity) +
-											String.Format("{0} = {1} ", "weak_strength_fk", itemdata.Weak_Strength_FK) +
+											String.Format("{0} = {1} ", "weak_strength_fk", itemdata.Weakness_Strength_FK) +
 											String.Format("WHERE id='{0}'", itemdata.ID);
 					_sqlite_conn.Query<Item>(Createsql);
 
@@ -2699,7 +2707,7 @@ namespace DatabaseTool
 					Createsql = String.Format("DELETE FROM `modifier_keys` WHERE req_name = '{0}';", itemdata.ID);
 					_sqlite_conn.Query<ModifierData>(Createsql); //delete
 
-					foreach (ModifierData mdata in itemdata.ItemEffects)
+					foreach (ModifierData mdata in itemdata.Effects)
 					{
 						Modifier_Keys mod_key = new Modifier_Keys()
 						{
@@ -2709,7 +2717,7 @@ namespace DatabaseTool
 						};
 						_sqlite_conn.Insert(mod_key);
 					}
-					foreach (ModifierData mdata in itemdata.ItemTraits)
+					foreach (ModifierData mdata in itemdata.Traits)
 					{
 						Modifier_Keys mod_key = new Modifier_Keys()
 						{
@@ -3282,7 +3290,7 @@ namespace DatabaseTool
 			if (PartyMemberWeapon_Edit_IC.Items.Count <= 3)
 			{
 				PartyMemberWeapon_Edit_IC.Items.Add(((Weapon)PartyMemberWeapons_Edit_CB.SelectedValue).ID);
-				CurrentPartyMembersInDatabase[PartyMemberName_Edit_CB.SelectedIndex].Weapons.Add((Weapon)PartyMemberWeapons_Edit_CB.SelectedValue);
+				CurrentPartyMembersInDatabase[PartyMemberName_Edit_CB.SelectedIndex].Weapons.AddFirst((Weapon)PartyMemberWeapons_Edit_CB.SelectedValue);
 			}
 		}
 
@@ -3579,9 +3587,9 @@ namespace DatabaseTool
 					WeaponList_keys = WeaponList_keys.FindAll(x => x.Req_Name == String.Format("{0} {1}", partyMember.First_Name, partyMember.Last_Name));
 
 					//Get all the matching Skills using the keys from the party member VIA the database query,
-					List<Weapon> result_weapon = CurrentWeaponsInDatabase.Where(p => WeaponList_keys.Any(p2 => p2.Weapon_ID == p.ID)).ToList() as List<Weapon>;
-					partyMember.Weapons = result_weapon;
-					result_weapon.ForEach(x=> PartyMemberWeapon_Edit_IC.Items.Add((x.ID)));
+					List<Weapon> result_weapons = CurrentWeaponsInDatabase.Where(p => WeaponList_keys.Any(p2 => p2.Weapon_ID == p.ID)).ToList() as List<Weapon>;
+					partyMember.Weapons = new LinkedList<Weapon>(result_weapons);
+					result_weapons.ForEach(x=> PartyMemberWeapon_Edit_IC.Items.Add((x.ID)));
 					#endregion
 
 					//Next up fill out ALL the text boxes with the correct info
@@ -4205,9 +4213,9 @@ namespace DatabaseTool
 					WeaponList_keys = WeaponList_keys.FindAll(x => x.Req_Name == String.Format("{0}", enemy.Name));
 
 					//Get all the matching Skills using the keys from the party member VIA the database query,
-					List<Weapon> result_weapon = CurrentWeaponsInDatabase.Where(p => WeaponList_keys.Any(p2 => p2.Weapon_ID == p.ID)).ToList() as List<Weapon>;
-					enemy.Weapons = result_weapon;
-					result_weapon.ForEach(x => EnemyWeapon_Edit_IC.Items.Add((x.ID)));
+					List<Weapon> result_weapons = CurrentWeaponsInDatabase.Where(p => WeaponList_keys.Any(p2 => p2.Weapon_ID == p.ID)).ToList() as List<Weapon>;
+					enemy.Weapons = new LinkedList<Weapon>(result_weapons);
+					result_weapons.ForEach(x => EnemyWeapon_Edit_IC.Items.Add((x.ID)));
 					#endregion
 
 					//Next up fill out ALL the text boxes with the correct info
@@ -4540,7 +4548,7 @@ namespace DatabaseTool
 			if (EnemyWeapon_Edit_IC.Items.Count <= 2)
 			{
 				EnemyWeapon_Edit_IC.Items.Add(((Weapon)EnemyWeapons_Edit_CB.SelectedValue).ID);
-				CurrentEnemiesInDatabase[EnemyName_Edit_CB.SelectedIndex].Weapons.Add((Weapon)EnemyItems_Edit_CB.SelectedValue);
+				CurrentEnemiesInDatabase[EnemyName_Edit_CB.SelectedIndex].Weapons.AddFirst((Weapon)EnemyItems_Edit_CB.SelectedValue);
 			}
 		}
 
@@ -4556,5 +4564,31 @@ namespace DatabaseTool
 
 
 
+	}
+
+	/// <summary>
+	/// This is here because in the past i would keep track of Lists of {equipables} for this database tool
+	/// But in the game, you can only go from one to the other in a row when changing the {equipable} so it turned 
+	/// into a LinkedList.
+	/// </summary>
+	public static class ExtensionMethods
+	{
+		public static LinkedListNode<T> RemoveAt<T>(this LinkedList<T> list, int index)
+		{
+			LinkedListNode<T> currentNode = list.First;
+			for (int i = 0; i <= index && currentNode != null; i++)
+			{
+				if (i != index)
+				{
+					currentNode = currentNode.Next;
+					continue;
+				}
+
+				list.Remove(currentNode);
+				return currentNode;
+			}
+
+			throw new IndexOutOfRangeException();
+		}
 	}
 }
