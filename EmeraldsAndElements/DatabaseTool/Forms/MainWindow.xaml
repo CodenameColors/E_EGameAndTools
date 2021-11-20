@@ -1,9 +1,10 @@
-﻿<Window x:Class="DatabaseTool.MainWindow"
+﻿<Window x:Class="Forms.DatabaseTool.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DatabaseTool"
+        xmlns:local="clr-namespace:Forms.DatabaseTool"
+				xmlns:comps="clr-namespace:DatabaseTool.Components"
 				xmlns:bixbite="clr-namespace:BixBite;assembly=BixBite"
 				xmlns:system="clr-namespace:System;assembly=System"
         xmlns:combat="clr-namespace:BixBite.Combat;assembly=BixBite"
@@ -61,8 +62,8 @@
 				<x:Type TypeName="combat:ERarityType"/>
 			</ObjectDataProvider.MethodParameters>
 		</ObjectDataProvider>
-		<local:EnumToStringConverter x:Key="DefaultEnumToStringConverter"/>
-		<local:IntToStanceEnum x:Key="IntToStanceEnumName"/>
+		<comps:EnumToStringConverter x:Key="DefaultEnumToStringConverter"/>
+		<comps:IntToStanceEnum x:Key="IntToStanceEnumName"/>
 	</Window.Resources>
 	<Grid>
 		<Grid.RowDefinitions>
@@ -90,7 +91,7 @@
 
 
 
-		<TabControl Grid.Row="1" Background="Transparent" Margin="10">
+		<TabControl Grid.Row="1" Background="Transparent" Margin="10,12,10,8">
 			<TabItem Header="Jobs">
 				<Grid>
 					<Grid.RowDefinitions>
@@ -3452,6 +3453,121 @@
 				        Click="ChangeGridToAdd"/>
 
 					<Grid x:Name="Add_Recipe_Grid" Grid.Row="2">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>	
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="300"/>
+							<ColumnDefinition Width="300"/>
+							<ColumnDefinition Width="500"/>
+							<ColumnDefinition Width="350"/>
+						</Grid.ColumnDefinitions>
+						
+						<TextBlock Grid.Row="0" Grid.Column="0" Text="Name:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+						<TextBox Grid.Row="0" Grid.Column="0" Background="Gray" Margin="60,0,0,0" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<TextBlock Grid.Row="2" Grid.Column="0" Text="Required Quality:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+						<TextBox Grid.Row="2" Grid.Column="0" Background="Gray" Margin="100,0,0,0" Width="160" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<TextBlock Grid.Row="1" Grid.Column="0" Text="Creation Type:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+						<ComboBox Grid.Row="1" Grid.Column="0" Background="Gray" Margin="100,0,0,0" Width="160" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<TextBlock Grid.Row="3" Grid.Column="0" Text="Required Level:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+						<TextBox Grid.Row="3" Grid.Column="0" Background="Gray" Margin="100,0,0,0" Width="160" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<TextBlock Grid.Row="4" Grid.Column="0" Text="Required Quality:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+						<TextBox Grid.Row="4" Grid.Column="0" Background="Gray" Margin="100,0,0,0" Width="160" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<TextBlock Grid.Row="5" Grid.Column="0" Text="hours to make (float):" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+						<TextBox Grid.Row="5" Grid.Column="0" Background="Gray" Margin="130,0,0,0" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<TextBlock Grid.Row="6" Grid.Column="0" Text="Use Count (nullable):" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+						<TextBox Grid.Row="6" Grid.Column="0" Background="Gray" Margin="130,0,0,0" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<TextBlock Grid.Row="7" Grid.Column="0" Text="Add Ingredient :" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+						<ComboBox Grid.Row="7" Grid.Column="0" Background="Gray" Margin="100,0,0,0" Width="160" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<Button Grid.Row="7" Grid.Column="0" Content="+" Width="25" Margin="0,0,10,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+
+						<!-- #region Elemental Maxs-->
+
+						<TextBlock Grid.Row="0" Grid.Column="1" Text="Max Fire Points:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+						<TextBox Grid.Row="0" Grid.Column="1" Text="0" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<TextBlock Grid.Row="1" Grid.Column="1" Text="Max Ice Points:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+						<TextBox Grid.Row="1" Grid.Column="1" Text="0" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<TextBlock Grid.Row="2" Grid.Column="1" Text="Max Earth Points:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+						<TextBox Grid.Row="2" Grid.Column="1" Text="0" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<TextBlock Grid.Row="3" Grid.Column="1" Text="Max Water Points:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+						<TextBox Grid.Row="3" Grid.Column="1" Text="0" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<TextBlock Grid.Row="4" Grid.Column="1" Text="Max Lightning Points:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+						<TextBox Grid.Row="4" Grid.Column="1" Text="0" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<TextBlock Grid.Row="5" Grid.Column="1" Text="Max Explosive Points:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+						<TextBox Grid.Row="5" Grid.Column="1" Text="0" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<TextBlock Grid.Row="6" Grid.Column="1" Text="Max Shadow Points:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+						<TextBox Grid.Row="6" Grid.Column="1" Text="0" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<TextBlock Grid.Row="7" Grid.Column="1" Text="Max Luminious Points:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+						<TextBox Grid.Row="7" Grid.Column="1" Text="0" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+
+						<!--#endregion-->
+
+						<!--#region elemental point rewards-->
+
+						<TextBlock Grid.Row="0" Grid.Column="2" Text="Add Fire reward:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+						<ComboBox Grid.Row="0" Grid.Column="2"  Background="Gray" Margin="140,0,0,0" Width="260" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<TextBlock Grid.Row="0" Grid.Column="2" Text="Point Threshold:" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+						<TextBox Grid.Row="0" Grid.Column="3" Text="0" Background="Gray" Margin="0,0,0,0" Width="60" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<TextBlock Grid.Row="1" Grid.Column="2" Text="Add Ice reward:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+						<ComboBox Grid.Row="1" Grid.Column="2"  Background="Gray" Margin="140,0,0,0" Width="260" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<TextBlock Grid.Row="1" Grid.Column="2" Text="Point Threshold:" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+						<TextBox Grid.Row="1" Grid.Column="3" Text="0" Background="Gray" Margin="0,0,0,0" Width="60" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<TextBlock Grid.Row="2" Grid.Column="2" Text="Add Earth reward:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+						<ComboBox Grid.Row="2" Grid.Column="2"  Background="Gray" Margin="140,0,0,0" Width="260" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<TextBlock Grid.Row="2" Grid.Column="2" Text="Point Threshold:" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+						<TextBox Grid.Row="2" Grid.Column="3" Text="0" Background="Gray" Margin="0,0,0,0" Width="60" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<TextBlock Grid.Row="3" Grid.Column="2" Text="Add Water reward:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+						<ComboBox Grid.Row="3" Grid.Column="2"  Background="Gray" Margin="140,0,0,0" Width="260" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<TextBlock Grid.Row="3" Grid.Column="2" Text="Point Threshold:" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+						<TextBox Grid.Row="3" Grid.Column="3" Text="0" Background="Gray" Margin="0,0,0,0" Width="60" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<TextBlock Grid.Row="4" Grid.Column="2" Text="Add Lightning reward:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+						<ComboBox Grid.Row="4" Grid.Column="2"  Background="Gray" Margin="140,0,0,0" Width="260" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<TextBlock Grid.Row="4" Grid.Column="2" Text="Point Threshold:" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+						<TextBox Grid.Row="4" Grid.Column="3" Text="0" Background="Gray" Margin="0,0,0,0" Width="60" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<TextBlock Grid.Row="5" Grid.Column="2" Text="Add Explsoive reward:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+						<ComboBox Grid.Row="5" Grid.Column="2"  Background="Gray" Margin="140,0,0,0" Width="260" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<TextBlock Grid.Row="5" Grid.Column="2" Text="Point Threshold:" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+						<TextBox Grid.Row="5" Grid.Column="3" Text="0" Background="Gray" Margin="0,0,0,0" Width="60" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<TextBlock Grid.Row="6" Grid.Column="2" Text="Add Shadow reward:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+						<ComboBox Grid.Row="6" Grid.Column="2"  Background="Gray" Margin="140,0,0,0" Width="260" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<TextBlock Grid.Row="6" Grid.Column="2" Text="Point Threshold:" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+						<TextBox Grid.Row="6" Grid.Column="3" Text="0" Background="Gray" Margin="0,0,0,0" Width="60" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<TextBlock Grid.Row="7" Grid.Column="2" Text="Add Luminious reward:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+						<ComboBox Grid.Row="7" Grid.Column="2"  Background="Gray" Margin="140,0,0,0" Width="260" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<TextBlock Grid.Row="7" Grid.Column="2" Text="Point Threshold:" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+						<TextBox Grid.Row="7" Grid.Column="3" Text="0" Background="Gray" Margin="0,0,0,0" Width="60" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<!--#endregion-->
 						
 					</Grid>
 

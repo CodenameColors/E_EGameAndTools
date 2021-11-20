@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using BixBite.Combat;
 
-namespace DatabaseTool
+namespace DatabaseTool.Components
 {
 	public class EnumToStringConverter : IValueConverter
 	{

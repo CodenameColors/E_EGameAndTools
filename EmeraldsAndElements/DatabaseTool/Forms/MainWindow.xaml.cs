@@ -19,11 +19,14 @@ using SQLite;
 // Area of Effect variable, as well as the new targeting boolean.
 // VERSION 1.0.0.3: Added the function pointer string name variable to the GUI and queries.
 // Fixed the name change text boxes for items and Skills to show the new variables for 1.0.0.2v & 1.0.0.3v
+// VERSION 1.0.0.4: Added the Accessories, and Clothes tabs, and database support
+
+// VERSION 1.0.0.5 Organization, and added the recipe tab, and database support
 //Change Log////////////////////////////////////////////////////////////////////////////////////////
 
 
 
-namespace DatabaseTool
+namespace Forms.DatabaseTool
 {
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
@@ -37,8 +40,8 @@ namespace DatabaseTool
 
 		#region Fields
 
-		private SQLiteConnection _sqlite_conn;
-		private String SQLDatabasePath = "";
+		public SQLiteConnection _sqlite_conn;
+		public static String SQLDatabasePath { get; set; }
 
 		private List<int?> gameplayModifiersAdd_vals = new List<int?>(11);
 		private List<int?> gameplayModifiersEdit_vals = new List<int?>(11);
@@ -76,11 +79,13 @@ namespace DatabaseTool
 
 			//INIT collections
 
+			MainWindow_Jobs();
+
 			CurrentGameplayModifier_Edit_AllMods = new ObservableCollection<Tuple<String, String>>();
 			SkillsCurrentLinkedModifiers_Add_AllMods = new ObservableCollection<Tuple<String, String>>();
 			SkillsCurrentLinkedModifiers_Edit_AllMods = new ObservableCollection<Tuple<String, String>>();
 
-			CurrentJobsInDatabase = new ObservableCollection<Job>();
+			
 			CurrentWeaponsInDatabase = new ObservableCollection<Weapon>();
 			CurrentSkillsInDatabase = new ObservableCollection<Skill>();
 			CurrentItemsInDatabase = new ObservableCollection<Item>();
@@ -1067,10 +1072,7 @@ namespace DatabaseTool
 			UpdateLayout();
 		}
 
-		private void AddJobToDB_BTN_OnClick(object sender, RoutedEventArgs e)
-		{
-
-		}
+		
 
 		private void BrowseForDataBase_BTN_Click(object sender, RoutedEventArgs e)
 		{
@@ -1366,46 +1368,6 @@ namespace DatabaseTool
 		}
 
 
-		private void LoadJobsFromDatabase()
-		{
-			String masterfile = (SQLDatabasePath);
-			//first up we need to connect to our database
-			_sqlite_conn = new SQLiteConnection(masterfile);
-			int rowid = 0;
-			try
-			{
-				EditJobsDB_LB.ItemsSource = null; //reset
-				PartyMemberMainJob_Add_CB.ItemsSource = null;
-				PartyMemberSubJob_Add_CB.ItemsSource = null;
-				PartyMemberMainJob_Edit_CB.ItemsSource = null;
-				PartyMemberSubJob_Edit_CB.ItemsSource = null;
-
-
-				StringBuilder Createsql = new StringBuilder();
-				Createsql.Append("SELECT * FROM `jobs`;");
-
-				IEnumerable<Job> varlist = _sqlite_conn.Query<Job>(Createsql.ToString());
-				int i = 0;
-				i++;
-				foreach (Job j in varlist.ToList())
-				{
-					CurrentJobsInDatabase.Add(j);
-				}
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine("Job Read from database FAILURE {0}:", ex.Message);
-				GlobalStatusLog_TB.Text = String.Format("Loading/Reading Database failed: {0}", ex.Message);
-			}
-			finally
-			{
-				EditJobsDB_LB.ItemsSource = CurrentJobsInDatabase;
-				PartyMemberMainJob_Add_CB.ItemsSource = CurrentJobsInDatabase;
-				PartyMemberSubJob_Add_CB.ItemsSource = CurrentJobsInDatabase;
-				PartyMemberMainJob_Edit_CB.ItemsSource = CurrentJobsInDatabase;
-				PartyMemberSubJob_Edit_CB.ItemsSource = CurrentJobsInDatabase;
-			}
-		}
 
 
 		private void LoadGameplayModifiersFromDatabase()
@@ -4562,8 +4524,7 @@ namespace DatabaseTool
 			CurrentEnemiesInDatabase[EnemyName_Edit_CB.SelectedIndex].Weapons.RemoveAt(index);
 		}
 
-
-
+		
 	}
 
 	/// <summary>
@@ -4591,4 +4552,51 @@ namespace DatabaseTool
 			throw new IndexOutOfRangeException();
 		}
 	}
+
+	#region Job Related Window Functions
+	//public partial class MainWindow
+	//{
+	//	private void LoadJobsFromDatabase()
+	//	{
+	//		String masterfile = (MainWindow.SQLDatabasePath);
+	//		first up we need to connect to our database
+	//		_sqlite_conn = new SQLiteConnection(masterfile);
+	//		int rowid = 0;
+	//		try
+	//		{
+	//			EditJobsDB_LB.ItemsSource = null; //reset
+	//			PartyMemberMainJob_Add_CB.ItemsSource = null;
+	//			PartyMemberSubJob_Add_CB.ItemsSource = null;
+	//			PartyMemberMainJob_Edit_CB.ItemsSource = null;
+	//			PartyMemberSubJob_Edit_CB.ItemsSource = null;
+
+
+	//			StringBuilder Createsql = new StringBuilder();
+	//			Createsql.Append("SELECT * FROM `jobs`;");
+
+	//			IEnumerable<Job> varlist = _sqlite_conn.Query<Job>(Createsql.ToString());
+	//			int i = 0;
+	//			i++;
+	//			foreach (Job j in varlist.ToList())
+	//			{
+	//				CurrentJobsInDatabase.Add(j);
+	//			}
+	//		}
+	//		catch (Exception ex)
+	//		{
+	//			Console.WriteLine("Job Read from database FAILURE {0}:", ex.Message);
+	//			GlobalStatusLog_TB.Text = String.Format("Loading/Reading Database failed: {0}", ex.Message);
+	//		}
+	//		finally
+	//		{
+	//			EditJobsDB_LB.ItemsSource = CurrentJobsInDatabase;
+	//			PartyMemberMainJob_Add_CB.ItemsSource = CurrentJobsInDatabase;
+	//			PartyMemberSubJob_Add_CB.ItemsSource = CurrentJobsInDatabase;
+	//			PartyMemberMainJob_Edit_CB.ItemsSource = CurrentJobsInDatabase;
+	//			PartyMemberSubJob_Edit_CB.ItemsSource = CurrentJobsInDatabase;
+	//		}
+	//	}
+	//}
+	#endregion
+
 }
