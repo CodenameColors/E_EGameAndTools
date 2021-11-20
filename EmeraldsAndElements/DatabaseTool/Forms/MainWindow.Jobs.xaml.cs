@@ -13,6 +13,9 @@ namespace Forms.DatabaseTool
 	public partial class MainWindow
 	{
 
+		public ObservableCollection<Job> CurrentJobsInDatabase { get; set; }
+
+
 		public void MainWindow_Jobs()
 		{
 			CurrentJobsInDatabase = new ObservableCollection<Job>();
