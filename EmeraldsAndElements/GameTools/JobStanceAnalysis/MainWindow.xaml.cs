@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,7 +37,46 @@ namespace JobStanceAnalysis
 			JobCombosRecords_2 = new ObservableCollection<ComparsionRecord>();
 			JobCombosRecords_3 = new ObservableCollection<ComparsionRecord>();
 			JobCombosRecords_4 = new ObservableCollection<ComparsionRecord>();
+
+			//Create the data output zone
+			if (!Directory.Exists(String.Format("{0}/{1}", Directory.GetCurrentDirectory(), "Output")))
+			{
+				Directory.CreateDirectory(String.Format("{0}/{1}", Directory.GetCurrentDirectory(), "Output"));
+			}
+
 		}
+
+		private void SetDefaultState(object sender, RoutedEventArgs e)
+		{
+			Job_LB.ItemsSource = null;
+
+			Jobs.Add(new Job() {Name = EJob.Hero, Stances = new EStanceType[] {EStanceType.Focus, EStanceType.Reading, EStanceType.NONE}});
+			Jobs_Dict.Add(Jobs.Last().Name.ToString(), Jobs.Last());
+
+			Jobs.Add(new Job() {Name = EJob.Knight, Stances = new EStanceType[] {EStanceType.Immovable, EStanceType.Praying, EStanceType.NONE } });
+			Jobs_Dict.Add(Jobs.Last().Name.ToString(), Jobs.Last());
+
+			Jobs.Add(new Job() {Name = EJob.Sniper, Stances = new EStanceType[] {EStanceType.PewPew, EStanceType.Focus, EStanceType.NONE } });
+			Jobs_Dict.Add(Jobs.Last().Name.ToString(), Jobs.Last());
+
+			Jobs.Add(new Job() {Name = EJob.Doctor, Stances = new EStanceType[] {EStanceType.Praying, EStanceType.Singing, EStanceType.NONE } });
+			Jobs_Dict.Add(Jobs.Last().Name.ToString(), Jobs.Last());
+
+
+			Jobs.Add(new Job() {Name = EJob.Necromancer, Stances = new EStanceType[] {EStanceType.Reading, EStanceType.Singing, EStanceType.NONE } });
+			Jobs_Dict.Add(Jobs.Last().Name.ToString(), Jobs.Last());
+
+			Jobs.Add(new Job() {Name = EJob.Bandit, Stances = new EStanceType[] {EStanceType.Immovable, EStanceType.Feather, EStanceType.NONE } });
+			Jobs_Dict.Add(Jobs.Last().Name.ToString(), Jobs.Last());
+
+			Jobs.Add(new Job() {Name = EJob.LuckyStar, Stances = new EStanceType[] {EStanceType.Bloody, EStanceType.Feather, EStanceType.NONE } });
+			Jobs_Dict.Add(Jobs.Last().Name.ToString(), Jobs.Last());
+
+			Jobs.Add(new Job() {Name = EJob.Gambler, Stances = new EStanceType[] {EStanceType.Bloody, EStanceType.PewPew, EStanceType.NONE } });
+			Jobs_Dict.Add(Jobs.Last().Name.ToString(), Jobs.Last());
+			Job_LB.ItemsSource = Jobs;
+		}
+
 
 		private void AddNewJob(object sender, RoutedEventArgs e)
 		{
@@ -100,13 +140,15 @@ namespace JobStanceAnalysis
 			{
 				FillMatch2Data();
 			}
-			catch { }
+			catch
+			{
+			}
 
 			FillMatch3Data();
 			match4Data();
-			
+
 		}
-		
+
 
 		private void FillMatch2Data()
 		{
@@ -123,16 +165,18 @@ namespace JobStanceAnalysis
 				Console.Write(num++ + " : {");
 				foreach (int ii in i)
 				{
-					Console.Write(((EJob)ii).ToString() + ",");
+					Console.Write(((EJob) ii).ToString() + ",");
 					tempJob = new Job();
-					tempJob.Name = (EJob)ii;
+					tempJob.Name = (EJob) ii;
 					tempRecord.JobCombos.Add(tempJob);
 				}
+
 				Console.Write("}");
 				Console.WriteLine("");
 
 				JobCombosRecords_2.Add(tempRecord);
 			}
+
 			//Console.WriteLine(result.ToString());
 			//Fill the data.
 			int MatchCount = 0;
@@ -144,6 +188,7 @@ namespace JobStanceAnalysis
 					cmpr.JobCombos[i].Stances[1] = Jobs_Dict[cmpr.JobCombos[i].Name.ToString()].Stances[1];
 					cmpr.JobCombos[i].Stances[2] = Jobs_Dict[cmpr.JobCombos[i].Name.ToString()].Stances[2];
 				}
+
 				cmpr.FIndMatches_Generic_test(2);
 				if (cmpr.bIsMatch)
 					MatchCount++;
@@ -152,7 +197,7 @@ namespace JobStanceAnalysis
 			Match2_LB.ItemsSource = JobCombosRecords_2;
 			NumberOfMatches_2_TB.Text = MatchCount.ToString();
 			NumberOfCombos_2_TB.Text = JobCombosRecords_2.Count.ToString();
-			PercentOfMatches_2_TB.Text = ((float)MatchCount / (float)JobCombosRecords_2.Count).ToString();
+			PercentOfMatches_2_TB.Text = ((float) MatchCount / (float) JobCombosRecords_2.Count).ToString();
 		}
 
 		private void FillMatch3Data()
@@ -170,9 +215,9 @@ namespace JobStanceAnalysis
 				Console.Write(num++ + " : {");
 				foreach (int ii in i)
 				{
-					Console.Write(((EJob)ii).ToString() + ",");
+					Console.Write(((EJob) ii).ToString() + ",");
 					tempJob = new Job();
-					tempJob.Name = (EJob)ii;
+					tempJob.Name = (EJob) ii;
 					tempRecord.JobCombos.Add(tempJob);
 				}
 
@@ -201,7 +246,7 @@ namespace JobStanceAnalysis
 			Match3_LB.ItemsSource = JobCombosRecords_3;
 			NumberOfMatches_3_TB.Text = MatchCount.ToString();
 			NumberOfCombos_3_TB.Text = JobCombosRecords_3.Count.ToString();
-			PercentOfMatches_3_TB.Text = ((float)MatchCount / (float)JobCombosRecords_3.Count).ToString();
+			PercentOfMatches_3_TB.Text = ((float) MatchCount / (float) JobCombosRecords_3.Count).ToString();
 		}
 
 		private void match4Data()
@@ -219,9 +264,9 @@ namespace JobStanceAnalysis
 				Console.Write(num++ + " : {");
 				foreach (int ii in i)
 				{
-					Console.Write(((EJob)ii).ToString() + ",");
+					Console.Write(((EJob) ii).ToString() + ",");
 					tempJob = new Job();
-					tempJob.Name = (EJob)ii;
+					tempJob.Name = (EJob) ii;
 					tempRecord.JobCombos.Add(tempJob);
 				}
 
@@ -230,6 +275,7 @@ namespace JobStanceAnalysis
 
 				JobCombosRecords_4.Add(tempRecord);
 			}
+
 			//check for matches
 			int MatchCount = 0;
 			foreach (ComparsionRecord cmpr in JobCombosRecords_4)
@@ -245,11 +291,62 @@ namespace JobStanceAnalysis
 				if (cmpr.bIsMatch)
 					MatchCount++;
 			}
+
 			Match4_LB.ItemsSource = JobCombosRecords_4;
 			NumberOfMatches_4_TB.Text = MatchCount.ToString();
 			NumberOfCombos_4_TB.Text = JobCombosRecords_4.Count.ToString();
 			PercentOfMatches_4_TB.Text = ((float) MatchCount / (float) JobCombosRecords_4.Count).ToString();
 		}
+
+		private void ExportDataToCSV_BTN_Click(object sender, RoutedEventArgs e)
+		{
+
+
+			using (StreamWriter writer = new StreamWriter(
+				String.Format("{0}/{1}/{2}", Directory.GetCurrentDirectory(), "Output", "JobMatch_2.csv")))
+			{
+				foreach (ComparsionRecord cpr in JobCombosRecords_2)
+				{
+					{
+						if (!cpr.bIsMatch) continue;
+						String line = string.Format("{0},{1},{2},{3}", cpr.JobCombos[0].Name, cpr.JobCombos[1].Name, "NONE",
+							"NONE");
+						writer.WriteLine(line);
+						writer.Flush();
+					}
+				}
+			}
+
+			using (StreamWriter writer = new StreamWriter(
+				String.Format("{0}/{1}/{2}", Directory.GetCurrentDirectory(), "Output", "JobMatch_3.csv")))
+			{
+				foreach (ComparsionRecord cpr in JobCombosRecords_3)
+				{
+					if (!cpr.bIsMatch) continue;
+					String line = string.Format("{0},{1},{2},{3}", cpr.JobCombos[0].Name, cpr.JobCombos[1].Name,
+						cpr.JobCombos[2].Name, "NONE");
+					writer.WriteLine(line);
+					writer.Flush();
+				}
+			}
+
+
+
+			using (StreamWriter writer = new StreamWriter(
+				String.Format("{0}/{1}/{2}", Directory.GetCurrentDirectory(), "Output", "JobMatch_4.csv")))
+			{
+				foreach (ComparsionRecord cpr in JobCombosRecords_4)
+				{
+					if (!cpr.bIsMatch) continue;
+					String line = string.Format("{0},{1},{2},{3}", cpr.JobCombos[0].Name, cpr.JobCombos[1].Name,
+						cpr.JobCombos[2].Name, cpr.JobCombos[3].Name);
+					writer.WriteLine(line);
+					writer.Flush();
+				}
+			}
+		}
+
+
 
 	}
 }

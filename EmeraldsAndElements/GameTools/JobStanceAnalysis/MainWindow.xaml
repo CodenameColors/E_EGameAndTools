@@ -27,6 +27,7 @@
 				<RowDefinition Height="30"/>
 				<RowDefinition Height="200"/>
 				<RowDefinition Height="*"/>
+				<RowDefinition Height="30"/>
 			</Grid.RowDefinitions>
 
 			<StackPanel Orientation="Horizontal" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" >
@@ -47,8 +48,9 @@
 			<ComboBox x:Name="StanceRight_CB" Width="100" Background="DimGray" ItemsSource="{Binding Source={StaticResource EStanceValues}}"/>
 	    </StackPanel>
 
-			<Button Background="DimGray" Content="Add" Width="100" Margin="936,8,156,4" Click="AddNewJob"/>
-			<Button Background="DimGray" Content="Run" Width="100" Margin="1050,8,0,4" Click="Testing_Button_Press"/>
+		<Button Background="Blue" Content="DEFAULT" Width="50" Margin="780,8,0,4" Click="SetDefaultState"/>
+		<Button Background="DimGray" Content="Add" Width="50" Margin="920,8,0,4" Click="AddNewJob"/>
+		<Button Background="DimGray" Content="Run" Width="50" Margin="1050,8,0,4" Click="Testing_Button_Press"/>
 
 
 			<ListBox x:Name="Job_LB" Grid.Row="1" BorderThickness="2" BorderBrush="AliceBlue" ItemsSource="{Binding Jobs}" Background="Transparent" Margin="10">
@@ -348,6 +350,11 @@
 				</Grid>
 				</TabItem>
 		</TabControl>
+
+		<Button Grid.Row="3" Background="DimGray" Content="Export Data" Width="100" Margin="1050,8,0,4"
+		        Click="ExportDataToCSV_BTN_Click"/>
+
+
 
 	</Grid>
 </Window>
