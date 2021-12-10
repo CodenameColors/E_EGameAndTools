@@ -7,6 +7,7 @@
 				xmlns:bixbite="clr-namespace:BixBite;assembly=BixBite"
 				xmlns:system="clr-namespace:System;assembly=System"
         xmlns:combat="clr-namespace:BixBite.Combat;assembly=BixBite"
+        xmlns:combatequip="clr-namespace:BixBite.Combat.Equipables;assembly=BixBite"
         xmlns:item="clr-namespace:BixBite.Items;assembly=BixBite"
         xmlns:system1="clr-namespace:System;assembly=mscorlib"
 				Title="Emeralds And Elements Database Entry Tool"
@@ -34,6 +35,16 @@
 		<ObjectDataProvider x:Key="EWeaponType" MethodName="GetValues" ObjectType="{x:Type system1:Enum}">
 			<ObjectDataProvider.MethodParameters>
 				<x:Type TypeName="combat:EWeaponType"/>
+			</ObjectDataProvider.MethodParameters>
+		</ObjectDataProvider>
+		<ObjectDataProvider x:Key="EAccessoryType" MethodName="GetValues" ObjectType="{x:Type system1:Enum}">
+			<ObjectDataProvider.MethodParameters>
+				<x:Type TypeName="combatequip:EAccessoryType"/>
+			</ObjectDataProvider.MethodParameters>
+		</ObjectDataProvider>
+		<ObjectDataProvider x:Key="EClothesType" MethodName="GetValues" ObjectType="{x:Type system1:Enum}">
+			<ObjectDataProvider.MethodParameters>
+				<x:Type TypeName="combatequip:EClothesType"/>
 			</ObjectDataProvider.MethodParameters>
 		</ObjectDataProvider>
 		<ObjectDataProvider x:Key="EMagicElementType" MethodName="GetValues" ObjectType="{x:Type system1:Enum}">
@@ -89,8 +100,152 @@
 		        Click="BrowseForDataBase_BTN_Click"/>
 
 
+		<TabControl Background="Transparent" Margin="0,23,20,27" Grid.RowSpan="2">
+			<TabItem Header="FollowUpAttacks">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="30"/>
+						<RowDefinition Height="2"/>
+						<RowDefinition Height="*"/>
+						<RowDefinition Height="30"/>
+					</Grid.RowDefinitions>
 
-		<TabControl Grid.Row="1" Background="Transparent" Margin="10">
+					<Button Content="Change to Edit" Width="100" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+					        Click="ChangeGridToEdit"/>
+					<Button Content="Change to Add" Width="100" Margin="160,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+					        Click="ChangeGridToAdd"/>
+
+					<GridSplitter Grid.Row="1" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+					              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+					</GridSplitter>
+
+					<Grid x:Name="AddGrid_FollowupAttacks" Grid.Row="2" Visibility="Hidden">
+		
+						<Grid>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="30"/>
+								<RowDefinition Height="30"/>
+								<RowDefinition Height="30"/>
+								<RowDefinition Height="30"/>
+								<RowDefinition />
+								<RowDefinition Height="30"/>
+							</Grid.RowDefinitions>
+
+
+							<TextBlock Grid.Row="0" Text="CSV File of Match 2s" Foreground="White" Margin="10,5,0,0" 
+							           HorizontalAlignment="Left" VerticalAlignment="Top"/>
+							<TextBox x:Name="FollowUpAttackCSV_2_TB" Grid.Row="0" Background="Gray" Margin="200,0,70,0" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+							<Button Content="Browse" Width="50" Margin="320,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"
+							        Click="BrowseForFollowUpCSV_2_BTN_Click"/>
+
+							<TextBlock Grid.Row="1" Text="CSV File of Match 3s" Foreground="White" Margin="10,5,0,0" 
+							           HorizontalAlignment="Left" VerticalAlignment="Top"/>
+							<TextBox x:Name="FollowUpAttackCSV_3_TB" Grid.Row="1" Background="Gray" Margin="200,0,70,0" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+							<Button Grid.Row="1" Content="Browse" Width="50" Margin="320,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"
+							        Click="BrowseForFollowUpCSV_3_BTN_Click"/>
+
+							<TextBlock Grid.Row="2" Text="CSV File of Match 4s." Foreground="White" Margin="10,5,0,0" 
+							           HorizontalAlignment="Left" VerticalAlignment="Top"/>
+							<TextBox x:Name="FollowUpAttackCSV_4_TB" Grid.Row="2" Background="Gray" Margin="200,0,70,0" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+							<Button Grid.Row="2" Content="Browse" Width="50" Margin="320,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"
+							        Click="BrowseForFollowUpCSV_4_BTN_Click"/>
+
+							<Button Grid.Row="3" Content="Clear" Width="50" Margin="320,0,80,0" HorizontalAlignment="Right" VerticalAlignment="Center"
+							        Click="ClearFollowUps_BTN_Click"/>
+							<Button Grid.Row="3" Content="Run" Width="50" Margin="320,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"
+							        Click="RunForFollowUpCSV_BTN_Click"/>
+
+							<ListBox x:Name="FollowUpAttacks_LB" Grid.Row="4" BorderThickness="2" BorderBrush="AliceBlue" ItemsSource="{Binding CurrentFollowUpAttacks}" Background="Transparent" Margin="10,10,10,10">
+								<ListBox.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="150"/>
+													<ColumnDefinition Width="10"/>
+													<ColumnDefinition Width="150"/>
+													<ColumnDefinition Width="10"/>
+													<ColumnDefinition Width="150"/>
+													<ColumnDefinition Width="10"/>
+													<ColumnDefinition Width="150"/>
+												</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="0" Foreground="White" Text="{Binding .Job_1}" ></TextBlock>
+											<TextBlock Grid.Column="2" Foreground="White" Text="{Binding  .Job_2}" ></TextBlock>
+											<TextBlock Grid.Column="4" Foreground="White" Text="{Binding .Job_3}" ></TextBlock>
+											<TextBlock Grid.Column="6" Foreground="White" Text="{Binding .Job_4}" ></TextBlock>
+
+											<GridSplitter Grid.Column="1" Grid.ColumnSpan="1" Width="2" ResizeDirection="Columns" IsEnabled="False" Margin="-2,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Stretch">
+												</GridSplitter>
+												<GridSplitter Grid.Column="3" Grid.ColumnSpan="1" Width="2" ResizeDirection="Columns" IsEnabled="False" Margin="-2,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Stretch">
+												</GridSplitter>
+												<GridSplitter Grid.Column="5" Grid.ColumnSpan="1" Width="2" ResizeDirection="Columns" IsEnabled="False" Margin="-2,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Stretch">
+											</GridSplitter>
+
+											</Grid>
+									</DataTemplate>
+								</ListBox.ItemTemplate>
+							</ListBox>
+
+
+						</Grid>
+					</Grid>
+
+					<Grid x:Name="EditGrid_FollowupAttacks" Grid.Row="2" Visibility="Visible">
+
+						<Grid>
+							<Grid.RowDefinitions>
+								<RowDefinition/>
+							</Grid.RowDefinitions>
+
+
+							<ListBox x:Name="EditFollowUpAttacks_LB" Grid.Row="4" BorderThickness="2" BorderBrush="AliceBlue" ItemsSource="{Binding CurrentFollowUpAttacks}" Background="Transparent" Margin="10,10,10,10">
+								<ListBox.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="150"/>
+												<ColumnDefinition Width="10"/>
+												<ColumnDefinition Width="150"/>
+												<ColumnDefinition Width="10"/>
+												<ColumnDefinition Width="150"/>
+												<ColumnDefinition Width="10"/>
+												<ColumnDefinition Width="150"/>
+												<ColumnDefinition Width="10"/>
+												<ColumnDefinition Width="150"/>
+												<ColumnDefinition Width="10"/>
+												<ColumnDefinition Width="150"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="0" Foreground="White" Text="{Binding .Job_1}" ></TextBlock>
+											<TextBlock Grid.Column="2" Foreground="White" Text="{Binding  .Job_2}" ></TextBlock>
+											<TextBlock Grid.Column="4" Foreground="White" Text="{Binding .Job_3}" ></TextBlock>
+											<TextBlock Grid.Column="6" Foreground="White" Text="{Binding .Job_4}" ></TextBlock>
+											<TextBox Grid.Column="8" Foreground="Black" Text="{Binding .Name, Mode=TwoWay }"/>
+											<TextBox Grid.Column="10" Foreground="Black" Text="{Binding .Function_PTR, Mode=TwoWay }"/>
+
+											<GridSplitter Grid.Column="1" Grid.ColumnSpan="1" Width="2" ResizeDirection="Columns" IsEnabled="False" Margin="-2,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Stretch">
+											</GridSplitter>
+											<GridSplitter Grid.Column="3" Grid.ColumnSpan="1" Width="2" ResizeDirection="Columns" IsEnabled="False" Margin="-2,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Stretch">
+											</GridSplitter>
+											<GridSplitter Grid.Column="5" Grid.ColumnSpan="1" Width="2" ResizeDirection="Columns" IsEnabled="False" Margin="-2,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Stretch">
+											</GridSplitter>
+											<GridSplitter Grid.Column="7" Grid.ColumnSpan="1" Width="2" ResizeDirection="Columns" IsEnabled="False" Margin="-2,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Stretch">
+											</GridSplitter>
+											<GridSplitter Grid.Column="9" Grid.ColumnSpan="1" Width="2" ResizeDirection="Columns" IsEnabled="False" Margin="-2,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Stretch">
+											</GridSplitter>
+
+										</Grid>
+									</DataTemplate>
+								</ListBox.ItemTemplate>
+							</ListBox>
+						</Grid>
+
+					</Grid>
+
+					<Button Grid.Row="3" Content="Update Database!"  Margin="50,0,50,0" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+					        Click="EditFollowUpAttacksInDB_BTN_Click"/>
+				</Grid>
+			</TabItem>
 			<TabItem Header="Jobs">
 				<Grid>
 					<Grid.RowDefinitions>
@@ -847,9 +1002,9 @@
 							<RowDefinition Height="20"/>
 							<RowDefinition Height="20"/>
 							<RowDefinition Height="20"/>
-							<RowDefinition Height="20"/>
-							<RowDefinition Height="20"/>
-							<RowDefinition Height="20"/>
+							<RowDefinition Height="1"/>
+							<RowDefinition Height="1"/>
+							<RowDefinition Height="1"/>
 							<RowDefinition Height="*"/>
 							<RowDefinition Height="*"/>
 						</Grid.RowDefinitions>
@@ -1054,7 +1209,7 @@
 							</Grid>
 						</Grid>
 
-						<Grid Grid.Row="9">
+						<Grid Grid.Row="9" RowSpan="2">
 
 							<Grid.RowDefinitions>
 								<RowDefinition Height="20"/>
@@ -1062,6 +1217,7 @@
 								<RowDefinition Height="*"/>
 							</Grid.RowDefinitions>
 							<Grid.ColumnDefinitions>
+								<ColumnDefinition />
 								<ColumnDefinition />
 								<ColumnDefinition />
 								<ColumnDefinition />
@@ -1195,7 +1351,75 @@
 							</ItemsControl>
 							<!--#endregion-->
 
+							<!--#region Clothes-->
+							<Grid Grid.Column="4" Grid.Row="2">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="30"/>
+									<RowDefinition Height="10"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="30"/>
+									<RowDefinition Height="10"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="30"/>
+									<RowDefinition Height="10"/>
+									<RowDefinition Height="10"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="30"/>
+									<RowDefinition Height="10"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="30"/>
+									<RowDefinition Height="10"/>
+								</Grid.RowDefinitions>
 
+								<TextBlock Grid.Column="0" Grid.Row="0" Text="Head:" Foreground="White" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+								<ComboBox x:Name="enemyClothes_Head_Edit_CB" Grid.Row="1" Grid.Column="0" Margin="5,0,5,0" ItemsSource="{Binding CurrentClothesInDatabase_Head}">
+									<ComboBox.ItemTemplate>
+										<DataTemplate>
+											<TextBlock Text="{Binding ID}" Foreground="Black"/>
+										</DataTemplate>
+									</ComboBox.ItemTemplate>
+								</ComboBox>
+
+								<TextBlock Grid.Column="0" Grid.Row="3" Text="Body:" Foreground="White" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+								<ComboBox x:Name="enemyClothes_Body_Edit_CB" Grid.Row="4" Grid.Column="0" Margin="5,0,5,0" ItemsSource="{Binding CurrentClothesInDatabase_Body}">
+									<ComboBox.ItemTemplate>
+										<DataTemplate>
+											<TextBlock Text="{Binding ID}" Foreground="Black"/>
+										</DataTemplate>
+									</ComboBox.ItemTemplate>
+								</ComboBox>
+
+								<TextBlock Grid.Column="0" Grid.Row="6" Text="Legs:" Foreground="White" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+								<ComboBox x:Name="enemyClothes_Legs_Edit_CB" Grid.Row="7" Grid.Column="0" Margin="5,0,5,0" ItemsSource="{Binding CurrentClothesInDatabase_Body}">
+									<ComboBox.ItemTemplate>
+										<DataTemplate>
+											<TextBlock Text="{Binding ID}" Foreground="Black"/>
+										</DataTemplate>
+									</ComboBox.ItemTemplate>
+								</ComboBox>
+								<!--#endregion-->
+
+								<!--#region Accessories-->
+								<TextBlock Grid.Column="0" Grid.Row="10" Text="Accessory 1:" Foreground="White" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+								<ComboBox x:Name="enemyClothes_Acc1_Edit_CB" Grid.Row="11" Grid.Column="0" Margin="5,0,5,0" ItemsSource="{Binding CurrentAccessoriesInDatabase}">
+									<ComboBox.ItemTemplate>
+										<DataTemplate>
+											<TextBlock Text="{Binding ID}" Foreground="Black"/>
+										</DataTemplate>
+									</ComboBox.ItemTemplate>
+								</ComboBox>
+
+								<TextBlock Grid.Column="0" Grid.Row="13" Text="Accessory 2:" Foreground="White" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+								<ComboBox x:Name="enemyClothes_Acc2_Edit_CB" Grid.Row="14" Grid.Column="0" Margin="5,0,5,0" ItemsSource="{Binding CurrentAccessoriesInDatabase}">
+									<ComboBox.ItemTemplate>
+										<DataTemplate>
+											<TextBlock Text="{Binding ID}" Foreground="Black"/>
+										</DataTemplate>
+									</ComboBox.ItemTemplate>
+								</ComboBox>
+								<!--#endregion-->
+							</Grid>
 							<GridSplitter Grid.Row="1" Height="2" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
 							              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
 
@@ -1275,155 +1499,155 @@
 								<ColumnDefinition Width="700"/>
 								<ColumnDefinition/>
 							</Grid.ColumnDefinitions>
-						
 
-						<Grid x:Name="PartyMembersStats_Add_Grid" Grid.Row="0" Grid.Column="0">
 
-							<Grid.RowDefinitions>
-								<RowDefinition Height="20"/>
-								<RowDefinition Height="20"/>
-								<RowDefinition Height="20"/>
-								<RowDefinition Height="20"/>
-								<RowDefinition Height="20"/>
-								<RowDefinition Height="20"/>
-								<RowDefinition Height="20"/>
-								<RowDefinition Height="20"/>
-								<RowDefinition Height="20"/>
-								<RowDefinition Height="20"/>
-								<RowDefinition Height="20"/>
-								<RowDefinition Height="20"/>
-								<RowDefinition Height="20"/>
-								<RowDefinition Height="20"/>
-								<RowDefinition Height="20"/>
-								<RowDefinition Height="20"/>
-							</Grid.RowDefinitions>
+							<Grid x:Name="PartyMembersStats_Add_Grid" Grid.Row="0" Grid.Column="0">
 
-							<TextBlock Grid.Row="1" Grid.Column="0" Text="Max Health:" Foreground="White" Margin="10,0,0,0"/>
-							<TextBox x:Name="PartyMemberMaxHP_Add_TB" Grid.Row="1" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="20"/>
+								</Grid.RowDefinitions>
 
-							<TextBlock Grid.Row="2" Grid.Column="0" Text="Current Health:" Foreground="White" Margin="10,0,0,0"/>
-							<TextBox x:Name="PartyMemberCurHP_Add_TB" Grid.Row="2" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+								<TextBlock Grid.Row="1" Grid.Column="0" Text="Max Health:" Foreground="White" Margin="10,0,0,0"/>
+								<TextBox x:Name="PartyMemberMaxHP_Add_TB" Grid.Row="1" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
 
-							<TextBlock Grid.Row="3" Grid.Column="0" Text="Max Mana:" Foreground="White" Margin="10,0,0,0"/>
-							<TextBox x:Name="PartyMemberMaxMP_Add_TB" Grid.Row="3" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+								<TextBlock Grid.Row="2" Grid.Column="0" Text="Current Health:" Foreground="White" Margin="10,0,0,0"/>
+								<TextBox x:Name="PartyMemberCurHP_Add_TB" Grid.Row="2" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
 
-							<TextBlock Grid.Row="4" Grid.Column="0" Text="Current Mana:" Foreground="White" Margin="10,0,0,0"/>
-							<TextBox x:Name="PartyMemberCurMP_Add_TB" Grid.Row="4" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+								<TextBlock Grid.Row="3" Grid.Column="0" Text="Max Mana:" Foreground="White" Margin="10,0,0,0"/>
+								<TextBox x:Name="PartyMemberMaxMP_Add_TB" Grid.Row="3" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
 
-							<TextBlock Grid.Row="6" Grid.Column="0" Text="Attack Stat:" Foreground="White" Margin="10,0,0,0"/>
-							<TextBox x:Name="PartyMemberAtk_Add_TB" Grid.Row="6" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+								<TextBlock Grid.Row="4" Grid.Column="0" Text="Current Mana:" Foreground="White" Margin="10,0,0,0"/>
+								<TextBox x:Name="PartyMemberCurMP_Add_TB" Grid.Row="4" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
 
-							<TextBlock Grid.Row="7" Grid.Column="0" Text="Defense Stat:" Foreground="White" Margin="10,0,0,0"/>
-							<TextBox x:Name="PartyMemberDef_Add_TB" Grid.Row="7" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+								<TextBlock Grid.Row="6" Grid.Column="0" Text="Attack Stat:" Foreground="White" Margin="10,0,0,0"/>
+								<TextBox x:Name="PartyMemberAtk_Add_TB" Grid.Row="6" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
 
-							<TextBlock Grid.Row="8" Grid.Column="0" Text="Dexterity Stat:" Foreground="White" Margin="10,0,0,0"/>
-							<TextBox x:Name="PartyMemberDex_Add_TB" Grid.Row="8" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+								<TextBlock Grid.Row="7" Grid.Column="0" Text="Defense Stat:" Foreground="White" Margin="10,0,0,0"/>
+								<TextBox x:Name="PartyMemberDef_Add_TB" Grid.Row="7" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
 
-							<TextBlock Grid.Row="9" Grid.Column="0" Text="Agility Stat:" Foreground="White" Margin="10,0,0,0"/>
-							<TextBox x:Name="PartyMemberAgl_Add_TB" Grid.Row="9" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+								<TextBlock Grid.Row="8" Grid.Column="0" Text="Dexterity Stat:" Foreground="White" Margin="10,0,0,0"/>
+								<TextBox x:Name="PartyMemberDex_Add_TB" Grid.Row="8" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
 
-							<TextBlock Grid.Row="10" Grid.Column="0" Text="Morality Stat:" Foreground="White" Margin="10,0,0,0"/>
-							<TextBox x:Name="PartyMemberMor_Add_TB" Grid.Row="10" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+								<TextBlock Grid.Row="9" Grid.Column="0" Text="Agility Stat:" Foreground="White" Margin="10,0,0,0"/>
+								<TextBox x:Name="PartyMemberAgl_Add_TB" Grid.Row="9" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
 
-							<TextBlock Grid.Row="11" Grid.Column="0" Text="Wisdom Stat:" Foreground="White" Margin="10,0,0,0"/>
-							<TextBox x:Name="PartyMemberWis_Add_TB" Grid.Row="11" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+								<TextBlock Grid.Row="10" Grid.Column="0" Text="Morality Stat:" Foreground="White" Margin="10,0,0,0"/>
+								<TextBox x:Name="PartyMemberMor_Add_TB" Grid.Row="10" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
 
-							<TextBlock Grid.Row="12" Grid.Column="0" Text="Resistance Stat:" Foreground="White" Margin="10,0,0,0"/>
-							<TextBox x:Name="PartyMemberRes_Add_TB" Grid.Row="12" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+								<TextBlock Grid.Row="11" Grid.Column="0" Text="Wisdom Stat:" Foreground="White" Margin="10,0,0,0"/>
+								<TextBox x:Name="PartyMemberWis_Add_TB" Grid.Row="11" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
 
-							<TextBlock Grid.Row="13" Grid.Column="0" Text="Luck Stat:" Foreground="White" Margin="10,0,0,0"/>
-							<TextBox x:Name="PartyMemberLuc_Add_TB" Grid.Row="13" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+								<TextBlock Grid.Row="12" Grid.Column="0" Text="Resistance Stat:" Foreground="White" Margin="10,0,0,0"/>
+								<TextBox x:Name="PartyMemberRes_Add_TB" Grid.Row="12" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
 
-							<TextBlock Grid.Row="14" Grid.Column="0" Text="Risk Stat:" Foreground="White" Margin="10,0,0,0"/>
-							<TextBox x:Name="PartyMemberRsk_Add_TB" Grid.Row="14" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+								<TextBlock Grid.Row="13" Grid.Column="0" Text="Luck Stat:" Foreground="White" Margin="10,0,0,0"/>
+								<TextBox x:Name="PartyMemberLuc_Add_TB" Grid.Row="13" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
 
-							<TextBlock Grid.Row="15" Grid.Column="0" Text="Intelligence Stat:" Foreground="White" Margin="10,0,0,0"/>
-							<TextBox x:Name="PartyMemberItl_Add_TB" Grid.Row="15" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
-						</Grid>
+								<TextBlock Grid.Row="14" Grid.Column="0" Text="Risk Stat:" Foreground="White" Margin="10,0,0,0"/>
+								<TextBox x:Name="PartyMemberRsk_Add_TB" Grid.Row="14" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
 
-						<Grid Grid.Row="3" Grid.Column="1">
+								<TextBlock Grid.Row="15" Grid.Column="0" Text="Intelligence Stat:" Foreground="White" Margin="10,0,0,0"/>
+								<TextBox x:Name="PartyMemberItl_Add_TB" Grid.Row="15" Grid.Column="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+							</Grid>
 
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition />
-								<ColumnDefinition />
-								<ColumnDefinition />
-								<ColumnDefinition />
-							</Grid.ColumnDefinitions>
+							<Grid Grid.Row="3" Grid.Column="1">
 
-							<Grid.RowDefinitions>
-								<RowDefinition Height="20"/>
-								<RowDefinition Height="10"/>
-								<RowDefinition Height="*"/>
-							</Grid.RowDefinitions>
-								
-							<TextBlock Text="Magic Weaknesses" Foreground="White" HorizontalAlignment="Center"/>
-							<TextBlock Grid.Column="1" Text="Weapon Weaknesses" Foreground="White" HorizontalAlignment="Center"/>
-							<TextBlock Grid.Column="2" Text="Magic Strength" Foreground="White" HorizontalAlignment="Center"/>
-							<TextBlock Grid.Column="3" Text="Weapon Strength" Foreground="White" HorizontalAlignment="Center"/>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition />
+									<ColumnDefinition />
+									<ColumnDefinition />
+									<ColumnDefinition />
+								</Grid.ColumnDefinitions>
 
-							<ItemsControl x:Name="PartyMembersMagicWeakness_Add_IC" Grid.Row="2">
-								<ItemsControl.ItemTemplate>
-									<DataTemplate>
-										<Grid>
-											<Grid.ColumnDefinitions>
-												<ColumnDefinition Width="20"/>
-												<ColumnDefinition Width="200"/>
-											</Grid.ColumnDefinitions>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="10"/>
+									<RowDefinition Height="*"/>
+								</Grid.RowDefinitions>
 
-											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
-											<CheckBox x:Name="AddPartyMemberMagWeak_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
-										</Grid>
-									</DataTemplate>
-								</ItemsControl.ItemTemplate>
-							</ItemsControl>
+								<TextBlock Text="Magic Weaknesses" Foreground="White" HorizontalAlignment="Center"/>
+								<TextBlock Grid.Column="1" Text="Weapon Weaknesses" Foreground="White" HorizontalAlignment="Center"/>
+								<TextBlock Grid.Column="2" Text="Magic Strength" Foreground="White" HorizontalAlignment="Center"/>
+								<TextBlock Grid.Column="3" Text="Weapon Strength" Foreground="White" HorizontalAlignment="Center"/>
 
-							<ItemsControl x:Name="PartyMembersWeaponWeakness_Add_IC" Grid.Row="2" Grid.Column="1">
-								<ItemsControl.ItemTemplate>
-									<DataTemplate>
-										<Grid>
-											<Grid.ColumnDefinitions>
-												<ColumnDefinition Width="20"/>
-												<ColumnDefinition Width="200"/>
-											</Grid.ColumnDefinitions>
+								<ItemsControl x:Name="PartyMembersMagicWeakness_Add_IC" Grid.Row="2">
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											<Grid>
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="20"/>
+													<ColumnDefinition Width="200"/>
+												</Grid.ColumnDefinitions>
 
-											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+												<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+												<CheckBox x:Name="AddPartyMemberMagWeak_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+											</Grid>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+
+								<ItemsControl x:Name="PartyMembersWeaponWeakness_Add_IC" Grid.Row="2" Grid.Column="1">
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											<Grid>
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="20"/>
+													<ColumnDefinition Width="200"/>
+												</Grid.ColumnDefinitions>
+
+												<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
 												<CheckBox x:Name="AddPartyMemberweaponWeak_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
-										</Grid>
-									</DataTemplate>
-								</ItemsControl.ItemTemplate>
-							</ItemsControl>
+											</Grid>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
 
-							<ItemsControl x:Name="PartyMembersMagicStrength_Add_IC" Grid.Row="2" Grid.Column="2">
-								<ItemsControl.ItemTemplate>
-									<DataTemplate>
-										<Grid>
-											<Grid.ColumnDefinitions>
-												<ColumnDefinition Width="20"/>
-												<ColumnDefinition Width="200"/>
-											</Grid.ColumnDefinitions>
+								<ItemsControl x:Name="PartyMembersMagicStrength_Add_IC" Grid.Row="2" Grid.Column="2">
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											<Grid>
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="20"/>
+													<ColumnDefinition Width="200"/>
+												</Grid.ColumnDefinitions>
 
-											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+												<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
 												<CheckBox x:Name="AddPartyMemberMagicStrength_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
-										</Grid>
-									</DataTemplate>
-								</ItemsControl.ItemTemplate>
-							</ItemsControl>
+											</Grid>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
 
-							<ItemsControl x:Name="PartyMembersWeaponStrength_Add_IC" Grid.Row="2" Grid.Column="3">
-								<ItemsControl.ItemTemplate>
-									<DataTemplate>
-										<Grid>
-											<Grid.ColumnDefinitions>
-												<ColumnDefinition Width="20"/>
-												<ColumnDefinition Width="200"/>
-											</Grid.ColumnDefinitions>
+								<ItemsControl x:Name="PartyMembersWeaponStrength_Add_IC" Grid.Row="2" Grid.Column="3">
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											<Grid>
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="20"/>
+													<ColumnDefinition Width="200"/>
+												</Grid.ColumnDefinitions>
 
-											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+												<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
 												<CheckBox x:Name="AddPartyMemberWeaknessStrength_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
-										</Grid>
-									</DataTemplate>
-								</ItemsControl.ItemTemplate>
-							</ItemsControl>
+											</Grid>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
 
 
 
@@ -1432,11 +1656,11 @@
 							              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
 
 
-							<GridSplitter Grid.Row="1" Width="2" Grid.Column="0" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+								<GridSplitter Grid.Row="1" Width="2" Grid.Column="0" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
 							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
-							<GridSplitter Grid.Row="1" Width="2" Grid.Column="1" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+								<GridSplitter Grid.Row="1" Width="2" Grid.Column="1" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
 							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
-							<GridSplitter Grid.Row="1" Width="2" Grid.Column="2" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+								<GridSplitter Grid.Row="1" Width="2" Grid.Column="2" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
 							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
 							</Grid>
 						</Grid>
@@ -1453,7 +1677,7 @@
 								<ColumnDefinition />
 								<ColumnDefinition />
 							</Grid.ColumnDefinitions>
-							
+
 							<TextBlock Text="Skills" Foreground="White" HorizontalAlignment="Center"/>
 							<TextBlock Grid.Column="1" Text="Items" Foreground="White" HorizontalAlignment="Center"/>
 							<TextBlock Grid.Column="2" Text="Weapons" Foreground="White" HorizontalAlignment="Center"/>
@@ -1487,7 +1711,7 @@
 							</ItemsControl>
 							<!--#endregion-->
 
-							
+
 							<!--#region Items-->
 							<TextBlock Grid.Row="1" Grid.Column="1" Text="Add a Item (Max=6)" Foreground="White" Margin="10,0,0,0" />
 							<ComboBox x:Name="PartyMemberItems_Add_CB" Grid.Row="1" Grid.Column="1" Margin="150,0,50,0" ItemsSource="{Binding CurrentItemsInDatabase}">
@@ -1790,14 +2014,17 @@
 								<RowDefinition Height="*"/>
 							</Grid.RowDefinitions>
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition />
-								<ColumnDefinition />
-								<ColumnDefinition />
+								<ColumnDefinition Width="2*"/>
+								<ColumnDefinition Width="2*"/>
+								<ColumnDefinition Width="2*"/>
+								<ColumnDefinition Width="2*"/>
 							</Grid.ColumnDefinitions>
 
 							<TextBlock Text="Skills" Foreground="White" HorizontalAlignment="Center"/>
 							<TextBlock Grid.Column="1" Text="Items" Foreground="White" HorizontalAlignment="Center"/>
 							<TextBlock Grid.Column="2" Text="Weapons" Foreground="White" HorizontalAlignment="Center"/>
+							<TextBlock Grid.Column="3" Text="Clothes/Accessories" Foreground="White" HorizontalAlignment="Center"/>
+
 
 							<!--#region Skills-->
 							<TextBlock Grid.Row="1" Text="Add a Skill (Max=6)" Foreground="White" Margin="10,0,0,0" />
@@ -1889,13 +2116,87 @@
 							</ItemsControl>
 							<!--#endregion-->
 
+							<!--#region Clothes-->
+								<Grid Grid.Column="3" Grid.Row="2">
+									<Grid.RowDefinitions>
+										<RowDefinition Height="20"/>
+										<RowDefinition Height="30"/>
+										<RowDefinition Height="10"/>
+										<RowDefinition Height="20"/>
+										<RowDefinition Height="30"/>
+										<RowDefinition Height="10"/>
+										<RowDefinition Height="20"/>
+										<RowDefinition Height="30"/>
+										<RowDefinition Height="10"/>
+										<RowDefinition Height="10"/>
+										<RowDefinition Height="20"/>
+										<RowDefinition Height="30"/>
+										<RowDefinition Height="10"/>
+										<RowDefinition Height="20"/>
+										<RowDefinition Height="30"/>
+										<RowDefinition Height="10"/>
+								</Grid.RowDefinitions>
+
+									<TextBlock Grid.Column="0" Grid.Row="0" Text="Head:" Foreground="White" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+									<ComboBox x:Name="PartyMemberClothes_Head_Edit_CB" Grid.Row="1" Grid.Column="0" Margin="5,0,5,0" ItemsSource="{Binding CurrentClothesInDatabase_Head}">
+										<ComboBox.ItemTemplate>
+											<DataTemplate>
+												<TextBlock Text="{Binding ID}" Foreground="Black"/>
+											</DataTemplate>
+										</ComboBox.ItemTemplate>
+									</ComboBox>
+
+									<TextBlock Grid.Column="0" Grid.Row="3" Text="Body:" Foreground="White" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+									<ComboBox x:Name="PartyMemberClothes_Body_Edit_CB" Grid.Row="4" Grid.Column="0" Margin="5,0,5,0" ItemsSource="{Binding CurrentClothesInDatabase_Body}">
+										<ComboBox.ItemTemplate>
+											<DataTemplate>
+												<TextBlock Text="{Binding ID}" Foreground="Black"/>
+											</DataTemplate>
+										</ComboBox.ItemTemplate>
+									</ComboBox>
+
+									<TextBlock Grid.Column="0" Grid.Row="6" Text="Legs:" Foreground="White" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+									<ComboBox x:Name="PartyMemberClothes_Legs_Edit_CB" Grid.Row="7" Grid.Column="0" Margin="5,0,5,0" ItemsSource="{Binding CurrentClothesInDatabase_Body}">
+										<ComboBox.ItemTemplate>
+											<DataTemplate>
+												<TextBlock Text="{Binding ID}" Foreground="Black"/>
+											</DataTemplate>
+										</ComboBox.ItemTemplate>
+									</ComboBox>
+									<!--#endregion-->
+
+									<!--#region Accessories-->
+									<TextBlock Grid.Column="0" Grid.Row="10" Text="Accessory 1:" Foreground="White" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+									<ComboBox x:Name="PartyMemberClothes_Acc1_Edit_CB" Grid.Row="11" Grid.Column="0" Margin="5,0,5,0" ItemsSource="{Binding CurrentAccessoriesInDatabase}">
+										<ComboBox.ItemTemplate>
+											<DataTemplate>
+												<TextBlock Text="{Binding ID}" Foreground="Black"/>
+											</DataTemplate>
+										</ComboBox.ItemTemplate>
+									</ComboBox>
+
+									<TextBlock Grid.Column="0" Grid.Row="13" Text="Accessory 2:" Foreground="White" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+									<ComboBox x:Name="PartyMemberClothes_Acc2_Edit_CB" Grid.Row="14" Grid.Column="0" Margin="5,0,5,0" ItemsSource="{Binding CurrentAccessoriesInDatabase}">
+										<ComboBox.ItemTemplate>
+											<DataTemplate>
+												<TextBlock Text="{Binding ID}" Foreground="Black"/>
+											</DataTemplate>
+										</ComboBox.ItemTemplate>
+									</ComboBox>
+								<!--#endregion-->
+								</Grid>
+
 
 							<GridSplitter Grid.Row="1" Height="2" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
 							              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
 
-							<GridSplitter Grid.Row="1" Width="2" Grid.Column="0" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="0" Grid.ColumnSpan="100" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
 							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
-							<GridSplitter Grid.Row="1" Width="2" Grid.Column="1" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="1" Grid.RowSpan="100" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="2" Grid.RowSpan="100" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="4" Grid.RowSpan="100" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
 							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
 						</Grid>
 
@@ -2703,7 +3004,7 @@
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="2*"/>
 							<ColumnDefinition Width="1*"/>
-							<ColumnDefinition Width="1*"/>
+							<ColumnDefinition Width="2*"/>
 						</Grid.ColumnDefinitions>
 
 						<TextBlock Grid.Row="0" Text="Item Name:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -2717,10 +3018,7 @@
 						</ComboBox>
 
 						<TextBlock Grid.Row="1" Text="Damage = Check |  Heal = No Check:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-						<CheckBox x:Name="ItemIsDamage_Edit_CB" Grid.Row="1" Width="20" Margin="280,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-
-						<TextBlock Grid.Row="2" Text="Inflicting Value:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-						<TextBox x:Name="ItemInflictingVal_Edit_TB" Grid.Row="2" Width="50" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<CheckBox x:Name="ItemIsDamage_Edit_CB" Grid.Row="1" Width="20" Margin="210,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
 						<TextBlock Grid.Row="3" Text="Weapon Type:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 						<ComboBox x:Name="ItemWeaponType_Edit_CB" Grid.Row="3" Width="200" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
@@ -2728,13 +3026,13 @@
 						</ComboBox>
 
 						<!--1.0.0.2v-->
-						<TextBlock Grid.Row="2" Text="AoE Width:" Foreground="White" Margin="170,7,0,5" HorizontalAlignment="Left"/>
-						<TextBox x:Name="ItemAoEWidth_Edit_TB" Grid.Row="2" Text="0" Width="50" Background="DimGray" Foreground="White" Margin="240,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<TextBlock Grid.Row="2" Text="AoE Width:" Foreground="White" Margin="100,7,0,5" HorizontalAlignment="Left"/>
+						<TextBox x:Name="ItemAoEWidth_Edit_TB" Grid.Row="2" Text="0" Width="50" Background="DimGray" Foreground="White" Margin="180,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
 						<!--1.0.0.2v-->
 						<TextBlock Grid.Row="2" Text="AoE Height:" Foreground="White" Margin="300,7,0,5" HorizontalAlignment="Left"/>
 						<TextBox x:Name="ItemAoEHeight_Edit_TB" Grid.Row="2" Text="0" Width="50" Background="DimGray" Foreground="White" Margin="380,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-						
+
 						<!--1.0.0.2v-->
 						<TextBlock Grid.Row="1" Text="Target Allies?" Foreground="White" Margin="330,5,0,5" HorizontalAlignment="Left"/>
 						<CheckBox x:Name="ItemAllies_Edit_CB" Grid.Row="1" Width="20" Background="DimGray" Foreground="White" Margin="410,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -2777,12 +3075,168 @@
 						<Button Grid.Row="7" Content="+" Width="20" Margin="410,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
 						<!---AM 9/4/2020 1.0.0.3v-->
-						<TextBlock Grid.Row="8" Text="Function Pointer Name:" Foreground="White" Margin="5,5,400,5" HorizontalAlignment="Left"/>
+						<TextBlock Grid.Row="8" Text="Function Pointer Name:" Foreground="White" Margin="5,5,0,5" HorizontalAlignment="Left" Width="140"/>
 						<TextBox x:Name="ItemFuncPTR_Edit_TB" Grid.Row="8" Width="250" Background="DimGray" Foreground="White" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
 
-						<Button Grid.Row="9" Content="Update To Database" Width="300" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						<Button Grid.Row="9" Content="Update To Database" Width="300" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
 						        Click="UpdateItemInDatabase_BTN_Click"/>
+
+						<Grid x:Name="ItemsStats_Edit_Grid" Grid.Row="0" Grid.Column="1" RowSpan="20">
+
+							<Grid.RowDefinitions>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="5"/>
+								<RowDefinition Height="5"/>
+								<RowDefinition Height="5"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+							</Grid.RowDefinitions>
+
+							<TextBlock Grid.Row="1" Grid.Column="0" Text="Max Health Increase:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ItemMaxHP_Edit_TB" Grid.Row="1" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="2" Grid.Column="0" Text="Max Mana Increase:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ItemMaxMP_Edit_TB" Grid.Row="2" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="6" Grid.Column="0" Text="Attack Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ItemAtk_Edit_TB" Grid.Row="6" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="7" Grid.Column="0" Text="Defense Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ItemDef_Edit_TB" Grid.Row="7" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="8" Grid.Column="0" Text="Dexterity Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ItemDex_Edit_TB" Grid.Row="8" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="9" Grid.Column="0" Text="Agility Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ItemAgl_Edit_TB" Grid.Row="9" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="10" Grid.Column="0" Text="Morality Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ItemMor_Edit_TB" Grid.Row="10" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="11" Grid.Column="0" Text="Wisdom Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ItemWis_Edit_TB" Grid.Row="11" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="12" Grid.Column="0" Text="Resistance Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ItemRes_Edit_TB" Grid.Row="12" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="13" Grid.Column="0" Text="Luck Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ItemLuc_Edit_TB" Grid.Row="13" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="14" Grid.Column="0" Text="Risk Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ItemRsk_Edit_TB" Grid.Row="14" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="15" Grid.Column="0" Text="Intelligence Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ItemItl_Edit_TB" Grid.Row="15" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+						</Grid>
+
+						<Grid Grid.Row="1" RowSpan="9" Grid.Column="2">
+
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition />
+								<ColumnDefinition />
+								<ColumnDefinition />
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
+
+							<Grid.RowDefinitions>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="10"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+
+							<TextBlock Text="Magic Weaknesses" Foreground="White" HorizontalAlignment="Center"/>
+							<TextBlock Grid.Column="1" Text="Weapon Weaknesses" Foreground="White" HorizontalAlignment="Center"/>
+							<TextBlock Grid.Column="2" Text="Magic Strength" Foreground="White" HorizontalAlignment="Center"/>
+							<TextBlock Grid.Column="3" Text="Weapon Strength" Foreground="White" HorizontalAlignment="Center"/>
+
+							<ItemsControl x:Name="ItemsMagicWeakness_Edit_IC" Grid.Row="2">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddItemMagWeak_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<ItemsControl x:Name="ItemsWeaponWeakness_Edit_IC" Grid.Row="2" Grid.Column="1">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddItemweaponWeak_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<ItemsControl x:Name="ItemsMagicStrength_Edit_IC" Grid.Row="2" Grid.Column="2">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddItemMagicStrength_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<ItemsControl x:Name="ItemsWeaponStrength_Edit_IC" Grid.Row="2" Grid.Column="3">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddItemWeaknessStrength_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<GridSplitter Grid.Row="1" Height="2" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+
+
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="0" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="1" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="2" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+						</Grid>
+
+
 
 						<!--#region ItemControls For Other Tables-->
 						<Grid Grid.Row="12" Grid.ColumnSpan="4">
@@ -2791,11 +3245,11 @@
 								<RowDefinition Height="*"/>
 							</Grid.RowDefinitions>
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="250"/>
-								<ColumnDefinition Width="250"/>
-								<ColumnDefinition Width="250"/>
-								<ColumnDefinition Width="250"/>
 								<ColumnDefinition Width="150"/>
+								<ColumnDefinition Width="150"/>
+								<ColumnDefinition Width="150"/>
+								<ColumnDefinition Width="150"/>
+								<ColumnDefinition/>
 							</Grid.ColumnDefinitions>
 
 							<TextBlock Grid.Column="1" Text="Effects Equipped" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -2907,7 +3361,7 @@
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="2*"/>
 							<ColumnDefinition Width="1*"/>
-							<ColumnDefinition Width="1*"/>
+							<ColumnDefinition Width="2*"/>
 						</Grid.ColumnDefinitions>
 
 						<TextBlock Grid.Row="0" Text="Item Name:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -2927,10 +3381,6 @@
 						<!--1.0.0.2v-->
 						<TextBlock Grid.Row="1" Text="Target Allies?" Foreground="White" Margin="330,5,0,5" HorizontalAlignment="Left"/>
 						<CheckBox x:Name="ItemAllies_Add_CB" Grid.Row="1" Width="20" Background="DimGray" Foreground="White" Margin="410,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-
-
-						<TextBlock Grid.Row="2" Text="Inflicting Value:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-						<TextBox x:Name="ItemInflictingVal_Add_TB" Grid.Row="2" Width="50" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
 						<TextBlock Grid.Row="3" Text="Weapon Type:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 						<ComboBox x:Name="ItemWeaponType_Add_CB" Grid.Row="3" Width="200" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
@@ -2960,7 +3410,7 @@
 						          ItemsSource="{Binding CurrenGameplayModifiersInDatabase_Traits}">
 							<ComboBox.ItemTemplate>
 								<DataTemplate>
-									<TextBlock Text="{Binding Id}" Foreground="Black"/>
+									<TextBlock Text="{Binding Id}" Foreground="Black" Width="300" ToolTip="Send Memes"/>
 								</DataTemplate>
 							</ComboBox.ItemTemplate>
 						</ComboBox>
@@ -2980,6 +3430,162 @@
 						<Button Grid.Row="9" Content="Add To Database" Width="300" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
 						        Click="AddItemToDatabase_BTN_Click"/>
 
+
+						<Grid x:Name="ItemsStats_Add_Grid" Grid.Row="0" Grid.Column="1" RowSpan="20">
+
+							<Grid.RowDefinitions>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="5"/>
+								<RowDefinition Height="5"/>
+								<RowDefinition Height="5"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+							</Grid.RowDefinitions>
+
+							<TextBlock Grid.Row="1" Grid.Column="0" Text="Max Health Increase:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ItemMaxHP_Add_TB" Grid.Row="1" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="2" Grid.Column="0" Text="Max Mana Increase:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ItemMaxMP_Add_TB" Grid.Row="2" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="6" Grid.Column="0" Text="Attack Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ItemAtk_Add_TB" Grid.Row="6" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="7" Grid.Column="0" Text="Defense Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ItemDef_Add_TB" Grid.Row="7" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="8" Grid.Column="0" Text="Dexterity Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ItemDex_Add_TB" Grid.Row="8" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="9" Grid.Column="0" Text="Agility Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ItemAgl_Add_TB" Grid.Row="9" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="10" Grid.Column="0" Text="Morality Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ItemMor_Add_TB" Grid.Row="10" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="11" Grid.Column="0" Text="Wisdom Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ItemWis_Add_TB" Grid.Row="11" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="12" Grid.Column="0" Text="Resistance Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ItemRes_Add_TB" Grid.Row="12" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="13" Grid.Column="0" Text="Luck Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ItemLuc_Add_TB" Grid.Row="13" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="14" Grid.Column="0" Text="Risk Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ItemRsk_Add_TB" Grid.Row="14" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="15" Grid.Column="0" Text="Intelligence Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ItemItl_Add_TB" Grid.Row="15" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+						</Grid>
+
+						<Grid Grid.Row="1" RowSpan="9" Grid.Column="2">
+
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition />
+								<ColumnDefinition />
+								<ColumnDefinition />
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
+
+							<Grid.RowDefinitions>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="10"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+
+							<TextBlock Text="Magic Weaknesses" Foreground="White" HorizontalAlignment="Center"/>
+							<TextBlock Grid.Column="1" Text="Weapon Weaknesses" Foreground="White" HorizontalAlignment="Center"/>
+							<TextBlock Grid.Column="2" Text="Magic Strength" Foreground="White" HorizontalAlignment="Center"/>
+							<TextBlock Grid.Column="3" Text="Weapon Strength" Foreground="White" HorizontalAlignment="Center"/>
+
+							<ItemsControl x:Name="ItemsMagicWeakness_Add_IC" Grid.Row="2">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddItemMagWeak_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<ItemsControl x:Name="ItemsWeaponWeakness_Add_IC" Grid.Row="2" Grid.Column="1">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddItemweaponWeak_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<ItemsControl x:Name="ItemsMagicStrength_Add_IC" Grid.Row="2" Grid.Column="2">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddItemMagicStrength_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<ItemsControl x:Name="ItemsWeaponStrength_Add_IC" Grid.Row="2" Grid.Column="3">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddItemWeaknessStrength_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<GridSplitter Grid.Row="1" Height="2" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+
+
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="0" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="1" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="2" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+						</Grid>
+
+
 						<!--#region ItemControls For Other Tables-->
 						<Grid Grid.Row="13" Grid.ColumnSpan="4">
 							<Grid.RowDefinitions>
@@ -2987,11 +3593,11 @@
 								<RowDefinition Height="*"/>
 							</Grid.RowDefinitions>
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="250"/>
-								<ColumnDefinition Width="250"/>
-								<ColumnDefinition Width="250"/>
-								<ColumnDefinition Width="250"/>
 								<ColumnDefinition Width="150"/>
+								<ColumnDefinition Width="150"/>
+								<ColumnDefinition Width="150"/>
+								<ColumnDefinition Width="150"/>
+								<ColumnDefinition />
 							</Grid.ColumnDefinitions>
 
 							<TextBlock Grid.Column="1" Text="Effects Equipped" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -3088,7 +3694,7 @@
 
 				</Grid>
 			</TabItem>
-			<TabItem Header="Weapons">
+			<TabItem Header="Accessories">
 				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="30"/>
@@ -3102,7 +3708,1443 @@
 					<Button Content="Change to Add" Width="100" Margin="160,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
 				        Click="ChangeGridToAdd"/>
 
-					<Grid x:Name="Weapons_Add_Grid" Grid.Row="2" Visibility="Hidden">
+					<Grid Grid.Row="2" x:Name="Accessory_Edit_Grid" Visibility="Visible">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="5"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition/>
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="2*"/>
+							<ColumnDefinition Width="1*"/>
+							<ColumnDefinition Width="2*"/>
+						</Grid.ColumnDefinitions>
+
+						<TextBlock Grid.Row="0" Text="Accessory Name:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<ComboBox x:Name="AccessoryName_Edit_CB" Grid.Row="0" Width="200" ItemsSource="{Binding CurrentAccessoriesInDatabase}" Background="Gray" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						          SelectionChanged="AccessoryName_Edit_CB_OnSelectionChanged">
+							<ComboBox.ItemTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding ID}" Foreground="Black"/>
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
+
+						<TextBlock Grid.Row="1" Text="Weight:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<TextBox x:Name="AccessoryWeight_Edit_TB" Grid.Row="1" Width="50" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<TextBlock Grid.Row="3" Text="Accessory Type:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<ComboBox x:Name="AccessoryType_Edit_CB" Grid.Row="3" Width="200" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						          ItemsSource="{Binding Source={StaticResource EAccessoryType}}">
+						</ComboBox>
+
+						<TextBlock Grid.Row="4" Text="Accessory Rarity:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<ComboBox x:Name="AccessoryRarity_Edit_CB" Grid.Row="4" Width="200" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						          ItemsSource="{Binding Source={StaticResource ERarityType}}">
+						</ComboBox>
+
+						<TextBlock Grid.Row="5" Text="Equip New Effect:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<ComboBox x:Name="AccessoryEquipEffects_Edit_CB" Grid.Row="5" Width="300" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						          ItemsSource="{Binding CurrenGameplayModifiersInDatabase_Effects}">
+							<ComboBox.ItemTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding Id}" Foreground="Black"/>
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
+						<Button Grid.Row="5" Content="+" Width="20" Margin="410,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						        Click="AccessoryEquipEffect_Edit_BTN_Click"/>
+
+
+						<TextBlock Grid.Row="6" Text="Equip New Trait:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<ComboBox x:Name="AccessoryEquipTraits_Edit_CB" Grid.Row="6" Width="300" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						          ItemsSource="{Binding CurrenGameplayModifiersInDatabase_Traits}">
+							<ComboBox.ItemTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding Id}" Foreground="Black"/>
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
+						<Button Grid.Row="6" Content="+" Width="20" Margin="410,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						        Click="AccessoryEquipTrait_Edit_BTN_Click"/>
+
+						<TextBlock Grid.Row="7" Text="Equip New Skill:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<ComboBox x:Name="AccessoryEquipSkills_Edit_CB" Grid.Row="7" Width="300" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						          >
+							<ComboBox.ItemTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding Name}" Foreground="Black"/>
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
+						<Button Grid.Row="7" Content="+" Width="20" Margin="410,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						        Click="AccessoryEquipSkill_Edit_BTN_Click"/>
+
+						<!---AM 9/4/2020 1.0.0.3v-->
+						<TextBlock Grid.Row="8" Text="Function Pointer Name:" Foreground="White" Margin="5,5,400,5" HorizontalAlignment="Left"/>
+						<TextBox x:Name="AccessoryFuncPTR_Edit_TB" Grid.Row="8" Width="250" Background="DimGray" Foreground="White" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+
+						<Button Grid.Row="9" Content="Update To Database" Width="300" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						        Click="UpdateAccessoryInDatabase_BTN_Click"/>
+
+
+						<Grid x:Name="AccessoriesStats_Edit_Grid" Grid.Row="0" Grid.Column="1" RowSpan="20">
+
+							<Grid.RowDefinitions>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="5"/>
+								<RowDefinition Height="5"/>
+								<RowDefinition Height="5"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+							</Grid.RowDefinitions>
+
+							<TextBlock Grid.Row="1" Grid.Column="0" Text="Max Health Increase:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="AccessoriesMaxHP_Edit_TB" Grid.Row="1" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="2" Grid.Column="0" Text="Max Mana Increase:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="AccessoriesMaxMP_Edit_TB" Grid.Row="2" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="6" Grid.Column="0" Text="Attack Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="AccessoriesAtk_Edit_TB" Grid.Row="6" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="7" Grid.Column="0" Text="Defense Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="AccessoriesDef_Edit_TB" Grid.Row="7" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="8" Grid.Column="0" Text="Dexterity Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="AccessoriesDex_Edit_TB" Grid.Row="8" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="9" Grid.Column="0" Text="Agility Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="AccessoriesAgl_Edit_TB" Grid.Row="9" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="10" Grid.Column="0" Text="Morality Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="AccessoriesMor_Edit_TB" Grid.Row="10" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="11" Grid.Column="0" Text="Wisdom Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="AccessoriesWis_Edit_TB" Grid.Row="11" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="12" Grid.Column="0" Text="Resistance Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="AccessoriesRes_Edit_TB" Grid.Row="12" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="13" Grid.Column="0" Text="Luck Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="AccessoriesLuc_Edit_TB" Grid.Row="13" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="14" Grid.Column="0" Text="Risk Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="AccessoriesRsk_Edit_TB" Grid.Row="14" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="15" Grid.Column="0" Text="Intelligence Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="AccessoriesItl_Edit_TB" Grid.Row="15" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+						</Grid>
+
+						<Grid Grid.Row="1" RowSpan="9" Grid.Column="2">
+
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition />
+								<ColumnDefinition />
+								<ColumnDefinition />
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
+
+							<Grid.RowDefinitions>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="10"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+
+							<TextBlock Text="Magic Weaknesses" Foreground="White" HorizontalAlignment="Center"/>
+							<TextBlock Grid.Column="1" Text="Weapon Weaknesses" Foreground="White" HorizontalAlignment="Center"/>
+							<TextBlock Grid.Column="2" Text="Magic Strength" Foreground="White" HorizontalAlignment="Center"/>
+							<TextBlock Grid.Column="3" Text="Weapon Strength" Foreground="White" HorizontalAlignment="Center"/>
+
+							<ItemsControl x:Name="AccessoriesMagicWeakness_Edit_IC" Grid.Row="2">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddAccessoryMagWeak_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<ItemsControl x:Name="AccessoriesWeakness_Edit_IC" Grid.Row="2" Grid.Column="1">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddAccessoryWeak_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<ItemsControl x:Name="AccessoriesMagicStrength_Edit_IC" Grid.Row="2" Grid.Column="2">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddAccessoryMagicStrength_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<ItemsControl x:Name="AccessoriesWeaponStrength_Edit_IC" Grid.Row="2" Grid.Column="3">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddAccessoryWeaknessStrength_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<GridSplitter Grid.Row="1" Height="2" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+
+
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="0" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="1" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="2" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+						</Grid>
+
+
+
+						<!--#region ItemControls For Other Tables-->
+						<Grid Grid.Row="12" Grid.ColumnSpan="4">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="30"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="150"/>
+								<ColumnDefinition Width="150"/>
+								<ColumnDefinition Width="150"/>
+								<ColumnDefinition Width="150"/>
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
+
+							<TextBlock Grid.Column="1" Text="Effects Equipped" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							<ItemsControl x:Name="AccessoryEffectEquip_Edit_IC" Grid.Row="1"  Grid.Column="1" Margin="10,10,10,10" Foreground="White"  Background=" Transparent">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="200"/>
+												<ColumnDefinition Width="20"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="0" Foreground="White" Text="{Binding Path=.}"></TextBlock>
+											<Button x:Name="RemoveItemEffect_BTN" Content="-" Width="20" Grid.Column="1" Foreground="Black"
+											        Click="RemoveAccessoryEffect_Edit_BTN_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<TextBlock Grid.Column="2" Text="Traits equipped" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							<ItemsControl x:Name="AccessoryTraitsEquip_Edit_IC"  Grid.Row="1"  Grid.Column="2" Margin="10,10,10,10" Foreground="White"   Background=" Transparent">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="200"/>
+												<ColumnDefinition Width="20"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="0" Foreground="White" Text="{Binding Path=.}"></TextBlock>
+											<Button x:Name="RemoveItemTrait_BTN" Content="-" Width="20" Grid.Column="1" Foreground="Black" 
+											        Click="RemoveAccessoryTrait_Edit_BTN_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<TextBlock Grid.Column="3" Text="Skills equipped" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							<ItemsControl x:Name="AccessorySkillsEquip_Edit_IC"  Grid.Row="1"  Grid.Column="3" Margin="7,10,13,10" Foreground="White"   Background=" Transparent">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="200"/>
+												<ColumnDefinition Width="20"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="0" Foreground="White" Text="{Binding Path=.}"></TextBlock>
+											<Button x:Name="RemoveItemTrait_BTN" Content="-" Width="20" Grid.Column="1" Foreground="Black" 
+											        Click="RemoveAccessorySkill_Edit_BTN_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<TextBlock Grid.Column="0" Text="Magic Types equipped" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							<ItemsControl x:Name="AccessoryMagicTypesEquip_Edit_IC"  Grid.Row="1"  Grid.Column="0" Height="200" Margin="10,10,10,10" Foreground="White" VerticalAlignment="Top" Background=" Transparent">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddWeaponMagicTypes_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<TextBlock Grid.Row="1" Grid.Column="0" Text="Accessory Types Equipped" Foreground="White" Margin="0,0,0,25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							<ItemsControl x:Name="AccessoryTypesEquip_Edit_IC"  Grid.Row="1"  Grid.Column="0" Height="200" Margin="10,260,10,10" Foreground="White" VerticalAlignment="Top" Background=" Transparent">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddItemTypes_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<GridSplitter Grid.Row="1" Height="2" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+							<GridSplitter Grid.Row="1" Grid.Column="0" Height="2" Grid.ColumnSpan="1" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="0" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="1" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="2" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="3" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+						</Grid>
+						<!--#endregion-->
+
+					</Grid>
+
+					<Grid Grid.Row="2" x:Name="Accessory_Add_Grid" Visibility="Hidden">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition/>
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="2*"/>
+							<ColumnDefinition Width="1*"/>
+							<ColumnDefinition Width="2*"/>
+						</Grid.ColumnDefinitions>
+
+						<TextBlock Grid.Row="0" Text="Accessory Name:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<TextBox x:Name="AccessoryName_Add_TB" Grid.Row="0" Width="200" Background="Gray" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<TextBlock Grid.Row="1" Text="Weight:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<TextBox x:Name="AccessoryWeight_Add_TB" Grid.Row="1" Width="50" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<TextBlock Grid.Row="3" Text="Accessory Type:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<ComboBox x:Name="AccessoryType_Add_CB" Grid.Row="3" Width="200" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						          ItemsSource="{Binding Source={StaticResource EAccessoryType}}">
+						</ComboBox>
+
+						<TextBlock Grid.Row="4" Text="Weapon Rarity:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<ComboBox x:Name="AccessoryRarity_Add_CB" Grid.Row="4" Width="200" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						          ItemsSource="{Binding Source={StaticResource ERarityType}}">
+						</ComboBox>
+
+						<TextBlock Grid.Row="5" Text="Equip New Effect:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<ComboBox x:Name="AccessoryEquipEffects_Add_CB" Grid.Row="5" Width="300" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						          ItemsSource="{Binding CurrenGameplayModifiersInDatabase_Effects}">
+							<ComboBox.ItemTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding Id}" Foreground="Black"/>
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
+						<Button Grid.Row="5" Content="+" Width="20" Margin="410,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						        Click="AccessoryEquipEffect_Add_BTN_Click"/>
+
+
+						<TextBlock Grid.Row="6" Text="Equip New Trait:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<ComboBox x:Name="AccessoryEquipTraits_Add_CB" Grid.Row="6" Width="300" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						          ItemsSource="{Binding CurrenGameplayModifiersInDatabase_Traits}">
+							<ComboBox.ItemTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding Id}" Foreground="Black"/>
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
+						<Button Grid.Row="6" Content="+" Width="20" Margin="410,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						        Click="AccessoryEquipTrait_Add_BTN_Click"/>
+
+						<TextBlock Grid.Row="7" Text="Equip New Skill:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<ComboBox x:Name="AccessoryEquipSkills_Add_CB" Grid.Row="7" Width="300" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						          >
+							<ComboBox.ItemTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding Name}" Foreground="Black"/>
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
+						<Button Grid.Row="7" Content="+" Width="20" Margin="410,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						        Click="AccessoryEquipSkill_Add_BTN_Click"/>
+
+						<!---AM 9/4/2020 1.0.0.3v-->
+						<TextBlock Grid.Row="8" Text="Function Pointer Name:" Foreground="White" Margin="5,5,400,5" HorizontalAlignment="Left"/>
+						<TextBox x:Name="AccessoryFuncPTR_Add_TB" Grid.Row="8" Width="250" Background="DimGray" Foreground="White" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<Button Grid.Row="9" Content="Add To Database" Width="300" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						        Click="AddAccessoryToDatabase_BTN_Click"/>
+
+						<Grid x:Name="AccessoriesStats_Add_Grid" Grid.Row="0" Grid.Column="1" RowSpan="20">
+
+							<Grid.RowDefinitions>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="5"/>
+								<RowDefinition Height="5"/>
+								<RowDefinition Height="5"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+							</Grid.RowDefinitions>
+
+							<TextBlock Grid.Row="1" Grid.Column="0" Text="Max Health Increase:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="AccessoriesMaxHP_Add_TB" Grid.Row="1" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="2" Grid.Column="0" Text="Max Mana Increase:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="AccessoriesMaxMP_Add_TB" Grid.Row="2" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="6" Grid.Column="0" Text="Attack Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="AccessoriesAtk_Add_TB" Grid.Row="6" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="7" Grid.Column="0" Text="Defense Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="AccessoriesDef_Add_TB" Grid.Row="7" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="8" Grid.Column="0" Text="Dexterity Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="AccessoriesDex_Add_TB" Grid.Row="8" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="9" Grid.Column="0" Text="Agility Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="AccessoriesAgl_Add_TB" Grid.Row="9" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="10" Grid.Column="0" Text="Morality Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="AccessoriesMor_Add_TB" Grid.Row="10" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="11" Grid.Column="0" Text="Wisdom Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="AccessoriesWis_Add_TB" Grid.Row="11" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="12" Grid.Column="0" Text="Resistance Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="AccessoriesRes_Add_TB" Grid.Row="12" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="13" Grid.Column="0" Text="Luck Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="AccessoriesLuc_Add_TB" Grid.Row="13" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="14" Grid.Column="0" Text="Risk Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="AccessoriesRsk_Add_TB" Grid.Row="14" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="15" Grid.Column="0" Text="Intelligence Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="AccessoriesItl_Add_TB" Grid.Row="15" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+						</Grid>
+
+						<Grid Grid.Row="1" RowSpan="9" Grid.Column="2">
+
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition />
+								<ColumnDefinition />
+								<ColumnDefinition />
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
+
+							<Grid.RowDefinitions>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="10"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+
+							<TextBlock Text="Magic Weaknesses" Foreground="White" HorizontalAlignment="Center"/>
+							<TextBlock Grid.Column="1" Text="Weapon Weaknesses" Foreground="White" HorizontalAlignment="Center"/>
+							<TextBlock Grid.Column="2" Text="Magic Strength" Foreground="White" HorizontalAlignment="Center"/>
+							<TextBlock Grid.Column="3" Text="Weapon Strength" Foreground="White" HorizontalAlignment="Center"/>
+
+							<ItemsControl x:Name="AccessoriesMagicWeakness_Add_IC" Grid.Row="2">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddAccessoryMagWeak_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<ItemsControl x:Name="AccessoriesWeakness_Add_IC" Grid.Row="2" Grid.Column="1">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddAccessoryWeak_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<ItemsControl x:Name="AccessoriesMagicStrength_Add_IC" Grid.Row="2" Grid.Column="2">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddAccessoryMagicStrength_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<ItemsControl x:Name="AccessoriesWeaponStrength_Add_IC" Grid.Row="2" Grid.Column="3">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddAccessoryWeaknessStrength_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<GridSplitter Grid.Row="1" Height="2" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+
+
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="0" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="1" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="2" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+						</Grid>
+
+
+
+						<!--#region ItemControls For Other Tables-->
+						<Grid Grid.Row="13" Grid.ColumnSpan="4">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="30"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="150"/>
+								<ColumnDefinition Width="150"/>
+								<ColumnDefinition Width="150"/>
+								<ColumnDefinition Width="150"/>
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
+
+							<TextBlock Grid.Column="1" Text="Effects Equipped" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							<ItemsControl x:Name="AccessoryEffectEquip_Add_IC" Grid.Row="1"  Grid.Column="1" Margin="10,10,10,10" Foreground="White"  Background=" Transparent">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="200"/>
+												<ColumnDefinition Width="20"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="0" Foreground="White" Text="{Binding Path=.}"></TextBlock>
+											<Button x:Name="RemoveAccessoryEffect_BTN" Content="-" Width="20" Grid.Column="1" Foreground="Black" Click="RemoveAccessoryEffect_BTN_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<TextBlock Grid.Column="2" Text="Traits equipped" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							<ItemsControl x:Name="AccessoryTraitsEquip_Add_IC"  Grid.Row="1"  Grid.Column="2" Margin="10,10,10,10" Foreground="White"   Background=" Transparent">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="200"/>
+												<ColumnDefinition Width="20"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="0" Foreground="White" Text="{Binding Path=.}"></TextBlock>
+											<Button x:Name="RemoveAccessoryTrait_BTN" Content="-" Width="20" Grid.Column="1" Foreground="Black" Click="RemoveAccessoryTrait_BTN_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<TextBlock Grid.Column="3" Text="Skills equipped" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							<ItemsControl x:Name="AccessorySkillsEquip_Add_IC"  Grid.Row="1"  Grid.Column="3" Margin="10,10,10,10" Foreground="White"   Background=" Transparent">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="200"/>
+												<ColumnDefinition Width="20"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="0" Foreground="White" Text="{Binding Path=.}"></TextBlock>
+											<Button x:Name="RemoveItemTrait_BTN" Content="-" Width="20" Grid.Column="1" Foreground="Black" 
+											        Click="RemoveAccessorySkill_BTN_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<TextBlock Grid.Column="0" Text="Magic Types equipped" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							<ItemsControl x:Name="AccessoryMagicTypesEquip_Add_IC"  Grid.Row="1"  Grid.Column="0" Height="200" Margin="10,10,10,10" Foreground="White" VerticalAlignment="Top" Background=" Transparent">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddItemMagicTypes_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<GridSplitter Grid.Row="1" Height="2" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+							<GridSplitter Grid.Row="1" Grid.Column="0" Height="2" Grid.ColumnSpan="1" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="0" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="1" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="2" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="3" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+						</Grid>
+						<!--#endregion-->
+
+
+
+					</Grid>
+
+				</Grid>
+			</TabItem>
+
+			<TabItem Header="Clothes">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="30"/>
+						<RowDefinition Height="2"/>
+						<RowDefinition Height="*"/>
+						<RowDefinition Height="30"/>
+					</Grid.RowDefinitions>
+
+					<Button Content="Change to Edit" Width="100" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+				        Click="ChangeGridToEdit"/>
+					<Button Content="Change to Add" Width="100" Margin="160,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+				        Click="ChangeGridToAdd"/>
+
+					<Grid Grid.Row="2" x:Name="Clothes_Edit_Grid" Visibility="Visible">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="5"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition/>
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="2*"/>
+							<ColumnDefinition Width="1*"/>
+							<ColumnDefinition Width="2*"/>
+						</Grid.ColumnDefinitions>
+
+						<TextBlock Grid.Row="0" Text="Clothes Name:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<ComboBox x:Name="ClothesName_Edit_CB" Grid.Row="0" Width="200" ItemsSource="{Binding CurrentAccessoriesInDatabase}" Background="Gray" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						          SelectionChanged="ClothesName_Edit_CB_OnSelectionChanged">
+							<ComboBox.ItemTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding ID}" Foreground="Black"/>
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
+
+						<TextBlock Grid.Row="1" Text="Weight:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<TextBox x:Name="ClothesWeight_Edit_TB" Grid.Row="1" Width="50" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<TextBlock Grid.Row="3" Text="Clothes Type:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<ComboBox x:Name="ClothesType_Edit_CB" Grid.Row="3" Width="200" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						          ItemsSource="{Binding Source={StaticResource EClothesType}}">
+						</ComboBox>
+
+						<TextBlock Grid.Row="4" Text="Clothes Rarity:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<ComboBox x:Name="ClothesRarity_Edit_CB" Grid.Row="4" Width="200" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						          ItemsSource="{Binding Source={StaticResource ERarityType}}">
+						</ComboBox>
+
+						<TextBlock Grid.Row="5" Text="Equip New Effect:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<ComboBox x:Name="ClothesEquipEffects_Edit_CB" Grid.Row="5" Width="300" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						          ItemsSource="{Binding CurrenGameplayModifiersInDatabase_Effects}">
+							<ComboBox.ItemTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding Id}" Foreground="Black"/>
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
+						<Button Grid.Row="5" Content="+" Width="20" Margin="410,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						        Click="ClothesEquipEffect_Edit_BTN_Click"/>
+
+
+						<TextBlock Grid.Row="6" Text="Equip New Trait:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<ComboBox x:Name="ClothesEquipTraits_Edit_CB" Grid.Row="6" Width="300" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						          ItemsSource="{Binding CurrenGameplayModifiersInDatabase_Traits}">
+							<ComboBox.ItemTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding Id}" Foreground="Black"/>
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
+						<Button Grid.Row="6" Content="+" Width="20" Margin="410,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						        Click="ClothesEquipTrait_Edit_BTN_Click"/>
+
+						<TextBlock Grid.Row="7" Text="Equip New Skill:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<ComboBox x:Name="ClothesEquipSkills_Edit_CB" Grid.Row="7" Width="300" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						          >
+							<ComboBox.ItemTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding Name}" Foreground="Black"/>
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
+						<Button Grid.Row="7" Content="+" Width="20" Margin="410,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						        Click="ClothesEquipSkill_Edit_BTN_Click"/>
+
+						<!---AM 9/4/2020 1.0.0.3v-->
+						<TextBlock Grid.Row="8" Text="Function Pointer Name:" Foreground="White" Margin="5,5,400,5" HorizontalAlignment="Left"/>
+						<TextBox x:Name="ClothesFuncPTR_Edit_TB" Grid.Row="8" Width="250" Background="DimGray" Foreground="White" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+
+						<Button Grid.Row="9" Content="Update To Database" Width="300" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						        Click="UpdateClothesInDatabase_BTN_Click"/>
+
+
+						<Grid x:Name="ClothesStats_Edit_Grid" Grid.Row="0" Grid.Column="1" RowSpan="20">
+
+							<Grid.RowDefinitions>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="5"/>
+								<RowDefinition Height="5"/>
+								<RowDefinition Height="5"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+							</Grid.RowDefinitions>
+
+							<TextBlock Grid.Row="1" Grid.Column="0" Text="Max Health Increase:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ClothesMaxHP_Edit_TB" Grid.Row="1" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="2" Grid.Column="0" Text="Max Mana Increase:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ClothesMaxMP_Edit_TB" Grid.Row="2" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="6" Grid.Column="0" Text="Attack Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ClothesAtk_Edit_TB" Grid.Row="6" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="7" Grid.Column="0" Text="Defense Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ClothesDef_Edit_TB" Grid.Row="7" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="8" Grid.Column="0" Text="Dexterity Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ClothesDex_Edit_TB" Grid.Row="8" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="9" Grid.Column="0" Text="Agility Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ClothesAgl_Edit_TB" Grid.Row="9" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="10" Grid.Column="0" Text="Morality Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ClothesMor_Edit_TB" Grid.Row="10" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="11" Grid.Column="0" Text="Wisdom Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ClothesWis_Edit_TB" Grid.Row="11" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="12" Grid.Column="0" Text="Resistance Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ClothesRes_Edit_TB" Grid.Row="12" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="13" Grid.Column="0" Text="Luck Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ClothesLuc_Edit_TB" Grid.Row="13" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="14" Grid.Column="0" Text="Risk Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ClothesRsk_Edit_TB" Grid.Row="14" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="15" Grid.Column="0" Text="Intelligence Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ClothesItl_Edit_TB" Grid.Row="15" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+						</Grid>
+
+						<Grid Grid.Row="1" RowSpan="9" Grid.Column="2">
+
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition />
+								<ColumnDefinition />
+								<ColumnDefinition />
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
+
+							<Grid.RowDefinitions>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="10"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+
+							<TextBlock Text="Magic Weaknesses" Foreground="White" HorizontalAlignment="Center"/>
+							<TextBlock Grid.Column="1" Text="Weapon Weaknesses" Foreground="White" HorizontalAlignment="Center"/>
+							<TextBlock Grid.Column="2" Text="Magic Strength" Foreground="White" HorizontalAlignment="Center"/>
+							<TextBlock Grid.Column="3" Text="Weapon Strength" Foreground="White" HorizontalAlignment="Center"/>
+
+							<ItemsControl x:Name="ClothesMagicWeakness_Edit_IC" Grid.Row="2">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddClothesMagWeak_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<ItemsControl x:Name="ClothesWeakness_Edit_IC" Grid.Row="2" Grid.Column="1">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddClothesWeak_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<ItemsControl x:Name="ClothesMagicStrength_Edit_IC" Grid.Row="2" Grid.Column="2">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddClothesMagicStrength_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<ItemsControl x:Name="ClothesWeaponStrength_Edit_IC" Grid.Row="2" Grid.Column="3">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddClothesWeaknessStrength_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<GridSplitter Grid.Row="1" Height="2" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+
+
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="0" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="1" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="2" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+						</Grid>
+
+
+						<!--#region ItemControls For Other Tables-->
+						<Grid Grid.Row="12" Grid.ColumnSpan="4">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="30"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="250"/>
+								<ColumnDefinition Width="250"/>
+								<ColumnDefinition Width="250"/>
+								<ColumnDefinition Width="250"/>
+								<ColumnDefinition Width="150"/>
+							</Grid.ColumnDefinitions>
+
+							<TextBlock Grid.Column="1" Text="Effects Equipped" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							<ItemsControl x:Name="ClothesEffectEquip_Edit_IC" Grid.Row="1"  Grid.Column="1" Margin="10,10,10,10" Foreground="White"  Background=" Transparent">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="200"/>
+												<ColumnDefinition Width="20"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="0" Foreground="White" Text="{Binding Path=.}"></TextBlock>
+											<Button x:Name="RemoveItemEffect_BTN" Content="-" Width="20" Grid.Column="1" Foreground="Black"
+											        Click="RemoveClothesEffect_Edit_BTN_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<TextBlock Grid.Column="2" Text="Traits equipped" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							<ItemsControl x:Name="ClothesTraitsEquip_Edit_IC"  Grid.Row="1"  Grid.Column="2" Margin="10,10,10,10" Foreground="White"   Background=" Transparent">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="200"/>
+												<ColumnDefinition Width="20"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="0" Foreground="White" Text="{Binding Path=.}"></TextBlock>
+											<Button x:Name="RemoveItemTrait_BTN" Content="-" Width="20" Grid.Column="1" Foreground="Black" 
+											        Click="RemoveClothesTrait_Edit_BTN_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<TextBlock Grid.Column="3" Text="Skills equipped" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							<ItemsControl x:Name="ClothesSkillsEquip_Edit_IC"  Grid.Row="1"  Grid.Column="3" Margin="7,10,13,10" Foreground="White"   Background=" Transparent">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="200"/>
+												<ColumnDefinition Width="20"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="0" Foreground="White" Text="{Binding Path=.}"></TextBlock>
+											<Button x:Name="RemoveItemTrait_BTN" Content="-" Width="20" Grid.Column="1" Foreground="Black" 
+											        Click="RemoveClothesSkill_Edit_BTN_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<TextBlock Grid.Column="0" Text="Magic Types equipped" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							<ItemsControl x:Name="ClothesMagicTypesEquip_Edit_IC"  Grid.Row="1"  Grid.Column="0" Height="200" Margin="10,10,10,10" Foreground="White" VerticalAlignment="Top" Background=" Transparent">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddWeaponMagicTypes_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<TextBlock Grid.Row="1" Grid.Column="0" Text="Clothes Types Equipped" Foreground="White" Margin="0,0,0,25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							<ItemsControl x:Name="ClothesTypesEquip_Edit_IC"  Grid.Row="1"  Grid.Column="0" Height="200" Margin="10,260,10,10" Foreground="White" VerticalAlignment="Top" Background=" Transparent">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddItemTypes_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<GridSplitter Grid.Row="1" Height="2" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+							<GridSplitter Grid.Row="1" Grid.Column="0" Height="2" Grid.ColumnSpan="1" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="0" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="1" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="2" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="3" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+						</Grid>
+						<!--#endregion-->
+
+					</Grid>
+
+					<Grid Grid.Row="2" x:Name="Clothes_Add_Grid" Visibility="Hidden">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="5"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition/>
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="2*"/>
+							<ColumnDefinition Width="1*"/>
+							<ColumnDefinition Width="2*"/>
+						</Grid.ColumnDefinitions>
+
+						<TextBlock Grid.Row="0" Text="Clothes Name:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<TextBox x:Name="ClothesName_Add_TB" Grid.Row="0" Width="200" Background="Gray" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<TextBlock Grid.Row="1" Text="Weight:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<TextBox x:Name="ClothesWeight_Add_TB" Grid.Row="1" Width="50" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<TextBlock Grid.Row="3" Text="Clothes Type:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<ComboBox x:Name="ClothesType_Add_CB" Grid.Row="3" Width="200" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						          ItemsSource="{Binding Source={StaticResource EClothesType}}">
+						</ComboBox>
+
+						<TextBlock Grid.Row="4" Text="Weapon Rarity:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<ComboBox x:Name="ClothesRarity_Add_CB" Grid.Row="4" Width="200" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						          ItemsSource="{Binding Source={StaticResource ERarityType}}">
+						</ComboBox>
+
+						<TextBlock Grid.Row="5" Text="Equip New Effect:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<ComboBox x:Name="ClothesEquipEffects_Add_CB" Grid.Row="5" Width="300" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						          ItemsSource="{Binding CurrenGameplayModifiersInDatabase_Effects}">
+							<ComboBox.ItemTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding Id}" Foreground="Black"/>
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
+						<Button Grid.Row="5" Content="+" Width="20" Margin="410,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						        Click="ClothesEquipEffect_Add_BTN_Click"/>
+
+
+						<TextBlock Grid.Row="6" Text="Equip New Trait:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<ComboBox x:Name="ClothesEquipTraits_Add_CB" Grid.Row="6" Width="300" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						          ItemsSource="{Binding CurrenGameplayModifiersInDatabase_Traits}">
+							<ComboBox.ItemTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding Id}" Foreground="Black"/>
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
+						<Button Grid.Row="6" Content="+" Width="20" Margin="410,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						        Click="ClothesEquipTrait_Add_BTN_Click"/>
+
+						<TextBlock Grid.Row="7" Text="Equip New Skill:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<ComboBox x:Name="ClothesEquipSkills_Add_CB" Grid.Row="7" Width="300" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						          >
+							<ComboBox.ItemTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding Name}" Foreground="Black"/>
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
+						<Button Grid.Row="7" Content="+" Width="20" Margin="410,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						        Click="ClothesEquipSkill_Add_BTN_Click"/>
+
+						<!---AM 9/4/2020 1.0.0.3v-->
+						<TextBlock Grid.Row="8" Text="Function Pointer Name:" Foreground="White" Margin="5,5,0,5" HorizontalAlignment="Left" Width="140"/>
+						<TextBox x:Name="ClothesFuncPTR_Add_TB" Grid.Row="8" Width="250" Background="DimGray" Foreground="White" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<Button Grid.Row="9" Content="Add To Database" Width="300" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						        Click="AddClothesToDatabase_BTN_Click"/>
+
+						<Grid x:Name="ClothesStats_Add_Grid" Grid.Row="0" Grid.Column="1" RowSpan="20">
+
+							<Grid.RowDefinitions>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="5"/>
+								<RowDefinition Height="5"/>
+								<RowDefinition Height="5"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+							</Grid.RowDefinitions>
+
+							<TextBlock Grid.Row="1" Grid.Column="0" Text="Max Health Increase:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ClothesMaxHP_Add_TB" Grid.Row="1" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="2" Grid.Column="0" Text="Max Mana Increase:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ClothesMaxMP_Add_TB" Grid.Row="2" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="6" Grid.Column="0" Text="Attack Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ClothesAtk_Add_TB" Grid.Row="6" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="7" Grid.Column="0" Text="Defense Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ClothesDef_Add_TB" Grid.Row="7" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="8" Grid.Column="0" Text="Dexterity Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ClothesDex_Add_TB" Grid.Row="8" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="9" Grid.Column="0" Text="Agility Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ClothesAgl_Add_TB" Grid.Row="9" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="10" Grid.Column="0" Text="Morality Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ClothesMor_Add_TB" Grid.Row="10" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="11" Grid.Column="0" Text="Wisdom Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ClothesWis_Add_TB" Grid.Row="11" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="12" Grid.Column="0" Text="Resistance Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ClothesRes_Add_TB" Grid.Row="12" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="13" Grid.Column="0" Text="Luck Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ClothesLuc_Add_TB" Grid.Row="13" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="14" Grid.Column="0" Text="Risk Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ClothesRsk_Add_TB" Grid.Row="14" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="15" Grid.Column="0" Text="Intelligence Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="ClothesItl_Add_TB" Grid.Row="15" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+						</Grid>
+
+						<Grid Grid.Row="1" RowSpan="9" Grid.Column="2">
+
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition />
+								<ColumnDefinition />
+								<ColumnDefinition />
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
+
+							<Grid.RowDefinitions>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="10"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+
+							<TextBlock Text="Magic Weaknesses" Foreground="White" HorizontalAlignment="Center"/>
+							<TextBlock Grid.Column="1" Text="Weapon Weaknesses" Foreground="White" HorizontalAlignment="Center"/>
+							<TextBlock Grid.Column="2" Text="Magic Strength" Foreground="White" HorizontalAlignment="Center"/>
+							<TextBlock Grid.Column="3" Text="Weapon Strength" Foreground="White" HorizontalAlignment="Center"/>
+
+							<ItemsControl x:Name="ClothesMagicWeakness_Add_IC" Grid.Row="2">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddClothesMagWeak_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<ItemsControl x:Name="ClothesWeakness_Add_IC" Grid.Row="2" Grid.Column="1">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddClothesWeak_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<ItemsControl x:Name="ClothesMagicStrength_Add_IC" Grid.Row="2" Grid.Column="2">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddClothesMagicStrength_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<ItemsControl x:Name="ClothesWeaponStrength_Add_IC" Grid.Row="2" Grid.Column="3">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddClothesWeaknessStrength_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<GridSplitter Grid.Row="1" Height="2" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+
+
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="0" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="1" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="2" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+						</Grid>
+
+
+						<!--#region ItemControls For Other Tables-->
+						<Grid Grid.Row="13" Grid.ColumnSpan="4">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="30"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="150"/>
+								<ColumnDefinition Width="150"/>
+								<ColumnDefinition Width="150"/>
+								<ColumnDefinition Width="150"/>
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
+
+							<TextBlock Grid.Column="1" Text="Effects Equipped" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							<ItemsControl x:Name="ClothesEffectEquip_Add_IC" Grid.Row="1"  Grid.Column="1" Margin="10,10,10,10" Foreground="White"  Background=" Transparent">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="200"/>
+												<ColumnDefinition Width="20"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="0" Foreground="White" Text="{Binding Path=.}"></TextBlock>
+											<Button x:Name="RemoveClothesEffect_BTN" Content="-" Width="20" Grid.Column="1" Foreground="Black" Click="RemoveClothesEffect_BTN_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<TextBlock Grid.Column="2" Text="Traits equipped" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							<ItemsControl x:Name="ClothesTraitsEquip_Add_IC"  Grid.Row="1"  Grid.Column="2" Margin="10,10,10,10" Foreground="White"   Background=" Transparent">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="200"/>
+												<ColumnDefinition Width="20"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="0" Foreground="White" Text="{Binding Path=.}"></TextBlock>
+											<Button x:Name="RemoveClothesTrait_BTN" Content="-" Width="20" Grid.Column="1" Foreground="Black" Click="RemoveClothesTrait_BTN_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<TextBlock Grid.Column="3" Text="Skills equipped" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							<ItemsControl x:Name="ClothesSkillsEquip_Add_IC"  Grid.Row="1"  Grid.Column="3" Margin="10,10,10,10" Foreground="White"   Background=" Transparent">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="200"/>
+												<ColumnDefinition Width="20"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="0" Foreground="White" Text="{Binding Path=.}"></TextBlock>
+											<Button x:Name="RemoveItemTrait_BTN" Content="-" Width="20" Grid.Column="1" Foreground="Black" 
+											        Click="RemoveClothesSkill_BTN_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<TextBlock Grid.Column="0" Text="Magic Types equipped" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							<ItemsControl x:Name="ClothesMagicTypesEquip_Add_IC"  Grid.Row="1"  Grid.Column="0" Height="200" Margin="10,10,10,10" Foreground="White" VerticalAlignment="Top" Background=" Transparent">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddItemMagicTypes_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<GridSplitter Grid.Row="1" Height="2" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+							<GridSplitter Grid.Row="1" Grid.Column="0" Height="2" Grid.ColumnSpan="1" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="0" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="1" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="2" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="3" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+						</Grid>
+						<!--#endregion-->
+
+
+
+					</Grid>
+
+				</Grid>
+			</TabItem>
+
+			<TabItem Header="Weapons">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="30"/>
+						<RowDefinition Height="2"/>
+						<RowDefinition Height="*"/>
+						<RowDefinition Height="30"/>
+					</Grid.RowDefinitions>
+
+					<Button Content="Change to Edit" Width="100" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+					        Click="ChangeGridToEdit"/>
+					<Button Content="Change to Add" Width="100" Margin="160,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+				        Click="ChangeGridToAdd"/>
+
+					<Grid x:Name="Weapons_Add_Grid" Grid.Row="2" Visibility="Visible">
 
 						<Grid.RowDefinitions>
 							<RowDefinition Height="30"/>
@@ -3118,9 +5160,15 @@
 							<RowDefinition Height="30"/>
 							<RowDefinition Height="*"/>
 						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="2*"/>
+							<ColumnDefinition Width="1*"/>
+							<ColumnDefinition Width="2*"/>
+						</Grid.ColumnDefinitions>
+
 
 						<TextBlock Grid.Row="0" Text="Name:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-						<TextBox x:Name="WeaponName_Add_TB" Width="300" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<TextBox x:Name="WeaponName_Add_TB" Background="Gray" Width="200" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
 						<TextBlock Grid.Row="1" Text=" Check=Damage | No Check=healing:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 						<CheckBox Grid.Row="1" x:Name="WeaponDamage_Add_CB" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -3140,50 +5188,205 @@
 						</ComboBox>
 
 						<TextBlock Grid.Row="6" Text="Weaknesses/Strengths:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-						<ComboBox x:Name="WeaponWeakStrength_Add_TB" Grid.Row="6" Background="Gray" Width="300" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<ComboBox x:Name="WeaponWeakStrength_Add_TB" Grid.Row="6" Background="Gray" Width="200" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
 						<TextBlock Grid.Row="7" Text="Effects:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-						<ComboBox x:Name="WeaponEffects_Add_CB" ItemsSource="{Binding CurrenGameplayModifiersInDatabase_Effects}" Grid.Row="7" Width="300" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+						<ComboBox x:Name="WeaponEffects_Add_CB" ItemsSource="{Binding CurrenGameplayModifiersInDatabase_Effects}" Grid.Row="7" Width="200" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
 							<ComboBox.ItemTemplate>
 								<DataTemplate>
 									<TextBlock Text="{Binding Id}" Foreground="Black"/>
 								</DataTemplate>
 							</ComboBox.ItemTemplate>
 						</ComboBox>
-						<Button Grid.Row="7" Content="+" Width="20" Margin="530,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						<Button Grid.Row="7" Content="+" Width="20" Margin="0,0,5,0" HorizontalAlignment="Right" VerticalAlignment="Center"
 						        Click="AddEffectToWeapon_Add_BTN_Click"/>
 
 						<TextBlock Grid.Row="8" Text="Traits:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-						<ComboBox x:Name="WeaponTraits_Add_CB" ItemsSource="{Binding CurrenGameplayModifiersInDatabase_Traits}" Grid.Row="8" Width="300" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+						<ComboBox x:Name="WeaponTraits_Add_CB" ItemsSource="{Binding CurrenGameplayModifiersInDatabase_Traits}" Grid.Row="8" Width="200" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
 							<ComboBox.ItemTemplate>
 								<DataTemplate>
 									<TextBlock Text="{Binding Id}" Foreground="Black"/>
 								</DataTemplate>
 							</ComboBox.ItemTemplate>
 						</ComboBox>
-						<Button Grid.Row="8" Content="+" Width="20" Margin="530,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						<Button Grid.Row="8" Content="+" Width="20" Margin="0,0,5,0" HorizontalAlignment="Right" VerticalAlignment="Center"
 						        Click="AddTraitToWeapon_Add_BTN_Click"/>
 
 						<TextBlock Grid.Row="9" Text="Skills:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-						<ComboBox x:Name="WeaponSkills_Add_TB" Grid.Row="9" Width="300" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-						<Button Grid.Row="9" Content="+" Width="20" Margin="530,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<ComboBox x:Name="WeaponSkills_Add_TB" Grid.Row="9" Width="200" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<Button Grid.Row="9" Grid.Column="0" Content="+" Width="20" Margin="0,0,5,0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
 
-						<Button Grid.Row="10" Content="Add to Database" Width="300" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						<Button Grid.Row="10" Content="Add to Database" Width="200" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
 						        Click="AddWeaponToDatabase_BTN_Click"/>
 
+						<Grid x:Name="WeaponsStats_Add_Grid" Grid.Row="0" Grid.Column="1" Grid.RowSpan="12">
+
+							<Grid.RowDefinitions>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="5"/>
+								<RowDefinition Height="5"/>
+								<RowDefinition Height="5"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+							</Grid.RowDefinitions>
+
+							<TextBlock Grid.Row="1" Grid.Column="0" Text="Max Health Increase:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="WeaponsMaxHP_Add_TB" Grid.Row="1" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="2" Grid.Column="0" Text="Max Mana Increase:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="WeaponsMaxMP_Add_TB" Grid.Row="2" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="6" Grid.Column="0" Text="Attack Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="WeaponsAtk_Add_TB" Grid.Row="6" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="7" Grid.Column="0" Text="Defense Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="WeaponsDef_Add_TB" Grid.Row="7" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="8" Grid.Column="0" Text="Dexterity Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="WeaponsDex_Add_TB" Grid.Row="8" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="9" Grid.Column="0" Text="Agility Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="WeaponsAgl_Add_TB" Grid.Row="9" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="10" Grid.Column="0" Text="Morality Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="WeaponsMor_Add_TB" Grid.Row="10" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="11" Grid.Column="0" Text="Wisdom Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="WeaponsWis_Add_TB" Grid.Row="11" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="12" Grid.Column="0" Text="Resistance Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="WeaponsRes_Add_TB" Grid.Row="12" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="13" Grid.Column="0" Text="Luck Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="WeaponsLuc_Add_TB" Grid.Row="13" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="14" Grid.Column="0" Text="Risk Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="WeaponsRsk_Add_TB" Grid.Row="14" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="15" Grid.Column="0" Text="Intelligence Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="WeaponsItl_Add_TB" Grid.Row="15" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+						</Grid>
+
+						<Grid Grid.Row="1" RowSpan="9" Grid.Column="2">
+
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition />
+								<ColumnDefinition />
+								<ColumnDefinition />
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
+
+							<Grid.RowDefinitions>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="10"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+
+							<TextBlock Text="Magic Weaknesses" Foreground="White" HorizontalAlignment="Center"/>
+							<TextBlock Grid.Column="1" Text="Weapon Weaknesses" Foreground="White" HorizontalAlignment="Center"/>
+							<TextBlock Grid.Column="2" Text="Magic Strength" Foreground="White" HorizontalAlignment="Center"/>
+							<TextBlock Grid.Column="3" Text="Weapon Strength" Foreground="White" HorizontalAlignment="Center"/>
+
+							<ItemsControl x:Name="WeaponsMagicWeakness_Add_IC" Grid.Row="2">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddWeaponsMagWeak_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<ItemsControl x:Name="WeaponsWeakness_Add_IC" Grid.Row="2" Grid.Column="1">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddWeaponsWeak_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<ItemsControl x:Name="WeaponsMagicStrength_Add_IC" Grid.Row="2" Grid.Column="2">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddWeaponsMagicStrength_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<ItemsControl x:Name="WeaponsWeaponStrength_Add_IC" Grid.Row="2" Grid.Column="3">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddWeaponsWeaknessStrength_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<GridSplitter Grid.Row="1" Height="2" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+
+
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="0" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="1" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="2" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+						</Grid>
+
+
 						<!--#region ItemControls For Other Tables-->
-						<Grid Grid.Row="11">
+						<Grid Grid.Row="11" ColumnSpan="3">
 							<Grid.RowDefinitions>
 								<RowDefinition Height="30"/>
 								<RowDefinition Height="*"/>
 							</Grid.RowDefinitions>
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="250"/>
-								<ColumnDefinition Width="250"/>
-								<ColumnDefinition Width="250"/>
-								<ColumnDefinition Width="250"/>
 								<ColumnDefinition Width="150"/>
+								<ColumnDefinition Width="150"/>
+								<ColumnDefinition Width="150"/>
+								<ColumnDefinition Width="150"/>
+								<ColumnDefinition/>
 							</Grid.ColumnDefinitions>
 
 							<TextBlock Grid.Column="1" Text="Effects Equipped" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -3260,7 +5463,7 @@
 
 					</Grid>
 
-					<Grid x:Name="Weapons_Edit_Grid" Grid.Row="2" Visibility="Visible">
+					<Grid x:Name="Weapons_Edit_Grid" Grid.Row="2" Visibility="Hidden">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="30"/>
 							<RowDefinition Height="30"/>
@@ -3275,10 +5478,16 @@
 							<RowDefinition Height="30"/>
 							<RowDefinition Height="*"/>
 						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="2*"/>
+							<ColumnDefinition Width="1*"/>
+							<ColumnDefinition Width="2*"/>
+						</Grid.ColumnDefinitions>
 
-						<TextBlock Grid.Row="0" Text="Name:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-						<ComboBox x:Name="WeaponName_Edit_CB" Width="300"  Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
-							ItemsSource="{Binding CurrentWeaponsInDatabase}" SelectionChanged="WeaponName_Edit_CB_OnSelectionChanged" >
+
+						<TextBlock Grid.Row="0" Text="Name:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Height="16" Margin="0,7" Width="34"/>
+						<ComboBox x:Name="WeaponName_Edit_CB" Width="200"  Margin="220,4,0,4" HorizontalAlignment="Left" VerticalAlignment="Center"
+							ItemsSource="{Binding CurrentWeaponsInDatabase}" SelectionChanged="WeaponName_Edit_CB_OnSelectionChanged" Height="22" >
 							<ComboBox.ItemTemplate>
 								<DataTemplate>
 									<TextBlock Text="{Binding ID}" Foreground="Black"/>
@@ -3286,68 +5495,225 @@
 							</ComboBox.ItemTemplate>
 						</ComboBox>
 
-						<TextBlock Grid.Row="1" Text=" Check=Damage | No Check=healing:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-						<CheckBox Grid.Row="1" x:Name="WeaponDamage_Edit_CB" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<TextBlock Grid.Row="1" Text=" Check=Damage | No Check=healing:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Height="16" Margin="0,7" Width="198"/>
+						<CheckBox Grid.Row="1" x:Name="WeaponDamage_Edit_CB" Margin="220,8,0,8" HorizontalAlignment="Left" VerticalAlignment="Center" Height="14" Width="16"/>
 
-						<TextBlock Grid.Row="2" Text="Damage/Healing Amount:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-						<TextBox x:Name="WeapondDamage_Edit_TB" Grid.Row="2" Width="50" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<TextBlock Grid.Row="2" Text="Damage/Healing Amount:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Height="16" Margin="0,7" Width="138"/>
+						<TextBox x:Name="WeapondDamage_Edit_TB" Grid.Row="2" Width="50" Margin="220,6,0,6" HorizontalAlignment="Left" VerticalAlignment="Center" Height="18"/>
 
-						<TextBlock Grid.Row="3" Text="Weapon Type:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-						<ComboBox x:Name="WeaponType_Edit_CB" Grid.Row="3" SelectedItem="0" ItemsSource="{Binding Source={StaticResource EWeaponType}}" Width="200" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+						<TextBlock Grid.Row="3" Text="Weapon Type:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Height="16" Margin="0,7" Width="75"/>
+						<ComboBox x:Name="WeaponType_Edit_CB" Grid.Row="3" SelectedItem="0" ItemsSource="{Binding Source={StaticResource EWeaponType}}" Width="200" Margin="220,4,0,4" HorizontalAlignment="Left" VerticalAlignment="Center" Height="22">
 						</ComboBox>
 
-						<TextBlock Grid.Row="4" Text="Weight:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-						<TextBox x:Name="WeaponWeight_Edit_TB" Grid.Row="4" Width="50" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<TextBlock Grid.Row="4" Text="Weight:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Height="16" Margin="0,7" Width="40"/>
+						<TextBox x:Name="WeaponWeight_Edit_TB" Grid.Row="4" Width="50" Margin="220,6,0,6" HorizontalAlignment="Left" VerticalAlignment="Center" Height="18"/>
 
-						<TextBlock Grid.Row="5" Text="Rarity:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-						<ComboBox x:Name="WeaponRarity_Edit_CB" Grid.Row="5" SelectedItem="0" ItemsSource="{Binding Source={StaticResource ERarityType}}" Width="200" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+						<TextBlock Grid.Row="5" Text="Rarity:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Height="16" Margin="0,7" Width="33"/>
+						<ComboBox x:Name="WeaponRarity_Edit_CB" Grid.Row="5" SelectedItem="0" ItemsSource="{Binding Source={StaticResource ERarityType}}" Width="200" Margin="220,4,0,4" HorizontalAlignment="Left" VerticalAlignment="Center" Height="22">
 						</ComboBox>
 
-						<TextBlock Grid.Row="6" Text="Weaknesses/Strengths:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-						<ComboBox x:Name="WeaponWeakStrength_Edit_CB" Grid.Row="6" Background="Gray" Width="300" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<TextBlock Grid.Row="6" Text="Weaknesses/Strengths:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Height="16" Margin="0,7" Width="121"/>
+						<ComboBox x:Name="WeaponWeakStrength_Edit_CB" Grid.Row="6" Background="Gray" Width="200" Margin="220,4,0,4" HorizontalAlignment="Left" VerticalAlignment="Center" Height="22"/>
 
-						<TextBlock Grid.Row="7" Text="Effects:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-						<ComboBox x:Name="WeaponEffects_Edit_CB" ItemsSource="{Binding CurrenGameplayModifiersInDatabase_Effects}" Grid.Row="7" Width="300" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+						<TextBlock Grid.Row="7" Text="Effects:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Height="16" Margin="0,7" Width="37"/>
+						<ComboBox x:Name="WeaponEffects_Edit_CB" ItemsSource="{Binding CurrenGameplayModifiersInDatabase_Effects}" Grid.Row="7" Width="200" Margin="220,4,0,4" HorizontalAlignment="Left" VerticalAlignment="Center" Height="22">
 							<ComboBox.ItemTemplate>
 								<DataTemplate>
 									<TextBlock Text="{Binding Id}" Foreground="Black"/>
 								</DataTemplate>
 							</ComboBox.ItemTemplate>
 						</ComboBox>
-						<Button Grid.Row="7" Content="+" Width="20" Margin="530,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
-						        Click="AddEffectToWeapon_Edit_BTN_Click"/>
+						<Button Grid.Row="7" Content="+" Width="20" Margin="0,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Center"
+						        Click="AddEffectToWeapon_Edit_BTN_Click" Grid.Column="0" Height="20"/>
 
-						<TextBlock Grid.Row="8" Text="Traits:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-						<ComboBox x:Name="WeaponTraits_Edit_CB" ItemsSource="{Binding CurrenGameplayModifiersInDatabase_Traits}" Grid.Row="8" Width="300" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+						<TextBlock Grid.Row="8" Text="Traits:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Height="16" Margin="0,7" Width="30"/>
+						<ComboBox x:Name="WeaponTraits_Edit_CB" ItemsSource="{Binding CurrenGameplayModifiersInDatabase_Traits}" Grid.Row="8" Width="200" Margin="220,4,0,4" HorizontalAlignment="Left" VerticalAlignment="Center" Height="22">
 							<ComboBox.ItemTemplate>
 								<DataTemplate>
 									<TextBlock Text="{Binding Id}" Foreground="Black"/>
 								</DataTemplate>
 							</ComboBox.ItemTemplate>
 						</ComboBox>
-						<Button Grid.Row="8" Content="+" Width="20" Margin="530,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
-						        Click="AddTraitToWeapon_Edit_BTN_Click"/>
+						<Button Grid.Row="8" Content="+" Width="20" Margin="0,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Center"
+						        Click="AddTraitToWeapon_Edit_BTN_Click" Grid.Column="0" Height="20"/>
 
-						<TextBlock Grid.Row="9" Text="Skills:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-						<ComboBox x:Name="WeaponSkills_Edit_TB" Grid.Row="9" Width="300" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-						<Button Grid.Row="9" Content="+" Width="20" Margin="530,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<TextBlock Grid.Row="9" Text="Skills:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Height="16" Margin="0,7" Width="29"/>
+						<ComboBox x:Name="WeaponSkills_Edit_TB" Grid.Row="9" Width="200" Margin="220,4,0,4" HorizontalAlignment="Left" VerticalAlignment="Center" Height="22"/>
+						<Button Grid.Row="9" Content="+" Width="20" Margin="0,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="0" Height="20"/>
 
 
-						<Button Grid.Row="10" Content="Update in Database" Width="300" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
-						        Click="EditWeaponToDatabase_BTN_Click"/>
+						<Button Grid.Row="10" Content="Update in Database" Width="200" Margin="220,7,0,3" HorizontalAlignment="Left" VerticalAlignment="Center"
+						        Click="EditWeaponToDatabase_BTN_Click" Height="20"/>
+
+						<Grid x:Name="WeaponsStats_Edit_Grid" Grid.Row="0" Grid.Column="1" Grid.RowSpan="12">
+
+							<Grid.RowDefinitions>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="5"/>
+								<RowDefinition Height="5"/>
+								<RowDefinition Height="5"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+							</Grid.RowDefinitions>
+
+							<TextBlock Grid.Row="1" Grid.Column="0" Text="Max Health Increase:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="WeaponsMaxHP_Edit_TB" Grid.Row="1" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="2" Grid.Column="0" Text="Max Mana Increase:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="WeaponsMaxMP_Edit_TB" Grid.Row="2" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="6" Grid.Column="0" Text="Attack Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="WeaponsAtk_Edit_TB" Grid.Row="6" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="7" Grid.Column="0" Text="Defense Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="WeaponsDef_Edit_TB" Grid.Row="7" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="8" Grid.Column="0" Text="Dexterity Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="WeaponsDex_Edit_TB" Grid.Row="8" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="9" Grid.Column="0" Text="Agility Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="WeaponsAgl_Edit_TB" Grid.Row="9" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="10" Grid.Column="0" Text="Morality Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="WeaponsMor_Edit_TB" Grid.Row="10" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="11" Grid.Column="0" Text="Wisdom Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="WeaponsWis_Edit_TB" Grid.Row="11" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="12" Grid.Column="0" Text="Resistance Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="WeaponsRes_Edit_TB" Grid.Row="12" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="13" Grid.Column="0" Text="Luck Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="WeaponsLuc_Edit_TB" Grid.Row="13" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="14" Grid.Column="0" Text="Risk Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="WeaponsRsk_Edit_TB" Grid.Row="14" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+							<TextBlock Grid.Row="15" Grid.Column="0" Text="Intelligence Stat:" Foreground="White" Margin="10,0,0,0"/>
+							<TextBox x:Name="WeaponsItl_Edit_TB" Grid.Row="15" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+						</Grid>
+
+						<Grid Grid.Row="1" RowSpan="9" Grid.Column="2">
+
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition />
+								<ColumnDefinition />
+								<ColumnDefinition />
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
+
+							<Grid.RowDefinitions>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="10"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+
+							<TextBlock Text="Magic Weaknesses" Foreground="White" HorizontalAlignment="Center"/>
+							<TextBlock Grid.Column="1" Text="Weapon Weaknesses" Foreground="White" HorizontalAlignment="Center"/>
+							<TextBlock Grid.Column="2" Text="Magic Strength" Foreground="White" HorizontalAlignment="Center"/>
+							<TextBlock Grid.Column="3" Text="Weapon Strength" Foreground="White" HorizontalAlignment="Center"/>
+
+							<ItemsControl x:Name="WeaponsMagicWeakness_Edit_IC" Grid.Row="2">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddWeaponsMagWeak_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<ItemsControl x:Name="WeaponsWeakness_Edit_IC" Grid.Row="2" Grid.Column="1">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddWeaponsWeak_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<ItemsControl x:Name="WeaponsMagicStrength_Edit_IC" Grid.Row="2" Grid.Column="2">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddWeaponsMagicStrength_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<ItemsControl x:Name="WeaponsWeaponStrength_Edit_IC" Grid.Row="2" Grid.Column="3">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="20"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+											<CheckBox x:Name="AddWeaponsWeaknessStrength_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<GridSplitter Grid.Row="1" Height="2" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+
+
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="0" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="1" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							<GridSplitter Grid.Row="1" Width="2" Grid.Column="2" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+						</Grid>
+
+
+
 
 						<!--#region ItemControls For Other Tables-->
-						<Grid Grid.Row="11">
+						<Grid Grid.Row="11" Grid.ColumnSpan="3">
 							<Grid.RowDefinitions>
 								<RowDefinition Height="30"/>
 								<RowDefinition Height="*"/>
 							</Grid.RowDefinitions>
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="250"/>
-								<ColumnDefinition Width="250"/>
-								<ColumnDefinition Width="250"/>
-								<ColumnDefinition Width="250"/>
 								<ColumnDefinition Width="150"/>
+								<ColumnDefinition Width="150"/>
+								<ColumnDefinition Width="150"/>
+								<ColumnDefinition Width="150"/>
+								<ColumnDefinition />
 							</Grid.ColumnDefinitions>
 
 							<TextBlock Grid.Column="1" Text="Effects Equipped" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -3423,44 +5789,8 @@
 						<!--#endregion-->
 
 
-						<Grid Grid.Row="11">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition/>
-								<ColumnDefinition/>
-								<ColumnDefinition/>
-								<ColumnDefinition/>
-							</Grid.ColumnDefinitions>
-
-
-						</Grid>
 					</Grid>
 				</Grid>
-			</TabItem>
-			<TabItem Header="Recipes">
-
-				<Grid>
-					<Grid.RowDefinitions>
-						<RowDefinition Height="30"/>
-						<RowDefinition Height="2"/>
-						<RowDefinition Height="*"/>
-						<RowDefinition Height="30"/>
-					</Grid.RowDefinitions>
-
-					<Button Content="Change to Edit" Width="100" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
-				        Click="ChangeGridToEdit"/>
-					<Button Content="Change to Add" Width="100" Margin="160,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
-				        Click="ChangeGridToAdd"/>
-
-					<Grid x:Name="Add_Recipe_Grid" Grid.Row="2">
-						
-					</Grid>
-
-					<Grid x:Name="Edit_Recipe_Grid" Grid.Row="2" Visibility="Hidden">
-						
-					</Grid>
-					
-				</Grid>
-
 			</TabItem>
 
 		</TabControl>
