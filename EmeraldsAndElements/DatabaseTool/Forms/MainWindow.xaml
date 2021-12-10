@@ -8,11 +8,8 @@
 				xmlns:bixbite="clr-namespace:BixBite;assembly=BixBite"
 				xmlns:system="clr-namespace:System;assembly=System"
         xmlns:combat="clr-namespace:BixBite.Combat;assembly=BixBite"
-<<<<<<< HEAD:EmeraldsAndElements/DatabaseTool/MainWindow.xaml
         xmlns:combatequip="clr-namespace:BixBite.Combat.Equipables;assembly=BixBite"
-=======
-				xmlns:crafting="clr-namespace:BixBite.Crafting;assembly=BixBite"
->>>>>>> 0c9fce29a82f689561030f15aa60dbf3b61e0ab9:EmeraldsAndElements/DatabaseTool/Forms/MainWindow.xaml
+		xmlns:crafting="clr-namespace:BixBite.Crafting;assembly=BixBite"
         xmlns:item="clr-namespace:BixBite.Items;assembly=BixBite"
         xmlns:system1="clr-namespace:System;assembly=mscorlib"
 				Title="Emeralds And Elements Database Entry Tool"
@@ -130,7 +127,7 @@
 					</GridSplitter>
 
 					<Grid x:Name="AddGrid_FollowupAttacks" Grid.Row="2" Visibility="Hidden">
-		
+
 						<Grid>
 							<Grid.RowDefinitions>
 								<RowDefinition Height="30"/>
@@ -169,15 +166,15 @@
 								<ListBox.ItemTemplate>
 									<DataTemplate>
 										<Grid>
-												<Grid.ColumnDefinitions>
-													<ColumnDefinition Width="150"/>
-													<ColumnDefinition Width="10"/>
-													<ColumnDefinition Width="150"/>
-													<ColumnDefinition Width="10"/>
-													<ColumnDefinition Width="150"/>
-													<ColumnDefinition Width="10"/>
-													<ColumnDefinition Width="150"/>
-												</Grid.ColumnDefinitions>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="150"/>
+												<ColumnDefinition Width="10"/>
+												<ColumnDefinition Width="150"/>
+												<ColumnDefinition Width="10"/>
+												<ColumnDefinition Width="150"/>
+												<ColumnDefinition Width="10"/>
+												<ColumnDefinition Width="150"/>
+											</Grid.ColumnDefinitions>
 
 											<TextBlock Grid.Column="0" Foreground="White" Text="{Binding .Job_1}" ></TextBlock>
 											<TextBlock Grid.Column="2" Foreground="White" Text="{Binding  .Job_2}" ></TextBlock>
@@ -185,13 +182,13 @@
 											<TextBlock Grid.Column="6" Foreground="White" Text="{Binding .Job_4}" ></TextBlock>
 
 											<GridSplitter Grid.Column="1" Grid.ColumnSpan="1" Width="2" ResizeDirection="Columns" IsEnabled="False" Margin="-2,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Stretch">
-												</GridSplitter>
-												<GridSplitter Grid.Column="3" Grid.ColumnSpan="1" Width="2" ResizeDirection="Columns" IsEnabled="False" Margin="-2,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Stretch">
-												</GridSplitter>
-												<GridSplitter Grid.Column="5" Grid.ColumnSpan="1" Width="2" ResizeDirection="Columns" IsEnabled="False" Margin="-2,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Stretch">
+											</GridSplitter>
+											<GridSplitter Grid.Column="3" Grid.ColumnSpan="1" Width="2" ResizeDirection="Columns" IsEnabled="False" Margin="-2,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Stretch">
+											</GridSplitter>
+											<GridSplitter Grid.Column="5" Grid.ColumnSpan="1" Width="2" ResizeDirection="Columns" IsEnabled="False" Margin="-2,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Stretch">
 											</GridSplitter>
 
-											</Grid>
+										</Grid>
 									</DataTemplate>
 								</ListBox.ItemTemplate>
 							</ListBox>
@@ -252,14 +249,10 @@
 
 					</Grid>
 
-<<<<<<< HEAD:EmeraldsAndElements/DatabaseTool/MainWindow.xaml
 					<Button Grid.Row="3" Content="Update Database!"  Margin="50,0,50,0" HorizontalAlignment="Stretch" VerticalAlignment="Center"
 					        Click="EditFollowUpAttacksInDB_BTN_Click"/>
 				</Grid>
 			</TabItem>
-=======
-		<TabControl Grid.Row="1" Background="Transparent" Margin="10,12,10,8">
->>>>>>> 0c9fce29a82f689561030f15aa60dbf3b61e0ab9:EmeraldsAndElements/DatabaseTool/Forms/MainWindow.xaml
 			<TabItem Header="Jobs">
 				<Grid>
 					<Grid.RowDefinitions>
@@ -2131,74 +2124,74 @@
 							<!--#endregion-->
 
 							<!--#region Clothes-->
-								<Grid Grid.Column="3" Grid.Row="2">
-									<Grid.RowDefinitions>
-										<RowDefinition Height="20"/>
-										<RowDefinition Height="30"/>
-										<RowDefinition Height="10"/>
-										<RowDefinition Height="20"/>
-										<RowDefinition Height="30"/>
-										<RowDefinition Height="10"/>
-										<RowDefinition Height="20"/>
-										<RowDefinition Height="30"/>
-										<RowDefinition Height="10"/>
-										<RowDefinition Height="10"/>
-										<RowDefinition Height="20"/>
-										<RowDefinition Height="30"/>
-										<RowDefinition Height="10"/>
-										<RowDefinition Height="20"/>
-										<RowDefinition Height="30"/>
-										<RowDefinition Height="10"/>
+							<Grid Grid.Column="3" Grid.Row="2">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="30"/>
+									<RowDefinition Height="10"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="30"/>
+									<RowDefinition Height="10"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="30"/>
+									<RowDefinition Height="10"/>
+									<RowDefinition Height="10"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="30"/>
+									<RowDefinition Height="10"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="30"/>
+									<RowDefinition Height="10"/>
 								</Grid.RowDefinitions>
 
-									<TextBlock Grid.Column="0" Grid.Row="0" Text="Head:" Foreground="White" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-									<ComboBox x:Name="PartyMemberClothes_Head_Edit_CB" Grid.Row="1" Grid.Column="0" Margin="5,0,5,0" ItemsSource="{Binding CurrentClothesInDatabase_Head}">
-										<ComboBox.ItemTemplate>
-											<DataTemplate>
-												<TextBlock Text="{Binding ID}" Foreground="Black"/>
-											</DataTemplate>
-										</ComboBox.ItemTemplate>
-									</ComboBox>
+								<TextBlock Grid.Column="0" Grid.Row="0" Text="Head:" Foreground="White" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+								<ComboBox x:Name="PartyMemberClothes_Head_Edit_CB" Grid.Row="1" Grid.Column="0" Margin="5,0,5,0" ItemsSource="{Binding CurrentClothesInDatabase_Head}">
+									<ComboBox.ItemTemplate>
+										<DataTemplate>
+											<TextBlock Text="{Binding ID}" Foreground="Black"/>
+										</DataTemplate>
+									</ComboBox.ItemTemplate>
+								</ComboBox>
 
-									<TextBlock Grid.Column="0" Grid.Row="3" Text="Body:" Foreground="White" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-									<ComboBox x:Name="PartyMemberClothes_Body_Edit_CB" Grid.Row="4" Grid.Column="0" Margin="5,0,5,0" ItemsSource="{Binding CurrentClothesInDatabase_Body}">
-										<ComboBox.ItemTemplate>
-											<DataTemplate>
-												<TextBlock Text="{Binding ID}" Foreground="Black"/>
-											</DataTemplate>
-										</ComboBox.ItemTemplate>
-									</ComboBox>
+								<TextBlock Grid.Column="0" Grid.Row="3" Text="Body:" Foreground="White" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+								<ComboBox x:Name="PartyMemberClothes_Body_Edit_CB" Grid.Row="4" Grid.Column="0" Margin="5,0,5,0" ItemsSource="{Binding CurrentClothesInDatabase_Body}">
+									<ComboBox.ItemTemplate>
+										<DataTemplate>
+											<TextBlock Text="{Binding ID}" Foreground="Black"/>
+										</DataTemplate>
+									</ComboBox.ItemTemplate>
+								</ComboBox>
 
-									<TextBlock Grid.Column="0" Grid.Row="6" Text="Legs:" Foreground="White" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-									<ComboBox x:Name="PartyMemberClothes_Legs_Edit_CB" Grid.Row="7" Grid.Column="0" Margin="5,0,5,0" ItemsSource="{Binding CurrentClothesInDatabase_Body}">
-										<ComboBox.ItemTemplate>
-											<DataTemplate>
-												<TextBlock Text="{Binding ID}" Foreground="Black"/>
-											</DataTemplate>
-										</ComboBox.ItemTemplate>
-									</ComboBox>
-									<!--#endregion-->
-
-									<!--#region Accessories-->
-									<TextBlock Grid.Column="0" Grid.Row="10" Text="Accessory 1:" Foreground="White" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-									<ComboBox x:Name="PartyMemberClothes_Acc1_Edit_CB" Grid.Row="11" Grid.Column="0" Margin="5,0,5,0" ItemsSource="{Binding CurrentAccessoriesInDatabase}">
-										<ComboBox.ItemTemplate>
-											<DataTemplate>
-												<TextBlock Text="{Binding ID}" Foreground="Black"/>
-											</DataTemplate>
-										</ComboBox.ItemTemplate>
-									</ComboBox>
-
-									<TextBlock Grid.Column="0" Grid.Row="13" Text="Accessory 2:" Foreground="White" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-									<ComboBox x:Name="PartyMemberClothes_Acc2_Edit_CB" Grid.Row="14" Grid.Column="0" Margin="5,0,5,0" ItemsSource="{Binding CurrentAccessoriesInDatabase}">
-										<ComboBox.ItemTemplate>
-											<DataTemplate>
-												<TextBlock Text="{Binding ID}" Foreground="Black"/>
-											</DataTemplate>
-										</ComboBox.ItemTemplate>
-									</ComboBox>
+								<TextBlock Grid.Column="0" Grid.Row="6" Text="Legs:" Foreground="White" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+								<ComboBox x:Name="PartyMemberClothes_Legs_Edit_CB" Grid.Row="7" Grid.Column="0" Margin="5,0,5,0" ItemsSource="{Binding CurrentClothesInDatabase_Body}">
+									<ComboBox.ItemTemplate>
+										<DataTemplate>
+											<TextBlock Text="{Binding ID}" Foreground="Black"/>
+										</DataTemplate>
+									</ComboBox.ItemTemplate>
+								</ComboBox>
 								<!--#endregion-->
-								</Grid>
+
+								<!--#region Accessories-->
+								<TextBlock Grid.Column="0" Grid.Row="10" Text="Accessory 1:" Foreground="White" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+								<ComboBox x:Name="PartyMemberClothes_Acc1_Edit_CB" Grid.Row="11" Grid.Column="0" Margin="5,0,5,0" ItemsSource="{Binding CurrentAccessoriesInDatabase}">
+									<ComboBox.ItemTemplate>
+										<DataTemplate>
+											<TextBlock Text="{Binding ID}" Foreground="Black"/>
+										</DataTemplate>
+									</ComboBox.ItemTemplate>
+								</ComboBox>
+
+								<TextBlock Grid.Column="0" Grid.Row="13" Text="Accessory 2:" Foreground="White" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+								<ComboBox x:Name="PartyMemberClothes_Acc2_Edit_CB" Grid.Row="14" Grid.Column="0" Margin="5,0,5,0" ItemsSource="{Binding CurrentAccessoriesInDatabase}">
+									<ComboBox.ItemTemplate>
+										<DataTemplate>
+											<TextBlock Text="{Binding ID}" Foreground="Black"/>
+										</DataTemplate>
+									</ComboBox.ItemTemplate>
+								</ComboBox>
+								<!--#endregion-->
+							</Grid>
 
 
 							<GridSplitter Grid.Row="1" Height="2" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
@@ -5803,8 +5796,6 @@
 						<!--#endregion-->
 
 
-<<<<<<< HEAD:EmeraldsAndElements/DatabaseTool/MainWindow.xaml
-=======
 						<Grid Grid.Row="11">
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition/>
@@ -5843,10 +5834,10 @@
 							<RowDefinition Height="30"/>
 							<RowDefinition Height="30"/>
 							<RowDefinition Height="30"/>
-							<RowDefinition Height="30"/>	
-							<RowDefinition Height="30"/>	
-							<RowDefinition Height="*"/>	
-							<RowDefinition Height="*"/>	
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="30"/>
+							<RowDefinition Height="*"/>
+							<RowDefinition Height="*"/>
 						</Grid.RowDefinitions>
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="300"/>
@@ -5854,7 +5845,7 @@
 							<ColumnDefinition Width="500"/>
 							<ColumnDefinition Width="*"/>
 						</Grid.ColumnDefinitions>
-						
+
 						<TextBlock Grid.Row="0" Grid.Column="0" Text="Name:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 						<TextBox Grid.Row="0" Grid.Column="0" Background="Gray" Margin="60,0,0,0" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"
 										 Text="{Binding Path=CurrentRecipeToAdd.Name, Mode=TwoWay}"/>
@@ -6041,7 +6032,7 @@
 
 
 						<!--#endregion-->
-						
+
 						<!--#region Rewards Item Controls-->
 
 						<Grid Grid.Row="10" Grid.ColumnSpan="4">
@@ -6130,7 +6121,7 @@
 									</ItemsControl>
 								</ScrollViewer>
 							</Border>
-							
+
 							<TextBlock Grid.Column="2" Text="Earth Rewards:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 							<Border Grid.Row="1" Grid.Column="2" BorderBrush="Gray" BorderThickness="2">
 								<ScrollViewer VerticalScrollBarVisibility="Hidden">
@@ -6276,14 +6267,13 @@
 							</Border>
 
 						</Grid>
-						
+
 						<!--#endregion-->
-						
+
 					</Grid>
 
 					<Grid x:Name="Edit_Recipe_Grid" Grid.Row="2" Visibility="Hidden">
-						
->>>>>>> 0c9fce29a82f689561030f15aa60dbf3b61e0ab9:EmeraldsAndElements/DatabaseTool/Forms/MainWindow.xaml
+
 					</Grid>
 				</Grid>
 			</TabItem>

@@ -41,8 +41,9 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BixBite">
-      <HintPath>..\..\ProjectEE\BixBite\bin\Debug\BixBite.dll</HintPath>
+    <Reference Include="BixBite, Version=1.0.1.9, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ProjectEE\BixBite\bin\Debug\BixBite.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -84,28 +85,28 @@
     <Compile Include="Forms\MainWindow.Accessories.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\MainWindow.Clothes.xaml.cs" >
+    <Compile Include="Forms\MainWindow.Clothes.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\MainWindow.Enemy.xaml.cs" >
+    <Compile Include="Forms\MainWindow.Enemy.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\MainWindow.GameplayModifiers.xaml.cs" >
+    <Compile Include="Forms\MainWindow.GameplayModifiers.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\MainWindow.Item.xaml.cs" >
+    <Compile Include="Forms\MainWindow.Item.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\MainWindow.PartyMember.xaml.cs" >
+    <Compile Include="Forms\MainWindow.PartyMember.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\MainWindow.Recipe.xaml.cs" >
+    <Compile Include="Forms\MainWindow.Recipe.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\MainWindow.Skills.xaml.cs" >
+    <Compile Include="Forms\MainWindow.Skills.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\MainWindow.Weapon.xaml.cs" >
+    <Compile Include="Forms\MainWindow.Weapon.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -151,6 +152,9 @@
     <Content Include="sqlite3.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

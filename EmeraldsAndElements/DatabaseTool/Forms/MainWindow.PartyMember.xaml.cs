@@ -536,7 +536,6 @@ namespace Forms.DatabaseTool
 			}
 		}
 
-
 		private void PartyMemberUpdateToDatabase_Edit_BTN_OnClick(object sender, RoutedEventArgs e)
 		{
 
@@ -572,6 +571,30 @@ namespace Forms.DatabaseTool
 					partyMember.Main_Job_FK = ((Job)PartyMemberMainJob_Edit_CB.SelectedValue).Id;
 				if (PartyMemberSubJob_Edit_CB.SelectedValue != null)
 					partyMember.Sub_Job_FK = ((Job)PartyMemberSubJob_Edit_CB.SelectedValue).Id;
+
+				#region Equipment
+
+				if (PartyMemberClothes_Head_Edit_CB.SelectedIndex >= 0)
+					partyMember.HeadGear_FK = CurrentClothesInDatabase_Head[PartyMemberClothes_Head_Edit_CB.SelectedIndex].ID;
+				else partyMember.HeadGear_FK = "";
+
+				if (PartyMemberClothes_Body_Edit_CB.SelectedIndex >= 0)
+					partyMember.BodyGear_FK = CurrentClothesInDatabase_Body[PartyMemberClothes_Body_Edit_CB.SelectedIndex].ID;
+				else partyMember.BodyGear_FK = "";
+
+				if (PartyMemberClothes_Legs_Edit_CB.SelectedIndex >= 0)
+					partyMember.LegGear_FK = CurrentClothesInDatabase_Legs[PartyMemberClothes_Legs_Edit_CB.SelectedIndex].ID;
+				else partyMember.LegGear_FK = "";
+
+				if (PartyMemberClothes_Acc1_Edit_CB.SelectedIndex >= 0)
+					partyMember.Accessory1_FK = CurrentAccessoriesInDatabase[PartyMemberClothes_Acc1_Edit_CB.SelectedIndex].ID;
+				else partyMember.Accessory1_FK = "";
+
+				if (PartyMemberClothes_Acc2_Edit_CB.SelectedIndex >= 0)
+					partyMember.Accessory2_FK = CurrentAccessoriesInDatabase[PartyMemberClothes_Acc2_Edit_CB.SelectedIndex].ID;
+				else partyMember.Accessory2_FK = "";
+				#endregion
+
 
 				Base_Stats stats = (Base_Stats)CurrentPartyMembersInDatabase[absindex].Stats;
 				Base_Stats base_stats = new Base_Stats()
@@ -641,12 +664,29 @@ namespace Forms.DatabaseTool
 											"SET " +
 											String.Format("{0} = {1},", "friendship_points", partyMember.Friendship_Points) +
 											String.Format("{0} = {1},", "level", partyMember.Level) +
+
+											(partyMember.HeadGear_FK != String.Empty ?
+												String.Format("{0} = '{1}',", "headgear_fk", partyMember.HeadGear_FK) :
+												String.Format("{0} = '{1}',", "headgear_fk", "")) +
+												(partyMember.BodyGear_FK != String.Empty ?
+												String.Format("{0} = '{1}',", "bodygear_fk", partyMember.BodyGear_FK) :
+												String.Format("{0} = '{1}',", "bodygear_fk", "")) +
+											(partyMember.LegGear_FK != String.Empty ?
+												String.Format("{0} = '{1}',", "leggear_fk", partyMember.LegGear_FK) :
+												String.Format("{0} = '{1}',", "leggear_fk", "")) +
+											(partyMember.Accessory1_FK != String.Empty ?
+												String.Format("{0} = '{1}',", "accessory1_fk", partyMember.Accessory1_FK) :
+												String.Format("{0} = '{1}',", "accessory1_fk", "")) +
+											(partyMember.Accessory2_FK != String.Empty ?
+												String.Format("{0} = '{1}',", "accessory2_fk", partyMember.Accessory2_FK) :
+												String.Format("{0} = '{1}',", "accessory2_fk", "")) +
+
 											String.Format("{0} = {1},", "main_job_fk", partyMember.Main_Job_FK) +
 											String.Format("{0} = {1} ", "sub_job_fk", partyMember.Sub_Job_FK) +
 
-											String.Format("WHERE first_name='{0}'", partyMember.First_Name);
-					String.Format("AND last_name='{0}'", partyMember.Last_Name);
-					_sqlite_conn.Query<weaknesses_strengths>(Createsql);
+											String.Format("WHERE first_name='{0}'", partyMember.First_Name) +
+											String.Format("AND last_name='{0}'", partyMember.Last_Name);
+					_sqlite_conn.Query<party_member>(Createsql);
 
 					#region Key Deletion And reinsertion
 					#region Skill
@@ -712,7 +752,6 @@ namespace Forms.DatabaseTool
 				}
 			}
 		}
-
 
 	}
 }

@@ -480,7 +480,6 @@ namespace Forms.DatabaseTool
 
 			}
 		}
-
 		private void EnemyUpdateDatabase_Edit_BTN_OnClick(object sender, RoutedEventArgs e)
 		{
 
@@ -517,6 +516,27 @@ namespace Forms.DatabaseTool
 				Enemy.Size_Type = (int)(ESize)EnemySize_Edit_CB.SelectedValue;
 				Enemy.Rarity = (int)(ERarityType)EnemyRarity_Edit_CB.SelectedValue;
 
+				#region Equipment
+				if (enemyClothes_Head_Edit_CB.SelectedIndex >= 0)
+					Enemy.HeadGear_FK = CurrentClothesInDatabase_Head[enemyClothes_Head_Edit_CB.SelectedIndex].ID;
+				else Enemy.HeadGear_FK = "";
+
+				if (enemyClothes_Body_Edit_CB.SelectedIndex >= 0)
+					Enemy.BodyGear_FK = CurrentClothesInDatabase_Body[enemyClothes_Body_Edit_CB.SelectedIndex].ID;
+				else Enemy.BodyGear_FK = "";
+
+				if (enemyClothes_Legs_Edit_CB.SelectedIndex >= 0)
+					Enemy.LegGear_FK = CurrentClothesInDatabase_Legs[enemyClothes_Legs_Edit_CB.SelectedIndex].ID;
+				else Enemy.LegGear_FK = "";
+
+				if (enemyClothes_Acc1_Edit_CB.SelectedIndex >= 0)
+					Enemy.Accessory1_FK = CurrentAccessoriesInDatabase[enemyClothes_Acc1_Edit_CB.SelectedIndex].ID;
+				else Enemy.Accessory1_FK = "";
+
+				if (enemyClothes_Acc2_Edit_CB.SelectedIndex >= 0)
+					Enemy.Accessory2_FK = CurrentAccessoriesInDatabase[enemyClothes_Acc2_Edit_CB.SelectedIndex].ID;
+				else Enemy.Accessory2_FK = "";
+				#endregion
 
 				Base_Stats stats = (Base_Stats)CurrentEnemiesInDatabase[absindex].Stats;
 				Base_Stats base_stats = new Base_Stats()
@@ -586,6 +606,23 @@ namespace Forms.DatabaseTool
 											"SET " +
 											String.Format("{0} = {1},", "size_type", Enemy.Size_Type) +
 											String.Format("{0} = {1},", "level", Enemy.Level) +
+
+											(Enemy.HeadGear_FK != String.Empty ?
+												String.Format("{0} = '{1}',", "headgear_fk", Enemy.HeadGear_FK) :
+												String.Format("{0} = '{1}',", "headgear_fk", "")) +
+											(Enemy.BodyGear_FK != String.Empty ?
+												String.Format("{0} = '{1}',", "bodygear_fk", Enemy.BodyGear_FK) :
+												String.Format("{0} = '{1}',", "bodygear_fk", "")) +
+											(Enemy.LegGear_FK != String.Empty ?
+												String.Format("{0} = '{1}',", "leggear_fk", Enemy.LegGear_FK) :
+												String.Format("{0} = '{1}',", "leggear_fk", "")) +
+											(Enemy.Accessory1_FK != String.Empty ?
+												String.Format("{0} = '{1}',", "accessory1_fk", Enemy.Accessory1_FK) :
+												String.Format("{0} = '{1}',", "accessory1_fk", "")) +
+											(Enemy.Accessory2_FK != String.Empty ?
+												String.Format("{0} = '{1}',", "accessory2_fk", Enemy.Accessory2_FK) :
+												String.Format("{0} = '{1}',", "accessory2_fk", "")) +
+
 											String.Format("{0} = {1},", "exp", Enemy.EXP) +
 											String.Format("{0} = {1} ", "rarity", Enemy.Rarity) +
 

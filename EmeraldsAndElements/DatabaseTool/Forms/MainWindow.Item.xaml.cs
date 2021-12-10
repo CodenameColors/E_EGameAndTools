@@ -214,7 +214,7 @@ namespace Forms.DatabaseTool
 		private void AddItemToDatabase_BTN_Click(object sender, RoutedEventArgs e)
 		{
 			//first up checking for validity.
-			if (ItemName_Add_TB.Text.Length > 0 && int.TryParse(ItemInflictingVal_Add_TB.Text, out int inflictval) &&
+			if (ItemName_Add_TB.Text.Length > 0 &&
 					ItemWeaponType_Add_CB.SelectedIndex >= 0 && ItemRarity_Add_CB.SelectedIndex >= 0 &&
 					int.TryParse(ItemAoEWidth_Add_TB.Text, out int AoE_W_Val) && int.TryParse(ItemAoEHeight_Add_TB.Text, out int AoE_H_Val)) //  1.0.0.2v
 			{
@@ -361,7 +361,8 @@ namespace Forms.DatabaseTool
 		/// Updated this method to include the function pointer name string variable -AM 9/4/2020 1.0.0.3v
 		private void UpdateItemInDatabase_BTN_Click(object sender, RoutedEventArgs e)
 		{
-			if (int.TryParse(ItemInflictingVal_Edit_TB.Text, out int inflictval) &&
+
+			if (
 					int.TryParse(ItemAoEWidth_Edit_TB.Text, out int AoE_W_Val) && //1.0.0.2v
 					int.TryParse(ItemAoEHeight_Edit_TB.Text, out int AoE_H_Val)) //1.0.0.2v
 			{

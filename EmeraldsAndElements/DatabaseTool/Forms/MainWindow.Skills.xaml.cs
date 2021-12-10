@@ -36,6 +36,12 @@ namespace Forms.DatabaseTool
 			PartymemberSkills_Add_CB.ItemsSource = null;
 			PartymemberSkills_Edit_CB.ItemsSource = null;
 
+			AccessoryEquipSkills_Add_CB.ItemsSource = null;
+			AccessoryEquipSkills_Edit_CB.ItemsSource = null;
+			
+			ClothesEquipSkills_Add_CB.ItemsSource = null;
+			ClothesEquipSkills_Edit_CB.ItemsSource = null;
+
 			EnemySkills_Add_CB.ItemsSource = null;
 			EnemySkills_Edit_CB.ItemsSource = null;
 
@@ -67,6 +73,10 @@ namespace Forms.DatabaseTool
 				PartymemberSkills_Edit_CB.ItemsSource = CurrentSkillsInDatabase;
 				EnemySkills_Add_CB.ItemsSource = CurrentSkillsInDatabase;
 				EnemySkills_Edit_CB.ItemsSource = CurrentSkillsInDatabase;
+				AccessoryEquipSkills_Add_CB.ItemsSource = CurrentSkillsInDatabase;
+				AccessoryEquipSkills_Edit_CB.ItemsSource = CurrentSkillsInDatabase;
+				ClothesEquipSkills_Add_CB.ItemsSource = CurrentSkillsInDatabase;
+				ClothesEquipSkills_Edit_CB.ItemsSource = CurrentSkillsInDatabase;
 			}
 		}
 

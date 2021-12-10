@@ -69,6 +69,20 @@ namespace Forms.DatabaseTool
 			SkillLinkedModifier_Add_CB.ItemsSource = null;
 			SkillLinkedModifier_Edit_CB.ItemsSource = null;
 
+			AccessoryEquipEffects_Add_CB.ItemsSource = null;
+			AccessoryEquipTraits_Add_CB.ItemsSource = null;
+
+			AccessoryEquipEffects_Edit_CB.ItemsSource = null;
+			AccessoryEquipTraits_Edit_CB.ItemsSource = null;
+
+
+			ClothesEquipEffects_Add_CB.ItemsSource = null;
+			ClothesEquipTraits_Add_CB.ItemsSource = null;
+
+			ClothesEquipEffects_Edit_CB.ItemsSource = null;
+			ClothesEquipTraits_Edit_CB.ItemsSource = null;
+
+
 			RecipeFireReward_Add_CB.ItemsSource = null;
 			RecipeIceReward_Add_CB.ItemsSource = null;
 			RecipeEarthReward_Add_CB.ItemsSource = null;
@@ -129,6 +143,18 @@ namespace Forms.DatabaseTool
 
 				SkillLinkedModifier_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
 				SkillLinkedModifier_Edit_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
+
+				AccessoryEquipEffects_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase_Effects;
+				AccessoryEquipTraits_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase_Traits;
+
+				AccessoryEquipEffects_Edit_CB.ItemsSource = CurrenGameplayModifiersInDatabase_Effects;
+				AccessoryEquipTraits_Edit_CB.ItemsSource = CurrenGameplayModifiersInDatabase_Traits;
+
+				ClothesEquipEffects_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase_Effects;
+				ClothesEquipTraits_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase_Traits;
+
+				ClothesEquipEffects_Edit_CB.ItemsSource = CurrenGameplayModifiersInDatabase_Effects;
+				ClothesEquipTraits_Edit_CB.ItemsSource = CurrenGameplayModifiersInDatabase_Traits;
 
 				RecipeFireReward_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
 				RecipeIceReward_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase;

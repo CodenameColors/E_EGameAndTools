@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -50,8 +51,9 @@ namespace Forms.DatabaseTool
 		#region Properties
 
 
+		public ObservableCollection<FollowUpAttack> CurrentFollowUpAttacksInDatabase { get; set; }
 
-
+		
 		#endregion
 
 
@@ -68,6 +70,8 @@ namespace Forms.DatabaseTool
 			MainWindow_GameplayModifiers();
 			MainWindow_Items();
 			MainWindow_Weapons();
+			MainWindow_Accessories();
+			MainWindow_Clothes();
 			MainWindow_Recipes();
 
 			DataContext = this;
@@ -110,13 +114,33 @@ namespace Forms.DatabaseTool
 				EnemyWeaponStrength_Add_IC.Items.Add(val);
 				EnemyWeaponWeakness_Edit_IC.Items.Add(val);
 				EnemyWeaponStrength_Edit_IC.Items.Add(val);
+
+				ItemsWeaponWeakness_Add_IC.Items.Add(val);
+				ItemsWeaponStrength_Add_IC.Items.Add(val);
+				ItemsWeaponWeakness_Edit_IC.Items.Add(val);
+				ItemsWeaponStrength_Edit_IC.Items.Add(val);
+
+				AccessoriesWeakness_Add_IC.Items.Add(val);
+				AccessoriesWeaponStrength_Add_IC.Items.Add(val);
+				AccessoriesWeakness_Edit_IC.Items.Add(val);
+				AccessoriesWeaponStrength_Edit_IC.Items.Add(val);
+
+				ClothesWeakness_Add_IC.Items.Add(val);
+				ClothesWeaponStrength_Add_IC.Items.Add(val);
+				ClothesWeakness_Edit_IC.Items.Add(val);
+				ClothesWeaponStrength_Edit_IC.Items.Add(val);
+
+				WeaponsWeakness_Edit_IC.Items.Add(val);
+				WeaponsWeaponStrength_Edit_IC.Items.Add(val);
+				WeaponsWeakness_Add_IC.Items.Add(val);
+				WeaponsWeaponStrength_Add_IC.Items.Add(val);
 			}
 		}
 
 		#endregion
 
 		#region Load/Add Magic Types
-		private void LoadMagicTypesItemControls()	
+		private void LoadMagicTypesItemControls()
 		{
 			foreach (EMagicType val in Enum.GetValues(typeof(EMagicType)))
 			{
@@ -139,14 +163,41 @@ namespace Forms.DatabaseTool
 				EnemyMagicStrength_Add_IC.Items.Add(val);
 				EnemyMagicWeakness_Edit_IC.Items.Add(val);
 				EnemyMagicStrength_Edit_IC.Items.Add(val);
+
+
+				ItemsMagicWeakness_Add_IC.Items.Add(val);
+				ItemsMagicStrength_Add_IC.Items.Add(val);
+				ItemsMagicWeakness_Edit_IC.Items.Add(val);
+				ItemsMagicStrength_Edit_IC.Items.Add(val);
+
+				AccessoryMagicTypesEquip_Add_IC.Items.Add(val);
+				AccessoryMagicTypesEquip_Edit_IC.Items.Add(val);
+
+				AccessoriesMagicWeakness_Add_IC.Items.Add(val);
+				AccessoriesMagicStrength_Add_IC.Items.Add(val);
+				AccessoriesMagicWeakness_Edit_IC.Items.Add(val);
+				AccessoriesMagicStrength_Edit_IC.Items.Add(val);
+
+				ClothesMagicTypesEquip_Add_IC.Items.Add(val);
+				ClothesMagicTypesEquip_Edit_IC.Items.Add(val);
+
+				ClothesMagicWeakness_Add_IC.Items.Add(val);
+				ClothesMagicStrength_Add_IC.Items.Add(val);
+				ClothesMagicWeakness_Edit_IC.Items.Add(val);
+				ClothesMagicStrength_Edit_IC.Items.Add(val);
+
+				WeaponsMagicWeakness_Edit_IC.Items.Add(val);
+				WeaponsMagicStrength_Edit_IC.Items.Add(val);
+				WeaponsMagicWeakness_Add_IC.Items.Add(val);
+				WeaponsMagicStrength_Add_IC.Items.Add(val);
 			}
 		}
 		#endregion
 
-		
-		
 
-	
+
+
+
 
 		private void ChangeGridToAdd(object sender, RoutedEventArgs e)
 		{
@@ -184,6 +235,14 @@ namespace Forms.DatabaseTool
 					case ("Items"):
 						Item_Edit_Grid.Visibility = Visibility.Hidden;
 						Item_Add_Grid.Visibility = Visibility.Visible;
+						break;
+					case ("Accessories"):
+						Accessory_Edit_Grid.Visibility = Visibility.Hidden;
+						Accessory_Add_Grid.Visibility = Visibility.Visible;
+						break;
+					case ("Clothes"):
+						Clothes_Edit_Grid.Visibility = Visibility.Hidden;
+						Clothes_Add_Grid.Visibility = Visibility.Visible;
 						break;
 					case ("Weapons"):
 						Weapons_Add_Grid.Visibility = Visibility.Visible;
@@ -236,6 +295,14 @@ namespace Forms.DatabaseTool
 					case ("Items"):
 						Item_Edit_Grid.Visibility = Visibility.Visible;
 						Item_Add_Grid.Visibility = Visibility.Hidden;
+						break;
+					case ("Accessories"):
+						Accessory_Edit_Grid.Visibility = Visibility.Visible;
+						Accessory_Add_Grid.Visibility = Visibility.Hidden;
+						break;
+					case ("Clothes"):
+						Clothes_Edit_Grid.Visibility = Visibility.Visible;
+						Clothes_Add_Grid.Visibility = Visibility.Hidden;
 						break;
 					case ("Weapons"):
 						Weapons_Add_Grid.Visibility = Visibility.Hidden;
@@ -300,6 +367,8 @@ namespace Forms.DatabaseTool
 			LoadSkillsFromDatabase();
 			LoadPartyMembersFromDatabase();
 			LoadEnemyFromDatabase();
+			LoadAccessoriesFromDatabase();
+			LoadClothesFromDatabase();
 
 		}
 
@@ -674,7 +743,182 @@ namespace Forms.DatabaseTool
 		}
 
 
-		
+
+		private void BrowseForFollowUpCSV_2_BTN_Click(object sender, RoutedEventArgs e)
+		{
+			Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog
+			{
+				Title = "Open Follow up Attack sheet",
+				FileName = "", //default file name
+				Filter = "comma seperated file (*.csv)|*.csv",
+				RestoreDirectory = true
+			};
+
+			Nullable<bool> result = dlg.ShowDialog();
+			// Process save file dialog box results
+			string filename = "";
+			if (result == true)
+			{
+				// Save document
+				filename = dlg.FileName;
+				filename = filename.Substring(0, filename.LastIndexOfAny(new Char[] { '/', '\\' }));
+			}
+			else return; //invalid name
+
+			Console.WriteLine(dlg.FileName);
+			FollowUpAttackCSV_2_TB.Text = dlg.FileName;
+
+			//FillFollowAttacks(dlg.FileName);
+		}
+
+		private void BrowseForFollowUpCSV_3_BTN_Click(object sender, RoutedEventArgs e)
+		{
+			Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog
+			{
+				Title = "Open Follow up Attack sheet",
+				FileName = "", //default file name
+				Filter = "comma seperated file (*.csv)|*.csv",
+				RestoreDirectory = true
+			};
+
+			Nullable<bool> result = dlg.ShowDialog();
+			// Process save file dialog box results
+			string filename = "";
+			if (result == true)
+			{
+				// Save document
+				filename = dlg.FileName;
+				filename = filename.Substring(0, filename.LastIndexOfAny(new Char[] { '/', '\\' }));
+			}
+			else return; //invalid name
+
+			Console.WriteLine(dlg.FileName);
+			FollowUpAttackCSV_3_TB.Text = dlg.FileName;
+
+			//FillFollowAttacks(dlg.FileName);
+		}
+
+		private void BrowseForFollowUpCSV_4_BTN_Click(object sender, RoutedEventArgs e)
+		{
+			Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog
+			{
+				Title = "Open Follow up Attack sheet",
+				FileName = "", //default file name
+				Filter = "comma seperated file (*.csv)|*.csv",
+				RestoreDirectory = true
+			};
+
+			Nullable<bool> result = dlg.ShowDialog();
+			// Process save file dialog box results
+			string filename = "";
+			if (result == true)
+			{
+				// Save document
+				filename = dlg.FileName;
+				filename = filename.Substring(0, filename.LastIndexOfAny(new Char[] { '/', '\\' }));
+			}
+			else return; //invalid name
+
+			Console.WriteLine(dlg.FileName);
+			FollowUpAttackCSV_4_TB.Text = dlg.FileName;
+
+			//FillFollowAttacks(dlg.FileName);
+		}
+
+		private void ClearFollowUps_BTN_Click(object sender, RoutedEventArgs e)
+		{
+			throw new NotImplementedException();
+		}
+
+		private void RunForFollowUpCSV_BTN_Click(object sender, RoutedEventArgs e)
+		{
+			if (SQLDatabasePath == null)
+			{
+				GlobalStatusLog_TB.Text = "Please connect to the database First!";
+				return;
+			}
+			if (CurrentFollowUpAttacksInDatabase.Count == 0)
+			{
+				FillFollowAttacks(FollowUpAttackCSV_2_TB.Text);
+				FillFollowAttacks(FollowUpAttackCSV_3_TB.Text);
+				FillFollowAttacks(FollowUpAttackCSV_4_TB.Text);
+
+				//Now that its on the screen we need to put it in the database.
+				String masterfile = (SQLDatabasePath);
+				_sqlite_conn = new SQLiteConnection(masterfile);
+				foreach (FollowUpAttack followUpatk in CurrentFollowUpAttacksInDatabase)
+				{
+					FollowUp_Attacks temp = new FollowUp_Attacks()
+					{
+						Job_1 = followUpatk.Job_1,
+						Job_2 = followUpatk.Job_2,
+						Job_3 = followUpatk.Job_3,
+						Job_4 = followUpatk.Job_4,
+					};
+					_sqlite_conn.Insert(temp);
+				}
+			}
+		}
+
+
+		private void FillFollowAttacks(String filepath)
+		{
+			FollowUpAttacks_LB.ItemsSource = null;
+
+			using (var reader = new StreamReader(filepath))
+			{
+				List<string> LineData = new List<string>();
+				while (!reader.EndOfStream)
+				{
+					String line = reader.ReadLine();
+					LineData = line.Split(',').ToList();
+
+					CurrentFollowUpAttacksInDatabase.Add(new FollowUpAttack()
+					{
+						Job_1 = LineData[0],
+						Job_2 = LineData[1],
+						Job_3 = LineData[2],
+						Job_4 = LineData[3],
+						Name = "NONE",
+						Function_PTR = "NONE",
+					});
+				}
+			}
+			FollowUpAttacks_LB.ItemsSource = CurrentFollowUpAttacksInDatabase;
+		}
+
+
+		private void EditFollowUpAttacksInDB_BTN_Click(object sender, RoutedEventArgs e)
+		{
+			GlobalStatusLog_TB.Text = "";
+			//Now that its on the screen we need to put it in the database.
+			String masterfile = (SQLDatabasePath);
+			_sqlite_conn = new SQLiteConnection(masterfile);
+			String Createsql = "";
+
+			try
+			{
+
+				foreach (FollowUpAttack fua in CurrentFollowUpAttacksInDatabase)
+				{
+					Createsql = "UPDATE `followup_attacks` " +
+											"SET " +
+											String.Format("{0} = '{1}',", "name", fua.Name) +
+											String.Format("{0} = '{1}' ", "function_ptr", fua.Function_PTR) +
+
+											String.Format("WHERE job_1='{0}' AND job_2='{1}' AND job_3='{2}' AND job_4='{3}';",
+												fua.Job_1, fua.Job_2, fua.Job_3, fua.Job_4);
+					_sqlite_conn.Query<FollowUp_Attacks>(Createsql);
+				}
+			}
+			catch (Exception ex)
+			{
+				GlobalStatusLog_TB.Text = "Error Occured when updating follow up attacks: " + ex.Message;
+			}
+		}
+
+
+
 	}
 
 
