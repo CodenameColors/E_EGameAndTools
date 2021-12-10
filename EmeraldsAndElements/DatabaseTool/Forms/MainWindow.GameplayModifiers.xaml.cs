@@ -69,6 +69,15 @@ namespace Forms.DatabaseTool
 			SkillLinkedModifier_Add_CB.ItemsSource = null;
 			SkillLinkedModifier_Edit_CB.ItemsSource = null;
 
+			RecipeFireReward_Add_CB.ItemsSource = null;
+			RecipeIceReward_Add_CB.ItemsSource = null;
+			RecipeEarthReward_Add_CB.ItemsSource = null;
+			RecipeWaterReward_Add_CB.ItemsSource = null;
+			RecipeLightningReward_Add_CB.ItemsSource = null;
+			RecipeExplosiveReward_Add_CB.ItemsSource = null;
+			RecipeShadowReward_Add_CB.ItemsSource = null;
+			RecipeLuminiousReward_Add_CB.ItemsSource = null;
+
 			String masterfile = (SQLDatabasePath);
 			_sqlite_conn = new SQLiteConnection(masterfile);
 			int rowid = 0;
@@ -121,6 +130,14 @@ namespace Forms.DatabaseTool
 				SkillLinkedModifier_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
 				SkillLinkedModifier_Edit_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
 
+				RecipeFireReward_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
+				RecipeIceReward_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
+				RecipeEarthReward_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
+				RecipeWaterReward_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
+				RecipeLightningReward_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
+				RecipeExplosiveReward_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
+				RecipeShadowReward_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
+				RecipeLuminiousReward_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
 			}
 
 

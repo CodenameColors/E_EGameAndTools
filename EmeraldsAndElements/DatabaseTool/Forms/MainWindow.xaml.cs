@@ -68,6 +68,10 @@ namespace Forms.DatabaseTool
 			MainWindow_GameplayModifiers();
 			MainWindow_Items();
 			MainWindow_Weapons();
+			MainWindow_Recipes();
+
+			DataContext = this;
+
 		}
 
 	
@@ -672,6 +676,7 @@ namespace Forms.DatabaseTool
 
 		
 	}
+
 
 	/// <summary>
 	/// This is here because in the past i would keep track of Lists of {equipables} for this database tool
