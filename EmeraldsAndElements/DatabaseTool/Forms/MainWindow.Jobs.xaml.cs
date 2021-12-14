@@ -50,7 +50,7 @@ namespace Forms.DatabaseTool
 			catch (Exception ex)
 			{
 				Console.WriteLine("Job Read from database FAILURE {0}:", ex.Message);
-				GlobalStatusLog_TB.Text = String.Format("Loading/Reading Database failed: {0}", ex.Message);
+				SetOutputLog(String.Format("Loading/Reading Database failed: {0}", ex.Message));
 			}
 			finally
 			{

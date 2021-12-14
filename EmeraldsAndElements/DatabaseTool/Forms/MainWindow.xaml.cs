@@ -134,6 +134,11 @@ namespace Forms.DatabaseTool
 				WeaponsWeaponStrength_Edit_IC.Items.Add(val);
 				WeaponsWeakness_Add_IC.Items.Add(val);
 				WeaponsWeaponStrength_Add_IC.Items.Add(val);
+
+				RecipesWeakness_Add_IC.Items.Add(val);
+				RecipesStrength_Add_IC.Items.Add(val);
+
+
 			}
 		}
 
@@ -190,6 +195,10 @@ namespace Forms.DatabaseTool
 				WeaponsMagicStrength_Edit_IC.Items.Add(val);
 				WeaponsMagicWeakness_Add_IC.Items.Add(val);
 				WeaponsMagicStrength_Add_IC.Items.Add(val);
+
+				RecipesMagicWeakness_Add_IC.Items.Add(val);
+				RecipesMagicStrength_Add_IC.Items.Add(val);
+
 			}
 		}
 		#endregion
@@ -370,9 +379,18 @@ namespace Forms.DatabaseTool
 			LoadAccessoriesFromDatabase();
 			LoadClothesFromDatabase();
 
+			SetOutputLog(String.Format("Successfully opened {0} database", dlg.FileName));
+
 		}
 
-		
+		/// <summary>
+		/// Sets the output logs message. AUTO TIMESTAMP
+		/// </summary>
+		/// <param name="s"></param>
+		private void SetOutputLog(String s)
+		{
+			GlobalStatusLog_TB.Text = ( String.Format("{0}: {1}", DateTime.Now.ToString(), s));
+		}
 
 		private void InsertRecordIntoModifierKeys(ItemsControl IC,  SQLiteConnection _sqLiteConnection, String fromTableName, String fromrecorodID)
 		{
@@ -834,7 +852,7 @@ namespace Forms.DatabaseTool
 		{
 			if (SQLDatabasePath == null)
 			{
-				GlobalStatusLog_TB.Text = "Please connect to the database First!";
+				SetOutputLog( "Please connect to the database First!");
 				return;
 			}
 			if (CurrentFollowUpAttacksInDatabase.Count == 0)
@@ -890,7 +908,7 @@ namespace Forms.DatabaseTool
 
 		private void EditFollowUpAttacksInDB_BTN_Click(object sender, RoutedEventArgs e)
 		{
-			GlobalStatusLog_TB.Text = "";
+			SetOutputLog(  "");
 			//Now that its on the screen we need to put it in the database.
 			String masterfile = (SQLDatabasePath);
 			_sqlite_conn = new SQLiteConnection(masterfile);
@@ -913,7 +931,7 @@ namespace Forms.DatabaseTool
 			}
 			catch (Exception ex)
 			{
-				GlobalStatusLog_TB.Text = "Error Occured when updating follow up attacks: " + ex.Message;
+				SetOutputLog("Error Occured when updating follow up attacks: " + ex.Message);
 			}
 		}
 
@@ -980,7 +998,7 @@ namespace Forms.DatabaseTool
 	//		catch (Exception ex)
 	//		{
 	//			Console.WriteLine("Job Read from database FAILURE {0}:", ex.Message);
-	//			GlobalStatusLog_TB.Text = String.Format("Loading/Reading Database failed: {0}", ex.Message);
+	//			SetOutputLog( = String.Format("Loading/Reading Database failed: {0}", ex.Message);
 	//		}
 	//		finally
 	//		{

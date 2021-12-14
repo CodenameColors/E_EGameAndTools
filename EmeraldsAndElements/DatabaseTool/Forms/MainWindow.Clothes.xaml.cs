@@ -113,7 +113,7 @@ namespace Forms.DatabaseTool
 			catch (Exception ex)
 			{
 				Console.WriteLine("clothes Read from database FAILURE {0}:", ex.Message);
-				GlobalStatusLog_TB.Text = String.Format("Loading/Reading [FROM enemy] Database failed: {0}", ex.Message);
+				SetOutputLog(String.Format("Loading/Reading [FROM enemy] Database failed: {0}", ex.Message));
 			}
 			finally
 			{
@@ -402,8 +402,7 @@ namespace Forms.DatabaseTool
 				catch (Exception ex)
 				{
 					Console.WriteLine("Weapons write from database [Clothes] FAILURE | {0}", ex.Message);
-					GlobalStatusLog_TB.Text =
-						String.Format("Loading/Writing Database [Clothes] failed: {0}", ex.Message);
+					SetOutputLog(String.Format("Loading/Writing Database [Clothes] failed: {0}", ex.Message));
 				}
 				finally
 				{
@@ -709,7 +708,7 @@ namespace Forms.DatabaseTool
 				catch (Exception ex)
 				{
 					Console.WriteLine("clothes Read from database FAILURE {0}:", ex.Message);
-					GlobalStatusLog_TB.Text = String.Format("Loading/Reading Database [clothes] failed: {0}", ex.Message);
+					SetOutputLog(String.Format("Loading/Reading Database [clothes] failed: {0}", ex.Message));
 				}
 				finally
 				{

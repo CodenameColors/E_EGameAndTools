@@ -49,7 +49,7 @@ namespace Forms.DatabaseTool
 			catch (Exception ex)
 			{
 				Console.WriteLine("Skills Read from database FAILURE {0}:", ex.Message);
-				GlobalStatusLog_TB.Text = String.Format("Loading/Reading [FROM Party Member] Database failed: {0}", ex.Message);
+				SetOutputLog(String.Format("Loading/Reading [FROM Party Member] Database failed: {0}", ex.Message));
 			}
 			finally
 			{
@@ -376,8 +376,7 @@ namespace Forms.DatabaseTool
 				catch (Exception ex)
 				{
 					Console.WriteLine("Weapons write from database [items] FAILURE | {0}", ex.Message);
-					GlobalStatusLog_TB.Text =
-						String.Format("Loading/Writing Database [items] failed: {0}", ex.Message);
+					SetOutputLog(String.Format("Loading/Writing Database [items] failed: {0}", ex.Message));
 				}
 				finally
 				{
@@ -523,8 +522,7 @@ namespace Forms.DatabaseTool
 				catch (Exception ex)
 				{
 					Console.WriteLine("Filling Party member Data  FAILURE | {0}", ex.Message);
-					GlobalStatusLog_TB.Text =
-						String.Format("Loading/Writing Database [Filling Party member Data ] failed: {0}", ex.Message);
+					SetOutputLog(String.Format("Loading/Writing Database [Filling Party member Data ] failed: {0}", ex.Message));
 				}
 				finally
 				{
@@ -742,7 +740,7 @@ namespace Forms.DatabaseTool
 				catch (Exception ex)
 				{
 					Console.WriteLine("Gameplay modifier Read from database FAILURE {0}:", ex.Message);
-					GlobalStatusLog_TB.Text = String.Format("Loading/Reading Database [Party Member] failed: {0}", ex.Message);
+					SetOutputLog(String.Format("Loading/Reading Database [Party Member] failed: {0}", ex.Message));
 				}
 				finally
 

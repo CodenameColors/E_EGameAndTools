@@ -121,7 +121,7 @@ namespace Forms.DatabaseTool
 			catch (Exception ex)
 			{
 				Console.WriteLine("Gameplay modifier Read from database FAILURE {0}:", ex.Message);
-				GlobalStatusLog_TB.Text = String.Format("Loading/Reading Database [gameplay modifier] failed: {0}", ex.Message);
+				SetOutputLog(String.Format("Loading/Reading Database [gameplay modifier] failed: {0}", ex.Message));
 			}
 			finally
 			{
@@ -256,13 +256,13 @@ namespace Forms.DatabaseTool
 
 					_sqlite_conn.Query<object>(Createsql);
 
-					GlobalStatusLog_TB.Text = String.Format("Insert into Gameplay Modifiers database SUCCESS!!:");
+					SetOutputLog(String.Format("Insert into Gameplay Modifiers database SUCCESS!!:"));
 
 				}
 				catch (Exception ex)
 				{
 					Console.WriteLine("Insert into Gameplay Modifiers database FAILURE {0}:", ex.Message);
-					GlobalStatusLog_TB.Text = String.Format("Insert into Gameplay Modifiers database FAILURE {0}:", ex.Message);
+					SetOutputLog(String.Format("Insert into Gameplay Modifiers database FAILURE {0}:", ex.Message));
 				}
 				finally
 				{
@@ -498,7 +498,7 @@ namespace Forms.DatabaseTool
 			catch (Exception ex)
 			{
 				Console.WriteLine("Gameplay modifier Read from database FAILURE {0}:", ex.Message);
-				GlobalStatusLog_TB.Text = String.Format("Loading/Reading Database [gameplay modifier] failed: {0}", ex.Message);
+				SetOutputLog(String.Format("Loading/Reading Database [gameplay modifier] failed: {0}", ex.Message));
 			}
 			finally
 			{

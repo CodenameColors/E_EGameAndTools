@@ -64,7 +64,7 @@ namespace Forms.DatabaseTool
 			catch (Exception ex)
 			{
 				Console.WriteLine("Skills Read from database FAILURE {0}:", ex.Message);
-				GlobalStatusLog_TB.Text = String.Format("Loading/Reading [FROM Skills] Database failed: {0}", ex.Message);
+				SetOutputLog(String.Format("Loading/Reading [FROM Skills] Database failed: {0}", ex.Message));
 			}
 			finally
 			{
@@ -206,12 +206,12 @@ namespace Forms.DatabaseTool
 											String.Format("WHERE name='{0}'", skilldata.Name);
 					_sqlite_conn.Query<Skills>(Createsql);
 
-					GlobalStatusLog_TB.Text = "Successfully Added to the Skills Table";
+					SetOutputLog("Successfully Added to the Skills Table");
 				}
 				catch (Exception ex)
 				{
 					Console.WriteLine("Gameplay modifier Read from database FAILURE {0}:", ex.Message);
-					GlobalStatusLog_TB.Text = String.Format("Loading/Reading Database [skills] failed: {0}", ex.Message);
+					SetOutputLog(String.Format("Loading/Reading Database [skills] failed: {0}", ex.Message));
 				}
 				finally
 
@@ -312,8 +312,7 @@ namespace Forms.DatabaseTool
 				catch (Exception ex)
 				{
 					Console.WriteLine("Weapons write from database [Skills] FAILURE | {0}", ex.Message);
-					GlobalStatusLog_TB.Text =
-						String.Format("Loading/Writing Database [Skills] failed: {0}", ex.Message);
+					SetOutputLog(String.Format("Loading/Writing Database [Skills] failed: {0}", ex.Message));
 				}
 				finally
 				{

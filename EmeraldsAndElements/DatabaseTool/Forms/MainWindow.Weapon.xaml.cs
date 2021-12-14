@@ -86,7 +86,7 @@ namespace Forms.DatabaseTool
 			catch (Exception ex)
 			{
 				Console.WriteLine("Weapons Read from database FAILURE {0}:", ex.Message);
-				GlobalStatusLog_TB.Text = String.Format("Loading/Reading [FROM WEAPONS] Database failed: {0}", ex.Message);
+				SetOutputLog(String.Format("Loading/Reading [FROM WEAPONS] Database failed: {0}", ex.Message));
 			}
 			finally
 			{
@@ -245,8 +245,7 @@ namespace Forms.DatabaseTool
 				catch (Exception ex)
 				{
 					Console.WriteLine("Weapons write from database FAILURE | {0}", ex.Message);
-					GlobalStatusLog_TB.Text =
-						String.Format("Loading/Writing Database [weapons] failed: {0}", ex.Message);
+					SetOutputLog(String.Format("Loading/Writing Database [weapons] failed: {0}", ex.Message));
 				}
 				finally
 				{
@@ -459,7 +458,7 @@ namespace Forms.DatabaseTool
 				catch (Exception ex)
 				{
 					Console.WriteLine("Gameplay modifier Read from database FAILURE {0}:", ex.Message);
-					GlobalStatusLog_TB.Text = String.Format("Loading/Reading Database [gameplay modifier] failed: {0}", ex.Message);
+					SetOutputLog( String.Format("Loading/Reading Database [gameplay modifier] failed: {0}", ex.Message));
 				}
 				finally
 				{
