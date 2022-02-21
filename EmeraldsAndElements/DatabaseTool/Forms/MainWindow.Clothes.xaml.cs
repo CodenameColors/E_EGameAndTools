@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 using BixBite.Combat;
 using BixBite.Combat.Equipables;
@@ -42,6 +43,8 @@ namespace Forms.DatabaseTool
 			enemyClothes_Body_Edit_CB.ItemsSource = null;
 			enemyClothes_Legs_Edit_CB.ItemsSource = null;
 
+			(RecipeIngredientEquipable_Add_CB.ItemsSource as CompositeCollection).Clear();
+
 			CurrentClothesInDatabase.Clear();
 			CurrentClothesInDatabase_Head.Clear();
 			CurrentClothesInDatabase_Body.Clear();
@@ -69,7 +72,7 @@ namespace Forms.DatabaseTool
 					IEnumerable<Modifier_Keys> varlist_mod = _sqlite_conn.Query<Modifier_Keys>(Createsql);
 					foreach (Modifier_Keys mod_key in varlist_mod)
 					{
-						ModifierData moddata = CurrenGameplayModifiersInDatabase.Single(x => x.Id == mod_key.Modifier_ID);
+						ModifierData moddata = CurrentGameplayModifiersInDatabase.Single(x => x.Id == mod_key.Modifier_ID);
 						if (moddata == null) continue;
 						if (moddata.bEffect)
 							clothes.Effects.Add(moddata);
@@ -126,6 +129,9 @@ namespace Forms.DatabaseTool
 				enemyClothes_Body_Edit_CB.ItemsSource = CurrentClothesInDatabase_Body;
 				enemyClothes_Legs_Edit_CB.ItemsSource = CurrentClothesInDatabase_Legs;
 
+				(RecipeIngredientEquipable_Add_CB.ItemsSource as CompositeCollection).Add(new CollectionContainer(){Collection = CurrentClothesInDatabase });
+				(RecipeIngredientEquipable_Edit_CB.ItemsSource as CompositeCollection).Add(new CollectionContainer(){Collection = CurrentClothesInDatabase });
+
 			}
 		}
 
@@ -138,7 +144,7 @@ namespace Forms.DatabaseTool
 				if (ClothesEffectEquip_Add_IC.Items.Count >= 2) return;
 				else
 				{
-					string effectname = CurrenGameplayModifiersInDatabase_Effects[ClothesEquipEffects_Add_CB.SelectedIndex].Id;
+					string effectname = CurrentGameplayModifiersInDatabase_Effects[ClothesEquipEffects_Add_CB.SelectedIndex].Id;
 					if (!ClothesEffectEquip_Add_IC.Items.Contains(effectname))
 					{
 						ClothesEffectEquip_Add_IC.Items.Add(
@@ -158,7 +164,7 @@ namespace Forms.DatabaseTool
 				if (ClothesTraitsEquip_Add_IC.Items.Count >= 2) return;
 				else
 				{
-					string effectname = CurrenGameplayModifiersInDatabase_Traits[ClothesEquipTraits_Add_CB.SelectedIndex].Id;
+					string effectname = CurrentGameplayModifiersInDatabase_Traits[ClothesEquipTraits_Add_CB.SelectedIndex].Id;
 					if (!ClothesTraitsEquip_Add_IC.Items.Contains(effectname))
 					{
 						ClothesTraitsEquip_Add_IC.Items.Add(
@@ -407,7 +413,7 @@ namespace Forms.DatabaseTool
 				finally
 				{
 					//EditJobsDB_LB.ItemsSource = CurrentJobsInDatabase;
-					//GameplayModifierName_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
+					//GameplayModifierName_CB.ItemsSource = CurrentGameplayModifiersInDatabase;
 					//GameplayModifierName_CB.SelectedIndex = absindex;
 				}
 			}
@@ -422,12 +428,12 @@ namespace Forms.DatabaseTool
 				if (ClothesEffectEquip_Edit_IC.Items.Count >= 2) return;
 				else
 				{
-					string effectname = CurrenGameplayModifiersInDatabase_Effects[ClothesEquipEffects_Edit_CB.SelectedIndex].Id;
+					string effectname = CurrentGameplayModifiersInDatabase_Effects[ClothesEquipEffects_Edit_CB.SelectedIndex].Id;
 					if (!ClothesEffectEquip_Edit_IC.Items.Contains(effectname))
 					{
 						ClothesEffectEquip_Edit_IC.Items.Add(effectname);
 						CurrentClothesInDatabase[ClothesName_Edit_CB.SelectedIndex].Effects.Add(
-							CurrenGameplayModifiersInDatabase_Effects[ClothesEquipEffects_Edit_CB.SelectedIndex]);
+							CurrentGameplayModifiersInDatabase_Effects[ClothesEquipEffects_Edit_CB.SelectedIndex]);
 
 						ClothesEffectEquip_Edit_IC.UpdateLayout();
 					}
@@ -462,12 +468,12 @@ namespace Forms.DatabaseTool
 				if (ClothesTraitsEquip_Edit_IC.Items.Count >= 2) return;
 				else
 				{
-					string effectname = CurrenGameplayModifiersInDatabase_Traits[ClothesEquipTraits_Edit_CB.SelectedIndex].Id;
+					string effectname = CurrentGameplayModifiersInDatabase_Traits[ClothesEquipTraits_Edit_CB.SelectedIndex].Id;
 					if (!ClothesTraitsEquip_Edit_IC.Items.Contains(effectname))
 					{
 						ClothesTraitsEquip_Edit_IC.Items.Add(effectname);
 						CurrentClothesInDatabase[ClothesName_Edit_CB.SelectedIndex].Traits.Add(
-							CurrenGameplayModifiersInDatabase_Traits[ClothesEquipTraits_Edit_CB.SelectedIndex]);
+							CurrentGameplayModifiersInDatabase_Traits[ClothesEquipTraits_Edit_CB.SelectedIndex]);
 						ClothesTraitsEquip_Edit_IC.UpdateLayout();
 					}
 				}
@@ -713,7 +719,7 @@ namespace Forms.DatabaseTool
 				finally
 				{
 					//EditJobsDB_LB.ItemsSource = CurrentJobsInDatabase;
-					//GameplayModifierName_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
+					//GameplayModifierName_CB.ItemsSource = CurrentGameplayModifiersInDatabase;
 					//GameplayModifierName_CB.SelectedIndex = absindex;
 				}
 			}
@@ -816,8 +822,6 @@ namespace Forms.DatabaseTool
 			#endregion
 
 		}
-
-
 
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -10,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using BixBite.Characters;
 using BixBite.Combat;
+using BixBite.Crafting;
 using BixBite.Items;
 using SQLite;
 
@@ -32,8 +34,19 @@ namespace Forms.DatabaseTool
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
-	public partial class MainWindow : Window
+	public partial class MainWindow : Window , INotifyPropertyChanged
 	{
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		public void OnPropertyChanged(string name)
+		{
+			PropertyChangedEventHandler handler = PropertyChanged;
+			if (handler != null)
+			{
+				handler(this, new PropertyChangedEventArgs(name));
+			}
+		}
 
 		#region Delegates
 
@@ -85,6 +98,7 @@ namespace Forms.DatabaseTool
 			LoadAddGameplayModifiersGrids();
 			LoadMagicTypesItemControls();
 			LoadWeaponTypesItemsControl();
+			LoadCreationTypeItemsControl();
 			LoadItemGrid();
 		}
 
@@ -137,12 +151,15 @@ namespace Forms.DatabaseTool
 
 				RecipesWeakness_Add_IC.Items.Add(val);
 				RecipesStrength_Add_IC.Items.Add(val);
+				RecipesWeakness_Edit_IC.Items.Add(val);
+				RecipesStrength_Edit_IC.Items.Add(val);
 
 
 			}
 		}
 
 		#endregion
+
 
 		#region Load/Add Magic Types
 		private void LoadMagicTypesItemControls()
@@ -198,11 +215,31 @@ namespace Forms.DatabaseTool
 
 				RecipesMagicWeakness_Add_IC.Items.Add(val);
 				RecipesMagicStrength_Add_IC.Items.Add(val);
+				RecipesMagicWeakness_Edit_IC.Items.Add(val);
+				RecipesMagicStrength_Edit_IC.Items.Add(val);
 
 			}
 		}
 		#endregion
 
+		#region Creation Type
+
+		private void LoadCreationTypeItemsControl()
+		{
+			foreach (ECreationTypes val in Enum.GetValues(typeof(ECreationTypes)))
+			{
+				if (val == 0) continue;
+				RecipesCreationType_Add_IC.Items.Add(val);
+				RecipesCreationType_Edit_IC.Items.Add(val);
+			}
+		}
+
+		private void AddRecipeCreationType_CB_OnClick(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		#endregion
 
 
 
@@ -215,6 +252,10 @@ namespace Forms.DatabaseTool
 			{
 				switch (CurTabItem.Header)
 				{
+					case ("FollowUpAttacks"):
+						AddGrid_FollowupAttacks.Visibility = Visibility.Visible;
+						EditGrid_FollowupAttacks.Visibility = Visibility.Hidden;
+						break;
 					case ("Jobs"):
 						AddGrid_Jobs.Visibility = Visibility.Visible;
 						EditGrid_Jobs.Visibility = Visibility.Hidden;
@@ -275,6 +316,10 @@ namespace Forms.DatabaseTool
 			{
 				switch (CurTabItem.Header)
 				{
+					case ("FollowUpAttacks"):
+						AddGrid_FollowupAttacks.Visibility = Visibility.Hidden;
+						EditGrid_FollowupAttacks.Visibility = Visibility.Visible;
+						break;
 					case ("Jobs"):
 						AddGrid_Jobs.Visibility = Visibility.Hidden;
 						EditGrid_Jobs.Visibility = Visibility.Visible;
@@ -322,7 +367,7 @@ namespace Forms.DatabaseTool
 						Edit_Recipe_Grid.Visibility = Visibility.Visible;
 						break;
 					default:
-						throw new NoNullAllowedException();
+						//throw new NoNullAllowedException();
 						break;
 				}
 			}
@@ -378,6 +423,7 @@ namespace Forms.DatabaseTool
 			LoadEnemyFromDatabase();
 			LoadAccessoriesFromDatabase();
 			LoadClothesFromDatabase();
+			LoadRecipeFromDatabase();
 
 			SetOutputLog(String.Format("Successfully opened {0} database", dlg.FileName));
 
@@ -544,7 +590,6 @@ namespace Forms.DatabaseTool
 				{
 					(vv as CheckBox).IsChecked = false;
 				}
-
 				i++;
 			}
 		}
@@ -935,6 +980,8 @@ namespace Forms.DatabaseTool
 			}
 		}
 
+
+	
 
 
 	}

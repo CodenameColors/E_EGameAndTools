@@ -59,7 +59,7 @@ namespace Forms.DatabaseTool
 					IEnumerable<Modifier_Keys> varlist_mod = _sqlite_conn.Query<Modifier_Keys>(Createsql);
 					foreach (Modifier_Keys mod_key in varlist_mod)
 					{
-						ModifierData moddata = CurrenGameplayModifiersInDatabase.Single(x => x.Id == mod_key.Modifier_ID);
+						ModifierData moddata = CurrentGameplayModifiersInDatabase.Single(x => x.Id == mod_key.Modifier_ID);
 						if (moddata == null) continue;
 						if (moddata.bEffect)
 							w.Effects.Add(moddata);
@@ -109,7 +109,7 @@ namespace Forms.DatabaseTool
 				if (WeaponEffectEquip_Add_IC.Items.Count >= 3) return;
 				else
 				{
-					string effectname = CurrenGameplayModifiersInDatabase_Effects[WeaponEffects_Add_CB.SelectedIndex].Id;
+					string effectname = CurrentGameplayModifiersInDatabase_Effects[WeaponEffects_Add_CB.SelectedIndex].Id;
 					if (!WeaponEffectEquip_Add_IC.Items.Contains(effectname))
 					{
 						WeaponEffectEquip_Add_IC.Items.Add(
@@ -129,12 +129,12 @@ namespace Forms.DatabaseTool
 				if (WeaponEffectEquip_Edit_IC.Items.Count >= 3) return;
 				else
 				{
-					string effectname = CurrenGameplayModifiersInDatabase_Effects[WeaponEffects_Edit_CB.SelectedIndex].Id;
+					string effectname = CurrentGameplayModifiersInDatabase_Effects[WeaponEffects_Edit_CB.SelectedIndex].Id;
 					if (!WeaponEffectEquip_Edit_IC.Items.Contains(effectname))
 					{
 						WeaponEffectEquip_Edit_IC.Items.Add(effectname);
 						CurrentWeaponsInDatabase[WeaponName_Edit_CB.SelectedIndex].Effects.Add(
-							CurrenGameplayModifiersInDatabase_Effects[WeaponEffects_Edit_CB.SelectedIndex]
+							CurrentGameplayModifiersInDatabase_Effects[WeaponEffects_Edit_CB.SelectedIndex]
 							);
 						WeaponEffectEquip_Edit_IC.UpdateLayout();
 					}
@@ -150,7 +150,7 @@ namespace Forms.DatabaseTool
 				if (WeaponTraitsEquip_Add_IC.Items.Count >= 3) return;
 				else
 				{
-					string traitname = CurrenGameplayModifiersInDatabase_Traits[WeaponTraits_Add_CB.SelectedIndex].Id;
+					string traitname = CurrentGameplayModifiersInDatabase_Traits[WeaponTraits_Add_CB.SelectedIndex].Id;
 					if (!WeaponTraitsEquip_Add_IC.Items.Contains(traitname))
 					{
 						WeaponTraitsEquip_Add_IC.Items.Add(
@@ -169,13 +169,13 @@ namespace Forms.DatabaseTool
 				if (WeaponTraitsEquip_Edit_IC.Items.Count >= 3) return;
 				else
 				{
-					string traitname = CurrenGameplayModifiersInDatabase_Traits[WeaponTraits_Edit_CB.SelectedIndex].Id;
+					string traitname = CurrentGameplayModifiersInDatabase_Traits[WeaponTraits_Edit_CB.SelectedIndex].Id;
 					if (!WeaponTraitsEquip_Edit_IC.Items.Contains(traitname))
 					{
 						WeaponTraitsEquip_Edit_IC.Items.Add(traitname);
 
 						CurrentWeaponsInDatabase[WeaponName_Edit_CB.SelectedIndex].Traits.Add(
-							CurrenGameplayModifiersInDatabase_Effects[WeaponTraits_Edit_CB.SelectedIndex]);
+							CurrentGameplayModifiersInDatabase_Effects[WeaponTraits_Edit_CB.SelectedIndex]);
 						WeaponTraitsEquip_Edit_IC.UpdateLayout();
 					}
 				}
@@ -188,7 +188,21 @@ namespace Forms.DatabaseTool
 			if (int.TryParse(WeapondDamage_Add_TB.Text, out int inflictval) &&
 					int.TryParse(WeapondWeight_Add_TB.Text, out int weightval) &&
 					WeaponType_Add_CB.SelectedIndex > 0 &&
-					WeaponRarity_Add_CB.SelectedIndex > 0
+					WeaponRarity_Add_CB.SelectedIndex > 0 &&
+
+					int.TryParse(WeaponsMaxHP_Add_TB.Text, out int maxHpResult) &&
+					int.TryParse(WeaponsMaxMP_Add_TB.Text, out int maxMPResult) &&
+
+					int.TryParse(WeaponsAtk_Add_TB.Text, out int atkResult) &&
+					int.TryParse(WeaponsDef_Add_TB.Text, out int defResult) &&
+					int.TryParse(WeaponsDex_Add_TB.Text, out int dexResult) &&
+					int.TryParse(WeaponsAgl_Add_TB.Text, out int aglResult) &&
+					int.TryParse(WeaponsMor_Add_TB.Text, out int morResult) &&
+					int.TryParse(WeaponsWis_Add_TB.Text, out int wisResult) &&
+					int.TryParse(WeaponsRes_Add_TB.Text, out int resResult) &&
+					int.TryParse(WeaponsLuc_Add_TB.Text, out int LucResult) &&
+					int.TryParse(WeaponsRsk_Add_TB.Text, out int RskResult) &&
+					int.TryParse(WeaponsItl_Add_TB.Text, out int itlResult)
 					)
 			{
 				String masterfile = (SQLDatabasePath);
@@ -197,6 +211,118 @@ namespace Forms.DatabaseTool
 				try
 				{
 					String Createsql = "";
+
+
+					#region Base_Stats
+
+					Createsql = "SELECT * FROM `base_stats`;";
+					List<Base_Stats> bsList = _sqlite_conn.Query<Base_Stats>(Createsql);
+					int newID_stat = (bsList.Count == 0 ? 0 : bsList.Max(x => x.ID));
+
+					//Set up the weapon object!
+					Base_Stats basestat = new Base_Stats()
+					{
+						ID = newID_stat + 1,
+						Max_Health = maxHpResult,
+						Max_Mana = maxMPResult,
+						Attack = atkResult,
+						Defense = defResult,
+						Dexterity = dexResult,
+						Agility = aglResult,
+						Morality = morResult,
+						Wisdom = wisResult,
+						Resistance = resResult,
+						Luck = LucResult,
+						Risk = RskResult,
+						Intelligence = itlResult
+					};
+					#endregion
+
+					_sqlite_conn.Insert(basestat);
+
+					#region Weakness and Strengths
+					weaknesses_strengths weakstrToAdd = new weaknesses_strengths();
+					int phyweak, phystr, magweak, magstr;
+
+					Createsql = "SELECT * FROM `weaknesses_strengths`;";
+					List<weaknesses_strengths> wsList = _sqlite_conn.Query<weaknesses_strengths>(Createsql);
+					int newID_weakstr = (wsList.Count == 0 ? 0 : wsList.Max(x => x.ID));
+					weakstrToAdd.ID = newID_weakstr + 1;
+					//GET THE MAGIC WEAKNESS ENUMERATED BITS
+					#region Magic Weakness
+					int i = 0;
+					magweak = 0;
+					foreach (int en in Enum.GetValues(typeof(EMagicType)))
+					{
+						if (en == 0) continue;
+						ContentPresenter c = ((ContentPresenter)WeaponsMagicWeakness_Add_IC.ItemContainerGenerator.ContainerFromIndex(i));
+						var vv = c.ContentTemplate.FindName("AddWeaponsMagWeak_CB", c);
+
+						if ((bool)(vv as CheckBox).IsChecked)
+						{
+							magweak += (int)Math.Pow(2, i);
+						}
+						i++;
+					}
+					weakstrToAdd.magic_weaknesses = magweak;
+					#endregion
+
+					#region physical weakness
+					i = 0;
+					phyweak = 0;
+					foreach (int en in Enum.GetValues(typeof(EWeaponType)))
+					{
+						if (en == 0) continue;
+						ContentPresenter c = ((ContentPresenter)WeaponsWeakness_Add_IC.ItemContainerGenerator.ContainerFromIndex(i));
+						var vv = c.ContentTemplate.FindName("AddWeaponsWeak_CB", c);
+
+						if ((bool)(vv as CheckBox).IsChecked)
+						{
+							phyweak += (int)Math.Pow(2, i);
+						}
+						i++;
+					}
+					weakstrToAdd.physical_weaknesses = phyweak;
+					#endregion
+
+					#region magic strength
+					i = 0;
+					magstr = 0;
+					foreach (int en in Enum.GetValues(typeof(EMagicType)))
+					{
+						if (en == 0) continue;
+						ContentPresenter c = ((ContentPresenter)WeaponsMagicStrength_Add_IC.ItemContainerGenerator.ContainerFromIndex(i));
+						var vv = c.ContentTemplate.FindName("AddWeaponsMagicStrength_CB", c);
+
+						if ((bool)(vv as CheckBox).IsChecked)
+						{
+							magstr += (int)Math.Pow(2, i);
+						}
+						i++;
+					}
+					weakstrToAdd.magic_strengths = magstr;
+					#endregion
+
+					#region physical strength
+					i = 0;
+					phystr = 0;
+					foreach (int en in Enum.GetValues(typeof(EWeaponType)))
+					{
+						if (en == 0) continue;
+						ContentPresenter c = ((ContentPresenter)WeaponsWeaponStrength_Add_IC.ItemContainerGenerator.ContainerFromIndex(i));
+						var vv = c.ContentTemplate.FindName("AddWeaponsWeaknessStrength_CB", c);
+
+						if ((bool)(vv as CheckBox).IsChecked)
+						{
+							phystr += (int)Math.Pow(2, i);
+						}
+						i++;
+					}
+					weakstrToAdd.physical_strengths = phystr;
+					#endregion
+
+					#endregion
+					_sqlite_conn.Insert(weakstrToAdd);
 
 					//Set up the weapon object!
 					Weapons weapon = new Weapons()
@@ -211,7 +337,7 @@ namespace Forms.DatabaseTool
 
 					//GET THE MAGIC TYPE ENUMERATED BITS
 					#region Magic types
-					int i = 0;
+					i = 0;
 					int magictypesval = 0;
 					foreach (int en in Enum.GetValues(typeof(EMagicType)))
 					{
@@ -250,7 +376,7 @@ namespace Forms.DatabaseTool
 				finally
 				{
 					//EditJobsDB_LB.ItemsSource = CurrentJobsInDatabase;
-					//GameplayModifierName_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
+					//GameplayModifierName_CB.ItemsSource = CurrentGameplayModifiersInDatabase;
 					//GameplayModifierName_CB.SelectedIndex = absindex;
 				}
 			}
@@ -279,6 +405,77 @@ namespace Forms.DatabaseTool
 				WeaponRarity_Edit_CB.SelectedIndex = tempWeapon.Rarity;
 				//TODO: Add the weapon weakness after we make this table work
 				// WeaponWeakStrength_Edit_CB.SelectedItem =
+
+				#region Base Stats
+				String Createsql = "SELECT * FROM `base_stats`;";
+				List<Base_Stats> bsList = _sqlite_conn.Query<Base_Stats>(Createsql);
+
+				Base_Stats baseStats = bsList.Single(x => x.ID == tempWeapon.Stats_FK);
+				tempWeapon.Stats = baseStats;
+				#endregion
+				#region Weaknesses and strengths
+				Createsql = "SELECT * FROM `weaknesses_strengths`;";
+				List<weaknesses_strengths> wsList = _sqlite_conn.Query<weaknesses_strengths>(Createsql);
+
+				weaknesses_strengths wsData = wsList.Single(x => x.ID == tempWeapon.Weakness_Strength_FK);
+				tempWeapon.WeaknessAndStrengths = wsData;
+				#endregion
+
+				#region Stats
+				WeaponsMaxHP_Edit_TB.Text = tempWeapon.Stats.Max_Health.ToString();
+				WeaponsMaxMP_Edit_TB.Text = tempWeapon.Stats.Max_Mana.ToString();
+
+
+				WeaponsAtk_Edit_TB.Text = tempWeapon.Stats.Attack.ToString();
+				WeaponsDef_Edit_TB.Text = tempWeapon.Stats.Defense.ToString();
+				WeaponsDex_Edit_TB.Text = tempWeapon.Stats.Dexterity.ToString();
+				WeaponsAgl_Edit_TB.Text = tempWeapon.Stats.Agility.ToString();
+				WeaponsMor_Edit_TB.Text = tempWeapon.Stats.Morality.ToString();
+
+				WeaponsWis_Edit_TB.Text = tempWeapon.Stats.Wisdom.ToString();
+				WeaponsRes_Edit_TB.Text = tempWeapon.Stats.Resistance.ToString();
+				WeaponsLuc_Edit_TB.Text = tempWeapon.Stats.Luck.ToString();
+				WeaponsRsk_Edit_TB.Text = tempWeapon.Stats.Risk.ToString();
+				WeaponsItl_Edit_TB.Text = tempWeapon.Stats.Intelligence.ToString();
+				#endregion
+
+				//Check boxes time!
+				#region Weaknesses and strengths
+
+				#region Elemental "Binding"
+				//reset
+				SetItemControlCheckboxData(WeaponsMagicWeakness_Edit_IC, null, EMagicType.NONE, "AddWeaponsMagWeak_CB", true);
+				SetItemControlCheckboxData(WeaponsMagicWeakness_Edit_IC, tempWeapon.WeaknessAndStrengths.magic_weaknesses, EMagicType.NONE, "AddWeaponsMagWeak_CB", false);
+
+				SetItemControlCheckboxData(WeaponsMagicStrength_Edit_IC, null, EMagicType.NONE, "AddWeaponsMagicStrength_CB", true);
+				SetItemControlCheckboxData(WeaponsMagicStrength_Edit_IC, tempWeapon.WeaknessAndStrengths.magic_strengths, EMagicType.NONE, "AddWeaponsMagicStrength_CB", false);
+				WeaponsMagicWeakness_Edit_IC.UpdateLayout();
+				WeaponsMagicStrength_Edit_IC.UpdateLayout();
+				#endregion
+
+				#region Weakness & Strengths "Binding"
+				//reset
+				SetItemControlCheckboxData(WeaponsWeakness_Edit_IC, null, EMagicType.NONE, "AddWeaponsWeak_CB", true);
+				SetItemControlCheckboxData(WeaponsWeakness_Edit_IC, tempWeapon.WeaknessAndStrengths.physical_weaknesses, EWeaponType.NONE, "AddWeaponsWeak_CB", false);
+
+				SetItemControlCheckboxData(WeaponsWeaponStrength_Edit_IC, null, EWeaponType.NONE, "AddWeaponsWeaknessStrength_CB", true);
+				SetItemControlCheckboxData(WeaponsWeaponStrength_Edit_IC, tempWeapon.WeaknessAndStrengths.physical_strengths, EWeaponType.NONE, "AddWeaponsWeaknessStrength_CB", false);
+				WeaponsWeaponStrength_Edit_IC.UpdateLayout();
+				WeaponsWeaponStrength_Edit_IC.UpdateLayout();
+				#endregion
+				#endregion
+				#region Weakness & Strengths "Binding"
+				//reset
+				SetItemControlCheckboxData(WeaponsWeakness_Edit_IC, null, EMagicType.NONE, "AddWeaponsWeak_CB", true);
+				SetItemControlCheckboxData(WeaponsWeakness_Edit_IC, tempWeapon.WeaknessAndStrengths.physical_weaknesses, EWeaponType.NONE, "AddWeaponsWeak_CB", false);
+
+				SetItemControlCheckboxData(WeaponsWeaponStrength_Edit_IC, null, EWeaponType.NONE, "AddWeaponsWeaknessStrength_CB", true);
+				SetItemControlCheckboxData(WeaponsWeaponStrength_Edit_IC, tempWeapon.WeaknessAndStrengths.physical_strengths, EWeaponType.NONE, "AddWeaponsWeaknessStrength_CB", false);
+				WeaponsWeaponStrength_Edit_IC.UpdateLayout();
+				WeaponsWeaponStrength_Edit_IC.UpdateLayout();
+				#endregion
+				
+
 
 				#region Elemental "Binding"
 				//reset
@@ -351,7 +548,22 @@ namespace Forms.DatabaseTool
 		private void EditWeaponToDatabase_BTN_Click(object sender, RoutedEventArgs e)
 		{
 			if (int.TryParse(WeapondDamage_Edit_TB.Text, out int inflictval) &&
-				 int.TryParse(WeaponWeight_Edit_TB.Text, out int weightval))
+				 int.TryParse(WeaponWeight_Edit_TB.Text, out int weightval) &&
+
+					int.TryParse(WeaponsMaxHP_Edit_TB.Text, out int maxHpResult) &&
+				 int.TryParse(WeaponsMaxMP_Edit_TB.Text, out int maxMPResult) &&
+
+				 int.TryParse(WeaponsAtk_Edit_TB.Text, out int atkResult) &&
+				 int.TryParse(WeaponsDef_Edit_TB.Text, out int defResult) &&
+				 int.TryParse(WeaponsDex_Edit_TB.Text, out int dexResult) &&
+				 int.TryParse(WeaponsAgl_Edit_TB.Text, out int aglResult) &&
+				 int.TryParse(WeaponsMor_Edit_TB.Text, out int morResult) &&
+				 int.TryParse(WeaponsWis_Edit_TB.Text, out int wisResult) &&
+				 int.TryParse(WeaponsRes_Edit_TB.Text, out int resResult) &&
+				 int.TryParse(WeaponsLuc_Edit_TB.Text, out int LucResult) &&
+				 int.TryParse(WeaponsRsk_Edit_TB.Text, out int RskResult) &&
+				 int.TryParse(WeaponsItl_Edit_TB.Text, out int itlResult)
+			)
 			{
 
 				//before we send the SQL update query we need to update the info in memory.
@@ -409,6 +621,62 @@ namespace Forms.DatabaseTool
 
 					IEnumerable<ModifierData> varlist = _sqlite_conn.Query<ModifierData>(Createsql);
 
+					Base_Stats stats = (Base_Stats)CurrentWeaponsInDatabase[absindex].Stats;
+					Base_Stats base_stats = new Base_Stats()
+					{
+						ID = stats.ID,
+						Max_Health = maxHpResult,
+						Max_Mana = maxMPResult,
+						Attack = atkResult,
+						Defense = defResult,
+						Dexterity = dexResult,
+						Agility = aglResult,
+						Morality = morResult,
+						Wisdom = wisResult,
+						Resistance = resResult,
+						Luck = LucResult,
+						Risk = RskResult,
+						Intelligence = itlResult
+					};
+					Createsql = "";
+					Createsql = "UPDATE `base_stats` " +
+											"SET " +
+											String.Format("{0} = {1},", "max_health", base_stats.Max_Health) +
+											String.Format("{0} = {1},", "max_mana", base_stats.Max_Mana) +
+
+											String.Format("{0} = {1},", "attack", base_stats.Attack) +
+											String.Format("{0} = {1},", "defense", base_stats.Defense) +
+											String.Format("{0} = {1},", "dexterity", base_stats.Dexterity) +
+											String.Format("{0} = {1},", "agility", base_stats.Agility) +
+											String.Format("{0} = {1},", "morality", base_stats.Morality) +
+
+											String.Format("{0} = {1},", "wisdom", base_stats.Wisdom) +
+											String.Format("{0} = {1},", "resistance", base_stats.Resistance) +
+											String.Format("{0} = {1},", "luck", base_stats.Luck) +
+											String.Format("{0} = {1},", "risk", base_stats.Risk) +
+											String.Format("{0} = {1} ", "intelligence", base_stats.Intelligence) +
+
+											String.Format("WHERE id='{0}'", base_stats.ID);
+					_sqlite_conn.Query<Base_Stats>(Createsql);
+
+
+					weaknesses_strengths weaknessStrengths = (weaknesses_strengths)CurrentWeaponsInDatabase[absindex].WeaknessAndStrengths;
+					weaknessStrengths.ID = wepdata.Weakness_Strength_FK;
+					weaknessStrengths.magic_weaknesses = GetBitWiseEnumeratedValFromIC(WeaponsMagicWeakness_Edit_IC, EMagicType.NONE, "AddWeaponsMagWeak_CB");
+					weaknessStrengths.magic_strengths = GetBitWiseEnumeratedValFromIC(WeaponsMagicStrength_Edit_IC, EMagicType.NONE, "AddWeaponsMagicStrength_CB");
+					weaknessStrengths.physical_weaknesses = GetBitWiseEnumeratedValFromIC(WeaponsWeakness_Edit_IC, EWeaponType.NONE, "AddWeaponsWeak_CB");
+					weaknessStrengths.physical_strengths = GetBitWiseEnumeratedValFromIC(WeaponsWeaponStrength_Edit_IC, EWeaponType.NONE, "AddWeaponsWeaknessStrength_CB");
+					Createsql = "UPDATE `weaknesses_strengths` " +
+											"SET " +
+											String.Format("{0} = {1},", "physical_weaknesses", weaknessStrengths.physical_weaknesses) +
+											String.Format("{0} = {1},", "physical_strengths", weaknessStrengths.physical_strengths) +
+											String.Format("{0} = {1},", "magic_weaknesses", weaknessStrengths.magic_weaknesses) +
+											String.Format("{0} = {1} ", "magic_strengths", weaknessStrengths.magic_strengths) +
+
+											String.Format("WHERE id='{0}'", weaknessStrengths.ID);
+					_sqlite_conn.Query<weaknesses_strengths>(Createsql);
+
+
 					//Delete all the associated keys
 					#region Key Deletion And reinsertion
 					#region Effect/Trait
@@ -463,7 +731,7 @@ namespace Forms.DatabaseTool
 				finally
 				{
 					//EditJobsDB_LB.ItemsSource = CurrentJobsInDatabase;
-					GameplayModifierName_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
+					GameplayModifierName_CB.ItemsSource = CurrentGameplayModifiersInDatabase;
 					//GameplayModifierName_CB.SelectedIndex = absindex;
 				}
 			}
