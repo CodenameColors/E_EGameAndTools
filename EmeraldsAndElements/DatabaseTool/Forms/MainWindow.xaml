@@ -6337,28 +6337,6 @@
 							</Grid.ColumnDefinitions>
 
 							<TextBlock Grid.Column="0" Text="Fire Rewards:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-							<Border Grid.Row="1" Grid.Column="0" BorderBrush="Gray" BorderThickness="2">
-								<ScrollViewer VerticalScrollBarVisibility="Hidden">
-									<ItemsControl ItemsSource="{Binding Path=FireRewards_Add_List}">
-										<ItemsControl.ItemTemplate>
-											<DataTemplate>
-												<Grid>
-													<Grid.ColumnDefinitions>
-														<ColumnDefinition Width="3*"/>
-														<ColumnDefinition Width="1*"/>
-														<ColumnDefinition Width="30"/>
-													</Grid.ColumnDefinitions>
-
-													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=modifier.Id}" />
-													<TextBox Grid.Column="1" Text="{Binding Path=Threshold}" IsEnabled="False" />
-													<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25"/>
-
-												</Grid>
-											</DataTemplate>
-										</ItemsControl.ItemTemplate>
-									</ItemsControl>
-								</ScrollViewer>
-							</Border>
 							<TextBlock Grid.Column="0" Text="Fire Rewards:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 							<Border Grid.Row="1" Grid.Column="0" BorderBrush="Gray" BorderThickness="2">
 								<ScrollViewer VerticalScrollBarVisibility="Hidden">
@@ -6581,8 +6559,8 @@
 								<ColumnDefinition Width="*"/>
 							</Grid.ColumnDefinitions>
 
-							<Button Grid.Row="20" Grid.Column="0" Grid.ColumnSpan="10" Content="Add Recipe to Database!"  Margin="10,0,10,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center"
-						        Click="AddRecipeToDatabase_BTN_Click"/>
+							<Button Grid.Row="20" Grid.Column="0" Grid.ColumnSpan="10" Content="Update Recipe in Database!"  Margin="10,0,10,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+						        Click="UpdateRecipeToDatabase_BTN_Click"/>
 
 
 							<TextBlock Grid.Row="0" Grid.Column="0" Text="Name:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
@@ -7097,7 +7075,7 @@
 								<TextBlock Grid.Column="0" Text="Fire Rewards:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 								<Border Grid.Row="1" Grid.Column="0" BorderBrush="Gray" BorderThickness="2">
 									<ScrollViewer VerticalScrollBarVisibility="Hidden">
-										<ItemsControl x:Name="RecipeRewardFire_Edit_IC">
+									<ItemsControl x:Name="RecipeRewardFire_Edit_IC" ItemsSource="{Binding Path=FireRewards_Edit_List}">
 											<ItemsControl.ItemTemplate>
 												<DataTemplate>
 													<Grid>
@@ -7107,9 +7085,9 @@
 															<ColumnDefinition Width="30"/>
 														</Grid.ColumnDefinitions>
 
-													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=ModifierID.ModifierData.Id, Mode=OneWay}" ToolTip="{Binding Path=ModifierID.ModifierData.Id, Mode=OneWay}" />
-													<TextBox Grid.Column="1" Text="{Binding Path=PointThreshold, Mode=OneWay}" IsEnabled="False" />
-														<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25"/>
+													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=Modifier_ID, Mode=OneWay}" ToolTip="{Binding Path=Modifier_ID, Mode=OneWay}" />
+													<TextBox Grid.Column="1" Text="{Binding Path=Point_Threshold, Mode=OneWay}" IsEnabled="False" />
+													<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25" Click="RemoveRewardFromIC_BTN_Click"/>
 
 													</Grid>
 												</DataTemplate>
@@ -7121,7 +7099,7 @@
 								<TextBlock Grid.Column="1" Text="Ice Rewards:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 								<Border Grid.Row="1" Grid.Column="1" BorderBrush="Gray" BorderThickness="2">
 									<ScrollViewer VerticalScrollBarVisibility="Hidden">
-									<ItemsControl x:Name="RecipeRewardIce_Edit_IC" >
+									<ItemsControl x:Name="RecipeRewardIce_Edit_IC" ItemsSource="{Binding Path=IceRewards_Edit_List}">
 											<ItemsControl.ItemTemplate>
 												<DataTemplate>
 													<Grid>
@@ -7133,7 +7111,7 @@
 
 														<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=Modifier_ID, Mode=OneWay}" ToolTip="{Binding Path=Modifier_ID, Mode=OneWay}" />
 														<TextBox Grid.Column="1" Text="{Binding Path=Point_Threshold, Mode =OneWay}" IsEnabled="False" />
-														<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25"/>
+													<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25" Click="RemoveRewardFromIC_BTN_Click"/>
 
 													</Grid>
 												</DataTemplate>
@@ -7145,7 +7123,7 @@
 								<TextBlock Grid.Column="2" Text="Earth Rewards:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 								<Border Grid.Row="1" Grid.Column="2" BorderBrush="Gray" BorderThickness="2">
 									<ScrollViewer VerticalScrollBarVisibility="Hidden">
-										<ItemsControl x:Name="RecipeRewardEarth_Edit_IC">
+									<ItemsControl x:Name="RecipeRewardEarth_Edit_IC" ItemsSource="{Binding Path=EarthRewards_Edit_List}" >
 											<ItemsControl.ItemTemplate>
 												<DataTemplate>
 													<Grid>
@@ -7157,7 +7135,7 @@
 
 													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=Modifier_ID , Mode=OneWay}" ToolTip="{Binding Path=Modifier_ID, Mode=OneWay}" />
 													<TextBox Grid.Column="1" Text="{Binding Path=Point_Threshold, Mode=OneWay}" IsEnabled="False" />
-														<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25"/>
+													<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25" Click="RemoveRewardFromIC_BTN_Click"/>
 
 													</Grid>
 												</DataTemplate>
@@ -7169,7 +7147,7 @@
 								<TextBlock Grid.Column="3" Text="Water Rewards:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 								<Border Grid.Row="1" Grid.Column="3" BorderBrush="Gray" BorderThickness="2">
 									<ScrollViewer VerticalScrollBarVisibility="Hidden">
-									<ItemsControl x:Name="RecipeRewardWater_Edit_IC" >
+									<ItemsControl x:Name="RecipeRewardWater_Edit_IC" ItemsSource="{Binding Path=WaterRewards_Edit_List}" >
 											<ItemsControl.ItemTemplate>
 												<DataTemplate>
 													<Grid>
@@ -7181,7 +7159,7 @@
 
 													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=Modifier_ID, Mode=OneWay}" ToolTip="{Binding Path=Modifier_ID, Mode=OneWay}" />
 													<TextBox Grid.Column="1" Text="{Binding Path=Point_Threshold, Mode=OneWay}" IsEnabled="False" />
-														<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25"/>
+													<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25" Click="RemoveRewardFromIC_BTN_Click"/>
 
 													</Grid>
 												</DataTemplate>
@@ -7193,7 +7171,7 @@
 								<TextBlock Grid.Column="4" Text="Lightning Rewards:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 								<Border Grid.Row="1" Grid.Column="4" BorderBrush="Gray" BorderThickness="2">
 									<ScrollViewer VerticalScrollBarVisibility="Hidden">
-									<ItemsControl x:Name="RecipeRewardLightning_Edit_IC">
+									<ItemsControl x:Name="RecipeRewardLightning_Edit_IC" ItemsSource="{Binding Path=LightningRewards_Edit_List}">
 											<ItemsControl.ItemTemplate>
 												<DataTemplate>
 													<Grid>
@@ -7205,7 +7183,7 @@
 
 													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=Modifier_ID, Mode=OneWay}" ToolTip="{Binding Path=Modifier_ID, Mode=OneWay}" />
 													<TextBox Grid.Column="1" Text="{Binding Path=Point_Threshold, Mode=OneWay}" IsEnabled="False" />
-														<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25"/>
+													<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25" Click="RemoveRewardFromIC_BTN_Click"/>
 
 													</Grid>
 												</DataTemplate>
@@ -7217,7 +7195,7 @@
 								<TextBlock Grid.Column="5" Text="Explosive Rewards:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 								<Border Grid.Row="1" Grid.Column="5" BorderBrush="Gray" BorderThickness="2">
 									<ScrollViewer VerticalScrollBarVisibility="Hidden">
-									<ItemsControl x:Name="RecipeRewardExplosive_Edit_IC" >
+									<ItemsControl x:Name="RecipeRewardExplosive_Edit_IC" ItemsSource="{Binding Path=ExplosiveRewards_Edit_List}" >
 											<ItemsControl.ItemTemplate>
 												<DataTemplate>
 													<Grid>
@@ -7229,7 +7207,7 @@
 
 													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=Modifier_ID, Mode=OneWay}" ToolTip="{Binding Path=Modifier_ID, Mode=OneWay}" />
 													<TextBox Grid.Column="1" Text="{Binding Path=Point_Threshold, Mode=OneWay}" IsEnabled="False" />
-														<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25"/>
+													<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25" Click="RemoveRewardFromIC_BTN_Click"/>
 
 													</Grid>
 												</DataTemplate>
@@ -7241,7 +7219,7 @@
 								<TextBlock Grid.Column="6" Text="Shadow Rewards:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 								<Border Grid.Row="1" Grid.Column="6" BorderBrush="Gray" BorderThickness="2">
 									<ScrollViewer VerticalScrollBarVisibility="Hidden">
-									<ItemsControl x:Name="RecipeRewardShadow_Edit_IC" >
+									<ItemsControl x:Name="RecipeRewardShadow_Edit_IC" ItemsSource="{Binding Path=ShadowRewards_Edit_List}">
 											<ItemsControl.ItemTemplate>
 												<DataTemplate>
 													<Grid>
@@ -7253,7 +7231,7 @@
 
 													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=Modifier_ID, Mode=OneWay}" ToolTip="{Binding Path=Modifier_ID, Mode=OneWay}" />
 													<TextBox Grid.Column="1" Text="{Binding Path=Point_Threshold, Mode=OneWay}" IsEnabled="False" />
-														<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25"/>
+													<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25" Click="RemoveRewardFromIC_BTN_Click"/>
 
 													</Grid>
 												</DataTemplate>
@@ -7262,10 +7240,10 @@
 									</ScrollViewer>
 								</Border>
 
-								<TextBlock Grid.Column="7" Text="Luminious Rewards:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+								<TextBlock Grid.Column="7" Text="Luminous Rewards:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 								<Border Grid.Row="1" Grid.Column="7" BorderBrush="Gray" BorderThickness="2">
 									<ScrollViewer VerticalScrollBarVisibility="Hidden">
-									<ItemsControl x:Name="RecipeRewardLuminous_Edit_IC" >
+									<ItemsControl x:Name="RecipeRewardLuminous_Edit_IC" ItemsSource="{Binding Path=LuminousRewards_Edit_List}">
 											<ItemsControl.ItemTemplate>
 												<DataTemplate>
 													<Grid>
@@ -7277,7 +7255,7 @@
 
 													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=Modifier_ID, Mode=OneWay}" ToolTip="{Binding Path=Modifier_ID, Mode=OneWay}" />
 													<TextBox Grid.Column="1" Text="{Binding Path=Point_Threshold, Mode=OneWay}" IsEnabled="False" />
-														<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25"/>
+													<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25" Click="RemoveRewardFromIC_BTN_Click"/>
 
 													</Grid>
 												</DataTemplate>

@@ -382,11 +382,6 @@ namespace Forms.DatabaseTool
 			}
 		}
 
-		private void AddWeaponMagicTypes_CB_OnClick(object sender, RoutedEventArgs e)
-		{
-
-		}
-
 		private void WeaponName_Edit_CB_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			ComboBox cb = sender as ComboBox;
@@ -508,6 +503,11 @@ namespace Forms.DatabaseTool
 			}
 		}
 
+
+		private void AddWeaponMagicTypes_CB_OnClick(object sender, RoutedEventArgs e)
+		{
+
+		}
 
 		private void RemoveWeaponEffect_Add_BTN_Click(object sender, RoutedEventArgs e)
 		{

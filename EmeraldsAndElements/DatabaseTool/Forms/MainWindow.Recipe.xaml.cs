@@ -66,6 +66,16 @@ namespace Forms.DatabaseTool
 			ShadowRewards_Add_List = new ObservableCollection<RecipeReward>();
 			LuminiousRewards_Add_List = new ObservableCollection<RecipeReward>();
 
+			FireRewards_Edit_List = new ObservableCollection<RecipeReward>();
+			IceRewards_Edit_List = new ObservableCollection<RecipeReward>();
+			EarthRewards_Edit_List = new ObservableCollection<RecipeReward>();
+			WaterRewards_Edit_List = new ObservableCollection<RecipeReward>();
+			LightningRewards_Edit_List = new ObservableCollection<RecipeReward>();
+			ExplosiveRewards_Edit_List = new ObservableCollection<RecipeReward>();
+			ShadowRewards_Edit_List = new ObservableCollection<RecipeReward>();
+			LuminiousRewards_Edit_List = new ObservableCollection<RecipeReward>();
+
+
 			CurrentRecipeToAdd = new Recipe();
 			CurrentRecipeEditing = new Recipe();
 			CurrentRecipeMaxPoints = new CraftingHelpers.Max_Elemental_Points();
@@ -150,7 +160,7 @@ namespace Forms.DatabaseTool
 			ModifierData modifier = RecipeWaterReward_Add_CB.SelectedItem as ModifierData;
 			if (modifier == null) return;
 
-			if (int.TryParse(FireRewardThreshold_Add_TB.Text, out int val))
+			if (int.TryParse(WaterRewardThreshold_Add_TB.Text, out int val))
 			{
 				if (val > 0)
 				{
@@ -274,7 +284,7 @@ namespace Forms.DatabaseTool
 			{
 				if (val > 0)
 				{
-					if (val <= CurrentRecipeMaxPoints.Fire)
+					if (val <= CurrentRecipeEditing.MaxPoints.Fire)
 					{
 						if (FireRewards_Edit_List.Count == 0 || val > FireRewards_Edit_List.Last().Point_Threshold)
 							FireRewards_Edit_List.Add(new RecipeReward() { Modifier_ID = modifier.Id, Point_Threshold = val });
@@ -298,7 +308,7 @@ namespace Forms.DatabaseTool
 			{
 				if (val > 0)
 				{
-					if (val <= CurrentRecipeMaxPoints.Ice)
+					if (val <= CurrentRecipeEditing.MaxPoints.Ice)
 					{
 						if (IceRewards_Edit_List.Count == 0 || val > IceRewards_Edit_List.Last().Point_Threshold)
 							IceRewards_Edit_List.Add(new RecipeReward() { Modifier_ID = modifier.Id, Point_Threshold = val });
@@ -322,7 +332,7 @@ namespace Forms.DatabaseTool
 			{
 				if (val > 0)
 				{
-					if (val <= CurrentRecipeMaxPoints.Earth)
+					if (val <= CurrentRecipeEditing.MaxPoints.Earth)
 					{
 						if (EarthRewards_Edit_List.Count == 0 || val > EarthRewards_Edit_List.Last().Point_Threshold)
 							EarthRewards_Edit_List.Add(new RecipeReward() { Modifier_ID = modifier.Id, Point_Threshold = val });
@@ -343,19 +353,19 @@ namespace Forms.DatabaseTool
 			ModifierData modifier = RecipeWaterReward_Edit_CB.SelectedItem as ModifierData;
 			if (modifier == null) return;
 
-			if (int.TryParse(FireRewardThreshold_Edit_TB.Text, out int val))
+			if (int.TryParse(WaterRewardThreshold_Edit_TB.Text, out int val))
 			{
 				if (val > 0)
 				{
-					if (val <= CurrentRecipeMaxPoints.Fire)
+					if (val <= CurrentRecipeEditing.MaxPoints.Water)
 					{
-						if (FireRewards_Edit_List.Count == 0 || val > FireRewards_Edit_List.Last().Point_Threshold)
-							FireRewards_Edit_List.Add(new RecipeReward() { Modifier_ID = modifier.Id, Point_Threshold = val });
-						else SetOutputLog("The Fire Threshold given ISN'T Bigger t");
+						if (WaterRewards_Edit_List.Count == 0 || val > WaterRewards_Edit_List.Last().Point_Threshold)
+							WaterRewards_Edit_List.Add(new RecipeReward() { Modifier_ID = modifier.Id, Point_Threshold = val });
+						else SetOutputLog("The Water Threshold given ISN'T Bigger t");
 					}
-					else SetOutputLog("The Fire Threshold given ISN'T Smaller than the Max");
+					else SetOutputLog("The Water Threshold given ISN'T Smaller than the Max");
 				}
-				else SetOutputLog("The Fire Threshold given ISN'T Over 0");
+				else SetOutputLog("The Water Threshold given ISN'T Over 0");
 			}
 		}
 
@@ -371,7 +381,7 @@ namespace Forms.DatabaseTool
 			{
 				if (val > 0)
 				{
-					if (val <= CurrentRecipeMaxPoints.Lightning)
+					if (val <= CurrentRecipeEditing.MaxPoints.Lightning)
 					{
 						if (LightningRewards_Edit_List.Count == 0 || val > LightningRewards_Edit_List.Last().Point_Threshold)
 							LightningRewards_Edit_List.Add(new RecipeReward() { Modifier_ID = modifier.Id, Point_Threshold = val });
@@ -395,7 +405,7 @@ namespace Forms.DatabaseTool
 			{
 				if (val > 0)
 				{
-					if (val <= CurrentRecipeMaxPoints.Explosive)
+					if (val <= CurrentRecipeEditing.MaxPoints.Explosive)
 					{
 						if (ExplosiveRewards_Edit_List.Count == 0 || val > ExplosiveRewards_Edit_List.Last().Point_Threshold)
 							ExplosiveRewards_Edit_List.Add(new RecipeReward() { Modifier_ID = modifier.Id, Point_Threshold = val });
@@ -419,7 +429,7 @@ namespace Forms.DatabaseTool
 			{
 				if (val > 0)
 				{
-					if (val <= CurrentRecipeMaxPoints.Shadow)
+					if (val <= CurrentRecipeEditing.MaxPoints.Shadow)
 					{
 						if (ShadowRewards_Edit_List.Count == 0 || val > ShadowRewards_Edit_List.Last().Point_Threshold)
 							ShadowRewards_Edit_List.Add(new RecipeReward() { Modifier_ID = modifier.Id, Point_Threshold = val });
@@ -443,7 +453,7 @@ namespace Forms.DatabaseTool
 			{
 				if (val > 0)
 				{
-					if (val <= CurrentRecipeMaxPoints.Luminous)
+					if (val <= CurrentRecipeEditing.MaxPoints.Luminous)
 					{
 						if (LuminiousRewards_Edit_List.Count == 0 || val > LuminiousRewards_Edit_List.Last().Point_Threshold)
 							LuminiousRewards_Edit_List.Add(new RecipeReward() { Modifier_ID = modifier.Id, Point_Threshold = val });
@@ -588,7 +598,7 @@ namespace Forms.DatabaseTool
 			int index = RecipesIngredients_Edit_IC.Items.IndexOf(item);
 
 			RecipesIngredients_Edit_IC.Items.RemoveAt(index);
-			RecipeIngredientIDs.RemoveAt(index);
+			//RecipeIngredientIDs.RemoveAt(index);
 		}
 
 
@@ -639,7 +649,7 @@ namespace Forms.DatabaseTool
 					{
 						if (en == 0) continue;
 						ContentPresenter c = ((ContentPresenter)RecipesCreationType_Add_IC.ItemContainerGenerator.ContainerFromIndex(i));
-						var vv = c.ContentTemplate.FindName("AddRecipesWeak_CB", c);
+						var vv = c.ContentTemplate.FindName("AddRecipesMagWeak_CB", c);
 
 						if ((bool)(vv as CheckBox).IsChecked)
 						{
@@ -1091,15 +1101,15 @@ namespace Forms.DatabaseTool
 				RecipeMaxLightning_Edit_TB.Text = recipe.MaxPoints.Lightning.ToString();
 				RecipeMaxExplosive_Edit_TB.Text = recipe.MaxPoints.Explosive.ToString();
 				RecipeMaxShadow_Edit_TB.Text = recipe.MaxPoints.Shadow.ToString();
-				RecipeMaxLightning_Edit_TB.Text = recipe.MaxPoints.Luminous.ToString();
+				RecipeMaxLuminous_Edit_TB.Text = recipe.MaxPoints.Luminous.ToString();
 
 				//Stats
-				RecipesMaxHP_Add_TB.Text = recipe.stats.Max_Health.ToString();
-				RecipesMaxMP_Add_TB.Text = recipe.stats.Max_Mana.ToString();
+				RecipesMaxHP_Edit_TB.Text = recipe.stats.Max_Health.ToString();
+				RecipesMaxMP_Edit_TB.Text = recipe.stats.Max_Mana.ToString();
 
-				RecipesAtk_Edit_TB.Text = recipe.stats.Max_Health.ToString();
-				RecipesDef_Edit_TB.Text = recipe.stats.Max_Mana.ToString();
-				RecipesDex_Edit_TB.Text = recipe.stats.Attack.ToString();
+				RecipesAtk_Edit_TB.Text = recipe.stats.Attack.ToString();
+				RecipesDef_Edit_TB.Text = recipe.stats.Defense.ToString();
+				RecipesDex_Edit_TB.Text = recipe.stats.Dexterity.ToString();
 				RecipesAgl_Edit_TB.Text = recipe.stats.Agility.ToString();
 				RecipesMor_Edit_TB.Text = recipe.stats.Morality.ToString();
 				RecipesWis_Edit_TB.Text = recipe.stats.Wisdom.ToString();
@@ -1158,31 +1168,527 @@ namespace Forms.DatabaseTool
 					
 				}
 
+				RecipeRewardFire_Edit_IC.ItemsSource = null;
+				RecipeRewardIce_Edit_IC.ItemsSource = null;
+				RecipeRewardEarth_Edit_IC.ItemsSource = null;
+				RecipeRewardWater_Edit_IC.ItemsSource = null;
+				RecipeRewardLightning_Edit_IC.ItemsSource = null;
+				RecipeRewardExplosive_Edit_IC.ItemsSource = null;
+				RecipeRewardShadow_Edit_IC.ItemsSource = null;
+				RecipeRewardLuminous_Edit_IC.ItemsSource = null;
 
 				//Rewards.
 				foreach (CraftingHelpers.Reward_Requirement reward in recipe.PossibleRewards.GetListOfMagicTypeRewards(EMagicType.Fire))
-					RecipeRewardFire_Edit_IC.Items.Add(reward);
+				{
+					FireRewards_Edit_List.Add(new RecipeReward()
+					{
+						Req_Recipe = CurrentRecipeEditing.Name,
+						Magic_Type = (int)reward.EMagicType,
+						Modifier_ID = reward.ModifierID.ModifierData.Id,
+						Point_Threshold = reward.PointThreshold
+					});
+				}
 				foreach (CraftingHelpers.Reward_Requirement reward in recipe.PossibleRewards.GetListOfMagicTypeRewards(EMagicType.Ice))
-					RecipeRewardIce_Edit_IC.Items.Add(reward);
+				{
+					IceRewards_Edit_List.Add(new RecipeReward()
+					{
+						Req_Recipe = CurrentRecipeEditing.Name,
+						Magic_Type = (int)reward.EMagicType,
+						Modifier_ID = reward.ModifierID.ModifierData.Id,
+						Point_Threshold = reward.PointThreshold
+					});
+				}
 				foreach (CraftingHelpers.Reward_Requirement reward in recipe.PossibleRewards.GetListOfMagicTypeRewards(EMagicType.Earth))
-					RecipeRewardEarth_Edit_IC.Items.Add(reward);
+				{
+					EarthRewards_Edit_List.Add(new RecipeReward()
+					{
+						Req_Recipe = CurrentRecipeEditing.Name,
+						Magic_Type = (int)reward.EMagicType,
+						Modifier_ID = reward.ModifierID.ModifierData.Id,
+						Point_Threshold = reward.PointThreshold
+					});
+				}
 				foreach (CraftingHelpers.Reward_Requirement reward in recipe.PossibleRewards.GetListOfMagicTypeRewards(EMagicType.Water))
-					RecipeRewardWater_Edit_IC.Items.Add(reward);
+				{
+					WaterRewards_Edit_List.Add(new RecipeReward()
+					{
+						Req_Recipe = CurrentRecipeEditing.Name,
+						Magic_Type = (int)reward.EMagicType,
+						Modifier_ID = reward.ModifierID.ModifierData.Id,
+						Point_Threshold = reward.PointThreshold
+					});
+				}
 				foreach (CraftingHelpers.Reward_Requirement reward in recipe.PossibleRewards.GetListOfMagicTypeRewards(EMagicType.Lightning))
-					RecipeRewardLightning_Edit_IC.Items.Add(reward);
+				{
+					LightningRewards_Edit_List.Add(new RecipeReward()
+					{
+						Req_Recipe = CurrentRecipeEditing.Name,
+						Magic_Type = (int)reward.EMagicType,
+						Modifier_ID = reward.ModifierID.ModifierData.Id,
+						Point_Threshold = reward.PointThreshold
+					});
+				}
 				foreach (CraftingHelpers.Reward_Requirement reward in recipe.PossibleRewards.GetListOfMagicTypeRewards(EMagicType.Explosive))
-					RecipeRewardExplosive_Edit_IC.Items.Add(reward);
+				{
+					ExplosiveRewards_Edit_List.Add(new RecipeReward()
+					{
+						Req_Recipe = CurrentRecipeEditing.Name,
+						Magic_Type = (int)reward.EMagicType,
+						Modifier_ID = reward.ModifierID.ModifierData.Id,
+						Point_Threshold = reward.PointThreshold
+					});
+				}
 				foreach (CraftingHelpers.Reward_Requirement reward in recipe.PossibleRewards.GetListOfMagicTypeRewards(EMagicType.Shadow))
-					RecipeRewardShadow_Edit_IC.Items.Add(reward);
+				{
+					ShadowRewards_Edit_List.Add(new RecipeReward()
+					{
+						Req_Recipe = CurrentRecipeEditing.Name,
+						Magic_Type = (int)reward.EMagicType,
+						Modifier_ID = reward.ModifierID.ModifierData.Id,
+						Point_Threshold = reward.PointThreshold
+					});
+				}
 				foreach (CraftingHelpers.Reward_Requirement reward in recipe.PossibleRewards.GetListOfMagicTypeRewards(EMagicType.Luminous))
-					RecipeRewardLuminous_Edit_IC.Items.Add(reward);
+				{
+					LuminiousRewards_Edit_List.Add(new RecipeReward()
+					{
+						Req_Recipe = CurrentRecipeEditing.Name,
+						Magic_Type = (int)reward.EMagicType,
+						Modifier_ID = reward.ModifierID.ModifierData.Id,
+						Point_Threshold = reward.PointThreshold
+					});
+				}
 
-
+				RecipeRewardFire_Edit_IC.ItemsSource = FireRewards_Edit_List;
+				RecipeRewardIce_Edit_IC.ItemsSource = IceRewards_Edit_List;
+				RecipeRewardEarth_Edit_IC.ItemsSource = EarthRewards_Edit_List;
+				RecipeRewardWater_Edit_IC.ItemsSource = WaterRewards_Edit_List;
+				RecipeRewardLightning_Edit_IC.ItemsSource = LightningRewards_Edit_List;
+				RecipeRewardExplosive_Edit_IC.ItemsSource = ExplosiveRewards_Edit_List;
+				RecipeRewardShadow_Edit_IC.ItemsSource = ShadowRewards_Edit_List;
+				RecipeRewardLuminous_Edit_IC.ItemsSource = LuminiousRewards_Edit_List;
 
 			}
 		}
 
 
+		private void UpdateRecipeToDatabase_BTN_Click(object sender, RoutedEventArgs e)
+		{
+			if 
+			(
+				CurrentRecipeEditing != null &&
+				int.TryParse(RecipeQualityThreshold_Edit_TB.Text, out int reqQuality)  &&
+				int.TryParse(RecipeRequiredLevel_Edit_TB.Text, out int reqLevel) &&
+				int.TryParse(RecipeTimeToMake_Edit_Tb.Text, out int hoursToMake) &&
+				int.TryParse(RecipeBaseOutputQuality_Edit_TB.Text, out int baseQuality) &&
+				int.TryParse(RecipeBaseOutputRating_Edit_TB.Text, out int baseRating) &&
+				int.TryParse(RecipeBaseOutputSize_Edit_TB.Text, out int baseSize) &&
+				int.TryParse(RecipeBaseOutputUseCount_Edit_TB.Text, out int baseUseCount) &&
+
+				int.TryParse( RecipeMaxFire_Edit_TB.Text, out int maxFire) &&
+				int.TryParse( RecipeMaxIce_Edit_TB.Text, out int maxIce) &&
+				int.TryParse( RecipeMaxEarth_Edit_TB.Text, out int maxEarth) &&
+				int.TryParse( RecipeMaxWater_Edit_TB.Text, out int maxWater) &&
+				int.TryParse( RecipeMaxLightning_Edit_TB.Text, out int maxLightning) &&
+				int.TryParse( RecipeMaxExplosive_Edit_TB.Text, out int maxExplosive) &&
+				int.TryParse( RecipeMaxShadow_Edit_TB.Text, out int maxShadow) &&
+				int.TryParse( RecipeMaxLuminous_Edit_TB.Text, out int maxLuminous) &&
+
+			int.TryParse(RecipesMaxHP_Edit_TB.Text, out int maxHpResult) &&
+				int.TryParse(RecipesMaxMP_Edit_TB.Text, out int maxMPResult) &&
+
+				int.TryParse(RecipesAtk_Edit_TB.Text, out int atkResult) &&
+				int.TryParse(RecipesDef_Edit_TB.Text, out int defResult) &&
+				int.TryParse(RecipesDex_Edit_TB.Text, out int dexResult) &&
+				int.TryParse(RecipesAgl_Edit_TB.Text, out int aglResult) &&
+				int.TryParse(RecipesMor_Edit_TB.Text, out int morResult) &&
+				int.TryParse(RecipesWis_Edit_TB.Text, out int wisResult) &&
+				int.TryParse(RecipesRes_Edit_TB.Text, out int resResult) &&
+				int.TryParse(RecipesLuc_Edit_TB.Text, out int LucResult) &&
+				int.TryParse(RecipesRsk_Edit_TB.Text, out int RskResult) &&
+				int.TryParse(RecipesItl_Edit_TB.Text, out int itlResult)
+
+			    
+			)
+			{
+				try
+				{
+
+					String masterfile = (SQLDatabasePath);
+					_sqlite_conn = new SQLiteConnection(masterfile);
+					String Createsql = "";
+
+					#region Max Elemental Points
+
+					CraftingHelpers.Max_Elemental_Points maxpoints = new CraftingHelpers.Max_Elemental_Points()
+					{
+						Fire = maxFire,
+						Ice = maxIce,
+						Earth = maxEarth,
+						Water = maxWater,
+						Lightning = maxLightning,
+						Explosive = maxExplosive,
+						Shadow = maxShadow,
+						Luminous = maxLuminous
+					};
+
+					Createsql = "";
+
+						//max points 
+					Createsql = "UPDATE `Max_Elemental_Points` " +
+					            "SET " +
+					            String.Format("{0} = {1},", "fire", maxpoints.Fire) +
+					            String.Format("{0} = {1},", "ice", maxpoints.Ice) +
+					            String.Format("{0} = {1},", "earth", maxpoints.Earth) +
+					            String.Format("{0} = {1},", "water", maxpoints.Water) +
+					            String.Format("{0} = {1},", "lightning", maxpoints.Lightning) +
+					            String.Format("{0} = {1},", "explosive", maxpoints.Explosive) +
+					            String.Format("{0} = {1},", "shadow", maxpoints.Shadow) +
+					            String.Format("{0} = {1} ", "luminous", maxpoints.Luminous) +
+
+					            String.Format("WHERE id='{0}'", CurrentRecipeEditing.Max_Elemental_FK);
+					_sqlite_conn.Query<CraftingHelpers.Max_Elemental_Points>(Createsql);
+					#endregion
+
+					#region Ingredients
+					//We need to first DELETE EVERY record in the ingredient table that is associated with the current recipe
+					Createsql = String.Format( "DELETE FROM `recipe_ingredients` WHERE req_recipe ='{0}';", CurrentRecipeEditing.Name);
+					_sqlite_conn.Query<CraftingHelpers.Max_Elemental_Points>(Createsql);
+					//Noe we need to add the ingredients to the table.
+					foreach (String ingredientID in RecipesIngredients_Edit_IC.Items)
+					{
+						String[] ingredientInfo = ingredientID.Split(':');
+						Recipe_Ingredients ingredient = new Recipe_Ingredients()
+						{
+							Req_Recipe = CurrentRecipeEditing.Name,
+							Type = ingredientInfo[0].Trim(),
+							Value = ingredientInfo[1].Trim(),
+						};
+						_sqlite_conn.Insert(ingredient);
+					}
+
+					#endregion
+
+					//stats
+
+					#region stats
+					
+					Base_Stats base_stats = new Base_Stats()
+					{
+						ID = CurrentRecipeEditing.stats.ID,
+						Max_Health = maxHpResult,
+						Max_Mana = maxMPResult,
+						Attack = atkResult,
+						Defense = defResult,
+						Dexterity = dexResult,
+						Agility = aglResult,
+						Morality = morResult,
+						Wisdom = wisResult,
+						Resistance = resResult,
+						Luck = LucResult,
+						Risk = RskResult,
+						Intelligence = itlResult
+					};
+					Createsql = "";
+					Createsql = "UPDATE `base_stats` " +
+					            "SET " +
+					            String.Format("{0} = {1},", "max_health", base_stats.Max_Health) +
+					            String.Format("{0} = {1},", "max_mana", base_stats.Max_Mana) +
+
+					            String.Format("{0} = {1},", "attack", base_stats.Attack) +
+					            String.Format("{0} = {1},", "defense", base_stats.Defense) +
+					            String.Format("{0} = {1},", "dexterity", base_stats.Dexterity) +
+					            String.Format("{0} = {1},", "agility", base_stats.Agility) +
+					            String.Format("{0} = {1},", "morality", base_stats.Morality) +
+
+					            String.Format("{0} = {1},", "wisdom", base_stats.Wisdom) +
+					            String.Format("{0} = {1},", "resistance", base_stats.Resistance) +
+					            String.Format("{0} = {1},", "luck", base_stats.Luck) +
+					            String.Format("{0} = {1},", "risk", base_stats.Risk) +
+					            String.Format("{0} = {1} ", "intelligence ", base_stats.Intelligence) +
+
+					            String.Format("WHERE id='{0}'", base_stats.ID);
+					_sqlite_conn.Query<Base_Stats>(Createsql);
+					#endregion
+
+					//Weaknesses and Strengths
+
+					#region Weak Strengths
+
+					weaknesses_strengths weaknessStrengths = CurrentRecipeEditing.WeaknessesStrengths;
+					weaknessStrengths.ID = CurrentRecipeEditing.WeaknessesStrengths.ID;
+					weaknessStrengths.magic_weaknesses = GetBitWiseEnumeratedValFromIC(RecipesMagicWeakness_Edit_IC, EMagicType.NONE, "AddMagWeak_CB");
+					weaknessStrengths.magic_strengths = GetBitWiseEnumeratedValFromIC(RecipesMagicStrength_Edit_IC, EMagicType.NONE, "AddMagicStrength_CB");
+					weaknessStrengths.physical_weaknesses = GetBitWiseEnumeratedValFromIC(RecipesWeakness_Edit_IC, EWeaponType.NONE, "AddWeak_CB");
+					weaknessStrengths.physical_strengths = GetBitWiseEnumeratedValFromIC(RecipesStrength_Edit_IC, EWeaponType.NONE, "AddStrength_CB");
+
+
+
+					Createsql = "UPDATE `weaknesses_strengths` " +
+					            "SET " +
+					            String.Format("{0} = {1},", "physical_weaknesses", weaknessStrengths.physical_weaknesses) +
+					            String.Format("{0} = {1},", "physical_strengths", weaknessStrengths.physical_strengths) +
+					            String.Format("{0} = {1},", "magic_weaknesses", weaknessStrengths.magic_weaknesses) +
+					            String.Format("{0} = {1} ", "magic_strengths", weaknessStrengths.magic_strengths) +
+
+					            String.Format("WHERE id='{0}'", weaknessStrengths.ID);
+					_sqlite_conn.Query<weaknesses_strengths>(Createsql);
+					#endregion
+
+
+					//Rewards
+
+					#region Rewards
+
+					//We need to first DELETE EVERY record in the rewards table that is associated with the current recipe
+					Createsql = String.Format("DELETE FROM `recipe_rewards` WHERE req_recipe ='{0}';", CurrentRecipeEditing.Name);
+					_sqlite_conn.Query<Recipe_Rewards>(Createsql);
+
+					Recipe_Rewards reward = new Recipe_Rewards();
+
+					// Go through EVERY singe reward and add them to the DB
+					foreach (Recipe_Rewards r in RecipeRewardFire_Edit_IC.Items)
+					{
+						reward = new Recipe_Rewards()
+						{
+							Modifier_ID = r.Modifier_ID,
+							Point_Threshold = r.Point_Threshold,
+							Req_Recipe = CurrentRecipeEditing.Name,
+							Magic_Type = (int)EMagicType.Fire,
+						};
+						_sqlite_conn.Insert(reward);
+
+					}
+
+					foreach (Recipe_Rewards r in RecipeRewardIce_Edit_IC.Items)
+					{
+						reward = new Recipe_Rewards()
+						{
+							Modifier_ID = r.Modifier_ID,
+							Point_Threshold = r.Point_Threshold,
+							Req_Recipe = CurrentRecipeEditing.Name,
+							Magic_Type = (int)EMagicType.Ice,
+						};
+						_sqlite_conn.Insert(reward);
+					}
+
+					foreach (Recipe_Rewards r in RecipeRewardEarth_Edit_IC.Items)
+					{
+						reward = new Recipe_Rewards()
+						{
+							Modifier_ID = r.Modifier_ID,
+							Point_Threshold = r.Point_Threshold,
+							Req_Recipe = CurrentRecipeEditing.Name,
+							Magic_Type = (int)EMagicType.Earth,
+						};
+						_sqlite_conn.Insert(reward);
+					}
+
+					foreach (Recipe_Rewards r in RecipeRewardWater_Edit_IC.Items)
+					{
+						reward = new Recipe_Rewards()
+						{
+							Modifier_ID = r.Modifier_ID,
+							Point_Threshold = r.Point_Threshold,
+							Req_Recipe = CurrentRecipeEditing.Name,
+							Magic_Type = (int)EMagicType.Water,
+						};
+						_sqlite_conn.Insert(reward);
+					}
+
+					foreach (Recipe_Rewards r in RecipeRewardLightning_Edit_IC.Items)
+					{
+						reward = new Recipe_Rewards()
+						{
+							Modifier_ID = r.Modifier_ID,
+							Point_Threshold = r.Point_Threshold,
+							Req_Recipe = CurrentRecipeEditing.Name,
+							Magic_Type = (int)EMagicType.Lightning,
+						};
+						_sqlite_conn.Insert(reward);
+					}
+
+					foreach (Recipe_Rewards r in RecipeRewardExplosive_Edit_IC.Items)
+					{
+						reward = new Recipe_Rewards()
+						{
+							Modifier_ID = r.Modifier_ID,
+							Point_Threshold = r.Point_Threshold,
+							Req_Recipe = CurrentRecipeEditing.Name,
+							Magic_Type = (int)EMagicType.Explosive,
+						};
+						_sqlite_conn.Insert(reward);
+					}
+
+					foreach (Recipe_Rewards r in RecipeRewardShadow_Edit_IC.Items)
+					{
+						reward = new Recipe_Rewards()
+						{
+							Modifier_ID = r.Modifier_ID,
+							Point_Threshold = r.Point_Threshold,
+							Req_Recipe = CurrentRecipeEditing.Name,
+							Magic_Type = (int)EMagicType.Shadow,
+						};
+						_sqlite_conn.Insert(reward);
+					}
+
+					foreach (Recipe_Rewards r in RecipeRewardLuminous_Edit_IC.Items)
+					{
+
+						reward = new Recipe_Rewards()
+						{
+							Modifier_ID = r.Modifier_ID,
+							Point_Threshold = r.Point_Threshold,
+							Req_Recipe = CurrentRecipeEditing.Name,
+							Magic_Type = (int)EMagicType.Luminous,
+						};
+						_sqlite_conn.Insert(reward);
+					}
+
+
+					#endregion
+
+					//Recipe
+					#region Creation Type
+					int CreationTypeEnumBits = 0;
+					int i = 0;
+					foreach (int en in Enum.GetValues(typeof(ECreationTypes)))
+					{
+						if (en == 0) continue;
+						ContentPresenter c = ((ContentPresenter)RecipesCreationType_Edit_IC.ItemContainerGenerator.ContainerFromIndex(i));
+						var vv = c.ContentTemplate.FindName("EditCheckbox", c);
+
+						if ((bool)(vv as CheckBox).IsChecked)
+						{
+							CreationTypeEnumBits += (int)Math.Pow(2, i);
+						}
+						i++;
+					}
+
+					#endregion
+
+					Createsql = "UPDATE `recipes` " +
+					            "SET " +
+					            String.Format("{0} = {1},", "creation_type", CreationTypeEnumBits ) +
+					            String.Format("{0} = {1},", "required_quality", reqQuality) +
+					            String.Format("{0} = {1},", "required_level", reqLevel) +
+					            String.Format("{0} = '{1}',", "hours_to_make", hoursToMake) + //1.0.0.3v
+					            String.Format("{0} = '{1}',", "use_count", baseUseCount) + //1.0.0.3v
+					            String.Format("{0} = '{1}',", "rating", baseRating) + //1.0.0.3v
+					            String.Format("{0} = '{1}',", "quality", baseQuality) + //1.0.0.3v
+					            String.Format("{0} = '{1}' ", "size", baseSize) + //1.0.0.3v
+
+					            String.Format("WHERE name='{0}'", CurrentRecipeEditing.Name);
+					_sqlite_conn.Query<Accessory>(Createsql);
+					SetOutputLog(String.Format("Successfully updated recipe in DB: {0}", ""));
+
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine("Recipe update in database FAILURE {0}:", ex.Message);
+					SetOutputLog(String.Format("updating Database [recipe] failed: {0}", ex.Message));
+				}
+				finally
+				{
+
+				}
+			}
+
+		}
+
+		private void RemoveRewardFromIC_BTN_Click(object sender, RoutedEventArgs e)
+		{
+			var item = (VisualTreeHelper.GetParent(sender as Button) as Grid).DataContext;
+
+			EMagicType magType =
+				((((sender as Button).Parent as Grid).TemplatedParent as ContentPresenter).Content as
+					CraftingHelpers.Reward_Requirement).EMagicType;
+			int index = -1;
+			if (Edit_Recipe_Grid.Visibility == Visibility.Visible)
+			{
+				switch (magType)
+				{
+					case EMagicType.NONE:
+						break;
+					case EMagicType.Fire:
+						index = RecipeRewardFire_Edit_IC.Items.IndexOf(item);
+						RecipeRewardFire_Edit_IC.Items.RemoveAt(index);
+						break;
+					case EMagicType.Ice:
+						index = RecipeRewardIce_Edit_IC.Items.IndexOf(item);
+						RecipeRewardIce_Edit_IC.Items.RemoveAt(index);
+						break;
+					case EMagicType.Earth:
+						index = RecipeRewardEarth_Edit_IC.Items.IndexOf(item);
+						RecipeRewardEarth_Edit_IC.Items.RemoveAt(index);
+						break;
+					case EMagicType.Water:
+						index = RecipeRewardWater_Edit_IC.Items.IndexOf(item);
+						RecipeRewardWater_Edit_IC.Items.RemoveAt(index);
+						break;
+					case EMagicType.Lightning:
+						index = RecipeRewardLightning_Edit_IC.Items.IndexOf(item);
+						RecipeRewardLightning_Edit_IC.Items.RemoveAt(index);
+						break;
+					case EMagicType.Explosive:
+						index = RecipeRewardExplosive_Edit_IC.Items.IndexOf(item);
+						RecipeRewardExplosive_Edit_IC.Items.RemoveAt(index);
+						break;
+					case EMagicType.Shadow:
+						index = RecipeRewardShadow_Edit_IC.Items.IndexOf(item);
+						RecipeRewardShadow_Edit_IC.Items.RemoveAt(index);
+						break;
+					case EMagicType.Luminous:
+						index = RecipeRewardLuminous_Edit_IC.Items.IndexOf(item);
+						RecipeRewardLuminous_Edit_IC.Items.RemoveAt(index);
+						break;
+					default:
+						throw new ArgumentOutOfRangeException();
+				}
+			}
+			else
+			{
+				switch (magType)
+				{
+					//case EMagicType.NONE:
+					//	break;
+					//case EMagicType.Fire:
+					//	index = RecipeRewardFire_Add_IC.Items.IndexOf(item);
+					//	RecipeRewardFire_Add_IC.Items.RemoveAt(index);
+					//	break;
+					//case EMagicType.Ice:
+					//	index = RecipeRewardIce_Add_IC.Items.IndexOf(item);
+					//	RecipeRewardIce_Add_IC.Items.RemoveAt(index);
+					//	break;
+					//case EMagicType.Earth:
+					//	index = RecipeRewardEarth_Add_IC.Items.IndexOf(item);
+					//	RecipeRewardEarth_Add_IC.Items.RemoveAt(index);
+					//	break;
+					//case EMagicType.Water:
+					//	index = RecipeRewardWater_Add_IC.Items.IndexOf(item);
+					//	RecipeRewardWater_Add_IC.Items.RemoveAt(index);
+					//	break;
+					//case EMagicType.Lightning:
+					//	index = RecipeRewardLightning_Add_IC.Items.IndexOf(item);
+					//	RecipeRewardLightning_Add_IC.Items.RemoveAt(index);
+					//	break;
+					//case EMagicType.Explosive:
+					//	index = RecipeRewardExplosive_Add_IC.Items.IndexOf(item);
+					//	RecipeRewardExplosive_Add_IC.Items.RemoveAt(index);
+					//	break;
+					//case EMagicType.Shadow:
+					//	index = RecipeRewardShadow_Add_IC.Items.IndexOf(item);
+					//	RecipeRewardShadow_Add_IC.Items.RemoveAt(index);
+					//	break;
+					//case EMagicType.Luminous:
+					//	index = RecipeRewardLuminous_Add_IC.Items.IndexOf(item);
+					//	RecipeRewardLuminous_Add_IC.Items.RemoveAt(index);
+					//	break;
+					//default:
+					//	throw new ArgumentOutOfRangeException();
+				}
+			}
+		}
 	}
 
 	//public class RecipeReward
