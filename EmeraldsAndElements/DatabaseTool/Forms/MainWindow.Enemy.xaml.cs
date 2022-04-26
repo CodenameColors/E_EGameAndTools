@@ -320,7 +320,7 @@ namespace Forms.DatabaseTool
 				finally
 				{
 					//EditJobsDB_LB.ItemsSource = CurrentJobsInDatabase;
-					//GameplayModifierName_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
+					//GameplayModifierName_CB.ItemsSource = CurrentGameplayModifiersInDatabase;
 					//GameplayModifierName_CB.SelectedIndex = absindex;
 				}
 			}
@@ -330,6 +330,8 @@ namespace Forms.DatabaseTool
 
 		private void EnemyName_Edit_CB_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
+
+			
 
 			ComboBox CB = sender as ComboBox;
 			if (CB.SelectedIndex >= 0)
@@ -472,8 +474,10 @@ namespace Forms.DatabaseTool
 				finally
 				{
 					//EditJobsDB_LB.ItemsSource = CurrentJobsInDatabase;
-					//GameplayModifierName_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
+					//GameplayModifierName_CB.ItemsSource = CurrentGameplayModifiersInDatabase;
 					//GameplayModifierName_CB.SelectedIndex = absindex;
+					EnemyName_Edit_CB.ItemsSource = CurrentEnemiesInDatabase;
+
 				}
 
 			}

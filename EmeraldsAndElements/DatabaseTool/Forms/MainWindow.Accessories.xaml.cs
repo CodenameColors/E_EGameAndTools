@@ -57,7 +57,7 @@ namespace Forms.DatabaseTool
 					IEnumerable<Modifier_Keys> varlist_mod = _sqlite_conn.Query<Modifier_Keys>(Createsql);
 					foreach (Modifier_Keys mod_key in varlist_mod)
 					{
-						ModifierData moddata = CurrenGameplayModifiersInDatabase.Single(x => x.Id == mod_key.Modifier_ID);
+						ModifierData moddata = CurrentGameplayModifiersInDatabase.Single(x => x.Id == mod_key.Modifier_ID);
 						if (moddata == null) continue;
 						if (moddata.bEffect)
 							accessory.Effects.Add(moddata);
@@ -112,7 +112,7 @@ namespace Forms.DatabaseTool
 				if (AccessoryEffectEquip_Add_IC.Items.Count >= 2) return;
 				else
 				{
-					string effectname = CurrenGameplayModifiersInDatabase_Effects[AccessoryEquipEffects_Add_CB.SelectedIndex].Id;
+					string effectname = CurrentGameplayModifiersInDatabase_Effects[AccessoryEquipEffects_Add_CB.SelectedIndex].Id;
 					if (!AccessoryEffectEquip_Add_IC.Items.Contains(effectname))
 					{
 						AccessoryEffectEquip_Add_IC.Items.Add(
@@ -132,7 +132,7 @@ namespace Forms.DatabaseTool
 				if (AccessoryTraitsEquip_Add_IC.Items.Count >= 2) return;
 				else
 				{
-					string effectname = CurrenGameplayModifiersInDatabase_Traits[AccessoryEquipTraits_Add_CB.SelectedIndex].Id;
+					string effectname = CurrentGameplayModifiersInDatabase_Traits[AccessoryEquipTraits_Add_CB.SelectedIndex].Id;
 					if (!AccessoryTraitsEquip_Add_IC.Items.Contains(effectname))
 					{
 						AccessoryTraitsEquip_Add_IC.Items.Add(
@@ -380,7 +380,7 @@ namespace Forms.DatabaseTool
 				finally
 				{
 					//EditJobsDB_LB.ItemsSource = CurrentJobsInDatabase;
-					//GameplayModifierName_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
+					//GameplayModifierName_CB.ItemsSource = CurrentGameplayModifiersInDatabase;
 					//GameplayModifierName_CB.SelectedIndex = absindex;
 				}
 			}
@@ -396,12 +396,12 @@ namespace Forms.DatabaseTool
 				if (AccessoryEffectEquip_Edit_IC.Items.Count >= 2) return;
 				else
 				{
-					string effectname = CurrenGameplayModifiersInDatabase_Effects[AccessoryEquipEffects_Edit_CB.SelectedIndex].Id;
+					string effectname = CurrentGameplayModifiersInDatabase_Effects[AccessoryEquipEffects_Edit_CB.SelectedIndex].Id;
 					if (!AccessoryEffectEquip_Edit_IC.Items.Contains(effectname))
 					{
 						AccessoryEffectEquip_Edit_IC.Items.Add(effectname);
 						CurrentAccessoriesInDatabase[AccessoryName_Edit_CB.SelectedIndex].Effects.Add(
-							CurrenGameplayModifiersInDatabase_Effects[AccessoryEquipEffects_Edit_CB.SelectedIndex]);
+							CurrentGameplayModifiersInDatabase_Effects[AccessoryEquipEffects_Edit_CB.SelectedIndex]);
 
 						AccessoryEffectEquip_Edit_IC.UpdateLayout();
 					}
@@ -436,12 +436,12 @@ namespace Forms.DatabaseTool
 				if (AccessoryTraitsEquip_Edit_IC.Items.Count >= 2) return;
 				else
 				{
-					string effectname = CurrenGameplayModifiersInDatabase_Traits[AccessoryEquipTraits_Edit_CB.SelectedIndex].Id;
+					string effectname = CurrentGameplayModifiersInDatabase_Traits[AccessoryEquipTraits_Edit_CB.SelectedIndex].Id;
 					if (!AccessoryTraitsEquip_Edit_IC.Items.Contains(effectname))
 					{
 						AccessoryTraitsEquip_Edit_IC.Items.Add(effectname);
 						CurrentAccessoriesInDatabase[AccessoryName_Edit_CB.SelectedIndex].Traits.Add(
-							CurrenGameplayModifiersInDatabase_Traits[AccessoryEquipTraits_Edit_CB.SelectedIndex]);
+							CurrentGameplayModifiersInDatabase_Traits[AccessoryEquipTraits_Edit_CB.SelectedIndex]);
 						AccessoryTraitsEquip_Edit_IC.UpdateLayout();
 					}
 				}
@@ -692,7 +692,7 @@ namespace Forms.DatabaseTool
 				finally
 				{
 					//EditJobsDB_LB.ItemsSource = CurrentJobsInDatabase;
-					GameplayModifierName_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
+					GameplayModifierName_CB.ItemsSource = CurrentGameplayModifiersInDatabase;
 					//GameplayModifierName_CB.SelectedIndex = absindex;
 				}
 			}

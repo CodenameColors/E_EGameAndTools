@@ -970,7 +970,7 @@
 							<Button x:Name="EnemyWeapon_Add_BTN" Grid.Row="1" Grid.Column="3" Content="+" Width="25" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right" 
 							       Click="EnemyWeaponsToIC_Add_BTN_Click" />
 
-							<ItemsControl x:Name="EnemyWeapon_Add_IC" Grid.Row="2" Grid.Column="3" ItemsSource="{Binding CurrentWeaponsInDatabase}" BorderBrush="Gray" BorderThickness="2">
+							<ItemsControl x:Name="EnemyWeapon_Add_IC" Grid.Row="2" Grid.Column="3" BorderBrush="Gray" BorderThickness="2">
 								<ItemsControl.ItemTemplate>
 									<DataTemplate>
 										<Grid>
@@ -1340,7 +1340,7 @@
 							<Button x:Name="EnemyWeapon_Edit_BTN" Grid.Row="1" Grid.Column="3" Content="+" Width="25" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right" 
 							       Click="EnemyWeaponsToIC_Edit_BTN_Click" />
 
-							<ItemsControl x:Name="EnemyWeapon_Edit_IC" Grid.Row="2" Grid.Column="3" ItemsSource="{Binding CurrentWeaponsInDatabase}" BorderBrush="Gray" BorderThickness="2">
+							<ItemsControl x:Name="EnemyWeapon_Edit_IC" Grid.Row="2" Grid.Column="3" BorderBrush="Gray" BorderThickness="2">
 								<ItemsControl.ItemTemplate>
 									<DataTemplate>
 										<Grid>
@@ -1761,7 +1761,7 @@
 							<Button x:Name="PartyMemberWeapon_Add_BTN" Grid.Row="1" Grid.Column="2" Content="+" Width="25" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right" 
 							        Click="PartyMemberWeapon_Add_BTN_OnClick"/>
 
-							<ItemsControl x:Name="PartyMemberWeapon_Add_IC" Grid.Row="2" Grid.Column="2" ItemsSource="{Binding CurrentWeaponsInDatabase}" BorderBrush="Gray" BorderThickness="2">
+							<ItemsControl x:Name="PartyMemberWeapon_Add_IC" Grid.Row="2" Grid.Column="2" BorderBrush="Gray" BorderThickness="2">
 								<ItemsControl.ItemTemplate>
 									<DataTemplate>
 										<Grid>
@@ -2105,7 +2105,7 @@
 							<Button x:Name="PartyMemberWeapon_Edit_BTN" Grid.Row="1" Grid.Column="2" Content="+" Width="25" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right" 
 							       Click="PartyMemberWeapon_Edit_BTN_OnClick" />
 
-							<ItemsControl x:Name="PartyMemberWeapon_Edit_IC" Grid.Row="2" Grid.Column="2" ItemsSource="{Binding CurrentWeaponsInDatabase}" BorderBrush="Gray" BorderThickness="2">
+							<ItemsControl x:Name="PartyMemberWeapon_Edit_IC" Grid.Row="2" Grid.Column="2" BorderBrush="Gray" BorderThickness="2">
 								<ItemsControl.ItemTemplate>
 									<DataTemplate>
 										<Grid>
@@ -3041,6 +3041,10 @@
 						<TextBox x:Name="ItemAoEHeight_Edit_TB" Grid.Row="2" Text="0" Width="50" Background="DimGray" Foreground="White" Margin="380,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
 						<!--1.0.0.2v-->
+						<TextBlock Grid.Row="3" Text="Weight:" Foreground="White" Margin="300,7,0,5" HorizontalAlignment="Left"/>
+						<TextBox x:Name="ItemWeight_Edit_TB" Grid.Row="3" Text="0" Width="50" Background="DimGray" Foreground="White" Margin="380,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<!--1.0.0.2v-->
 						<TextBlock Grid.Row="1" Text="Target Allies?" Foreground="White" Margin="330,5,0,5" HorizontalAlignment="Left"/>
 						<CheckBox x:Name="ItemAllies_Edit_CB" Grid.Row="1" Width="20" Background="DimGray" Foreground="White" Margin="410,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
@@ -3052,7 +3056,7 @@
 
 						<TextBlock Grid.Row="5" Text="Equip New Effect:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 						<ComboBox x:Name="ItemEquipEffects_edit_CB" Grid.Row="5" Width="300" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
-						          ItemsSource="{Binding CurrenGameplayModifiersInDatabase_Effects}">
+						          ItemsSource="{Binding CurrenGameplayModifiersInDatabase_Effects}" >
 							<ComboBox.ItemTemplate>
 								<DataTemplate>
 									<TextBlock Text="{Binding Id}" Foreground="Black"/>
@@ -3384,6 +3388,10 @@
 						<!--1.0.0.2v-->
 						<TextBlock Grid.Row="2" Text="AoE Height:" Foreground="White" Margin="300,7,0,5" HorizontalAlignment="Left"/>
 						<TextBox x:Name="ItemAoEHeight_Add_TB" Grid.Row="2" Text="0" Width="50" Background="DimGray" Foreground="White" Margin="380,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+						<!--1.0.0.2v-->
+						<TextBlock Grid.Row="3" Text="Weight:" Foreground="White" Margin="300,7,0,5" HorizontalAlignment="Left"/>
+						<TextBox x:Name="ItemWeight_Add_TB" Grid.Row="3" Text="0" Width="50" Background="DimGray" Foreground="White" Margin="380,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
 						<!--1.0.0.2v-->
 						<TextBlock Grid.Row="1" Text="Target Allies?" Foreground="White" Margin="330,5,0,5" HorizontalAlignment="Left"/>
@@ -5816,7 +5824,6 @@
 						<RowDefinition Height="30"/>
 						<RowDefinition Height="2"/>
 						<RowDefinition Height="*"/>
-						<RowDefinition Height="30"/>
 					</Grid.RowDefinitions>
 
 					<Button Content="Change to Edit" Width="100" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
@@ -5824,7 +5831,7 @@
 					<Button Content="Change to Add" Width="100" Margin="160,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
 				        Click="ChangeGridToAdd"/>
 
-					<Grid x:Name="Add_Recipe_Grid" Grid.Row="2">
+					<Grid x:Name="Add_Recipe_Grid" Grid.Row="2" Visibility="Hidden">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="30"/>
 							<RowDefinition Height="30"/>
@@ -5836,8 +5843,9 @@
 							<RowDefinition Height="30"/>
 							<RowDefinition Height="30"/>
 							<RowDefinition Height="30"/>
-							<RowDefinition Height="*"/>
-							<RowDefinition Height="*"/>
+							<RowDefinition Height="10*"/>
+							<RowDefinition Height="9*"/>
+							<RowDefinition Height="30"/>
 						</Grid.RowDefinitions>
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="270"/>
@@ -5847,6 +5855,10 @@
 							<ColumnDefinition Width="*"/>
 						</Grid.ColumnDefinitions>
 
+						<Button Grid.Row="20" Grid.Column="0" Grid.ColumnSpan="10" Content="Add Recipe to Database!"  Margin="10,0,10,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+						        Click="AddRecipeToDatabase_BTN_Click"/>
+
+
 						<TextBlock Grid.Row="0" Grid.Column="0" Text="Name:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 						<TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="Gray" Margin="60,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Center"
 										 Text="{Binding Path=CurrentRecipeToAdd.Name, Mode=TwoWay}"/>
@@ -5854,10 +5866,6 @@
 						<TextBlock Grid.Row="2" Grid.Column="0" Text="Required Quality:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 						<TextBox Grid.Row="2" Grid.Column="0" Background="Gray" Margin="100,0,0,0" Width="160" HorizontalAlignment="Left" VerticalAlignment="Center"
 										 Text="{Binding Path=CurrentRecipeToAdd.QualityThreshold, Mode=TwoWay}"/>
-
-						<TextBlock Grid.Row="1" Grid.Column="0" Text="Creation Type:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-						<ComboBox Grid.Row="1" Grid.Column="0" Background="Gray" Margin="100,0,0,0" Width="160" HorizontalAlignment="Left" VerticalAlignment="Center"
-											ItemsSource="{Binding Source={StaticResource ECreationType}}"/>
 
 						<TextBlock Grid.Row="3" Grid.Column="0" Text="Required Level:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 						<TextBox Grid.Row="3" Grid.Column="0" Background="Gray" Margin="100,0,0,0" Width="160" HorizontalAlignment="Left" VerticalAlignment="Center"
@@ -5873,31 +5881,52 @@
 						<TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Text="Add Ingredient(Item, Equipable, or Type)" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
 						<TextBlock Grid.Row="6" Grid.Column="0" Text="Add Item" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-						<ComboBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Background="Gray" Margin="100,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+						<ComboBox x:Name="RecipeIngredientItem_Add_CB" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Background="Gray" Margin="100,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+						          SelectionChanged="RecipeIngredient_Add_CB_OnSelectionChanged" >
+							<ComboBox.ItemTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding ID}" Foreground="Black"/>
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
 
 						<TextBlock Grid.Row="7" Grid.Column="0" Text="Add Equipable" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-						<ComboBox Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Background="Gray" Margin="100,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+						<ComboBox x:Name="RecipeIngredientEquipable_Add_CB" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Background="Gray" Margin="100,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+						 SelectionChanged="RecipeIngredient_Add_CB_OnSelectionChanged">
+							<ComboBox.ItemTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding Path=ID}" Foreground="Black"/>
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+							<ComboBox.ItemsSource>
+								<CompositeCollection>
+								</CompositeCollection>
+							</ComboBox.ItemsSource>
+
+						</ComboBox>
 
 						<TextBlock Grid.Row="8" Grid.Column="0" Text="Add Type" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-						<ComboBox Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Background="Gray" Margin="100,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+						<ComboBox x:Name="RecipeIngredientsType_Add_CB" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Background="Gray" Margin="100,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+						          ItemsSource="{Binding Source={StaticResource ECreationType}}" SelectionChanged="RecipeIngredient_Add_CB_OnSelectionChanged"/>
 
-						<Button Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Content="Add ingredient"  Margin="10,0,10,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+						<Button Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Content="Add ingredient"  Margin="10,0,10,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+						        Click="RecipeAddIngredient_Add_BTN_Click"/>
 
 						<TextBlock Grid.Row="1" Grid.Column="1" Text="Base Output Quality:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-						<TextBox Grid.Row="1" Grid.Column="1" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center" 
+						<TextBox x:Name="RecipeBaseOutputQuality_Add_TB" Grid.Row="1" Grid.Column="1" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center" 
 						         />
 
 						<TextBlock Grid.Row="2" Grid.Column="1" Text="Base Output Rating:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-						<TextBox Grid.Row="2" Grid.Column="1" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center" 
-						         />
+						<TextBox x:Name="RecipeBaseOutputRating_Add_TB" Grid.Row="2" Grid.Column="1" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center" 
+						/>
 
 						<TextBlock Grid.Row="3" Grid.Column="1" Text="Base Output Size:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-						<TextBox Grid.Row="3" Grid.Column="1" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center" 
-						         />
+						<TextBox x:Name="RecipeBaseOutputSize_Add_TB" Grid.Row="3" Grid.Column="1" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center" 
+						/>
 
 						<TextBlock Grid.Row="4" Grid.Column="1" Text="Base Use Count (null):" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-						<TextBox Grid.Row="4" Grid.Column="1" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center" 
-						         />
+						<TextBox x:Name="RecipeBaseOutputUseCount_Add_TB" Grid.Row="4" Grid.Column="1" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center" 
+						/>
 
 
 						<!-- #region Elemental Maxs-->
@@ -5981,7 +6010,8 @@
 						</ComboBox>
 						<TextBlock Grid.Row="2" Grid.Column="3" Text="Threshold:" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
 						<TextBox x:Name="EarthRewardThreshold_Add_TB" Grid.Row="2" Grid.Column="3" Text="0" Background="Gray" Margin="0,0,70,0" Width="60" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-						<Button Grid.Row="2" Grid.Column="4" Content="+"  Width="25" Height="25" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+						<Button Grid.Row="2" Grid.Column="4" Content="+"  Width="25" Height="25" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"
+						        Click="AddEarthReward_Add_BTN_Click"/>
 
 						<TextBlock Grid.Row="3" Grid.Column="3" Text="Add Water reward:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 						<ComboBox x:Name="RecipeWaterReward_Add_CB" Grid.Row="3" Grid.Column="3"  Background="Gray" Margin="140,0,0,0" Width="220" 
@@ -5995,7 +6025,8 @@
 						</ComboBox>
 						<TextBlock Grid.Row="3" Grid.Column="3" Text="Threshold:" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
 						<TextBox x:Name="WaterRewardThreshold_Add_TB" Grid.Row="3" Grid.Column="3" Text="0" Background="Gray" Margin="0,0,70,0" Width="60" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-						<Button Grid.Row="3" Grid.Column="4" Content="+"  Width="25" Height="25" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+						<Button Grid.Row="3" Grid.Column="4" Content="+"  Width="25" Height="25" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"
+						        Click="AddWaterReward_Add_BTN_Click"/>
 
 
 						<TextBlock Grid.Row="4" Grid.Column="3" Text="Add Lightning reward:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
@@ -6010,7 +6041,8 @@
 						</ComboBox>
 						<TextBlock Grid.Row="4" Grid.Column="3" Text="Threshold:" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
 						<TextBox x:Name="LightningRewardThreshold_Add_TB" Grid.Row="4" Grid.Column="3" Text="0" Background="Gray" Margin="0,0,70,0" Width="60" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-						<Button Grid.Row="4" Grid.Column="4" Content="+"  Width="25" Height="25" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+						<Button Grid.Row="4" Grid.Column="4" Content="+"  Width="25" Height="25" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"
+						        Click="AddLightningReward_Add_BTN_Click"/>
 
 						<TextBlock Grid.Row="5" Grid.Column="3" Text="Add Explsoive reward:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 						<ComboBox x:Name="RecipeExplosiveReward_Add_CB" Grid.Row="5" Grid.Column="3"  Background="Gray" Margin="140,0,0,0" Width="220"
@@ -6024,7 +6056,8 @@
 						</ComboBox>
 						<TextBlock Grid.Row="5" Grid.Column="3" Text="Threshold:" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
 						<TextBox x:Name="ExplosiveRewardThreshold_Add_TB" Grid.Row="5" Grid.Column="3" Text="0" Background="Gray" Margin="0,0,70,0" Width="60" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-						<Button Grid.Row="5" Grid.Column="4" Content="+"  Width="25" Height="25" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+						<Button Grid.Row="5" Grid.Column="4" Content="+"  Width="25" Height="25" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"
+						        Click="AddExplosiveReward_Add_BTN_Click"/>
 
 						<TextBlock Grid.Row="6" Grid.Column="3" Text="Add Shadow reward:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 						<ComboBox x:Name="RecipeShadowReward_Add_CB" Grid.Row="6" Grid.Column="3"  Background="Gray" Margin="140,0,0,0" Width="220" 
@@ -6038,7 +6071,8 @@
 						</ComboBox>
 						<TextBlock Grid.Row="6" Grid.Column="3" Text="Threshold:" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
 						<TextBox x:Name="ShadowRewardThreshold_Add_TB" Grid.Row="6" Grid.Column="3" Text="0" Background="Gray" Margin="0,0,70,0" Width="60" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-						<Button Grid.Row="6" Grid.Column="4" Content="+"  Width="25" Height="25" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+						<Button Grid.Row="6" Grid.Column="4" Content="+"  Width="25" Height="25" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"
+						        Click="AddShadowReward_Add_BTN_Click"/>
 
 						<TextBlock Grid.Row="7" Grid.Column="3" Text="Add Luminious reward:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 						<ComboBox x:Name="RecipeLuminiousReward_Add_CB" Grid.Row="7" Grid.Column="3"  Background="Gray" Margin="140,0,0,0" Width="220" 
@@ -6052,7 +6086,8 @@
 						</ComboBox>
 						<TextBlock Grid.Row="7" Grid.Column="3" Text="Threshold:" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
 						<TextBox x:Name="LuminiousRewardThreshold_Add_TB" Grid.Row="7" Grid.Column="3" Text="0" Background="Gray" Margin="0,0,70,0" Width="60" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-						<Button Grid.Row="7" Grid.Column="4" Content="+"  Width="25" Height="25" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+						<Button Grid.Row="7" Grid.Column="4" Content="+"  Width="25" Height="25" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"
+						        Click="AddLuminiousReward_Add_BTN_Click"/>
 
 
 						<!--#endregion-->
@@ -6064,8 +6099,44 @@
 								<RowDefinition Height="20"/>
 								<RowDefinition Height="*"/>
 							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition/>
+								<ColumnDefinition/>
+							</Grid.ColumnDefinitions>
+							
 							<TextBlock Text="Required Ingredients" Foreground="White" HorizontalAlignment="Center"/>
-							<ItemsControl x:Name="RecipesIngredients_Add_IC" Grid.Row="2" BorderBrush="Gray" BorderThickness="2">
+							<ItemsControl x:Name="RecipesIngredients_Add_IC" Grid.Row="2"  BorderBrush="Transparent" Foreground="White" BorderThickness="2">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="*"/>
+												<ColumnDefinition Width="30"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Column="0" Foreground="White" Text="{Binding Path=. }"/>
+											<Button x:Name="RemoveItemEffect_BTN" Content="-" Width="20" Grid.Column="1" Foreground="Black"
+											        Click="RemoveIngredient_Add_BTN_Click"/>
+											<!--<TextBlock Grid.Column="1" Foreground="White" >
+												<TextBlock.Style>
+													<Style TargetType="TextBlock">
+														<Setter Property="Text" Value="{Binding.}"/>
+														--><!--<Style.Triggers>
+															<DataTrigger Binding="{Binding Path=ID}" >
+																<Setter></Setter>
+															</DataTrigger>
+														</Style.Triggers>--><!--
+													</Style>
+												</TextBlock.Style>
+											</TextBlock>-->
+
+										</Grid>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<TextBlock Grid.Column="1" Text="Creation Type" Foreground="White" HorizontalAlignment="Center"/>
+							<ItemsControl x:Name="RecipesCreationType_Add_IC" Grid.Row="2" Grid.Column="1">
 								<ItemsControl.ItemTemplate>
 									<DataTemplate>
 										<Grid>
@@ -6075,11 +6146,12 @@
 											</Grid.ColumnDefinitions>
 
 											<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
-											<CheckBox x:Name="AddRecipesMagWeak_CB" Grid.Column="0" Foreground="White" Click="AddWeaponMagicTypes_CB_OnClick"/>
+											<CheckBox x:Name="AddRecipesMagWeak_CB" Grid.Column="0" Foreground="White" Click="AddRecipeCreationType_CB_OnClick"/>
 										</Grid>
 									</DataTemplate>
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
+
 
 						</Grid>
 
@@ -6265,28 +6337,6 @@
 							</Grid.ColumnDefinitions>
 
 							<TextBlock Grid.Column="0" Text="Fire Rewards:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-							<Border Grid.Row="1" Grid.Column="0" BorderBrush="Gray" BorderThickness="2">
-								<ScrollViewer VerticalScrollBarVisibility="Hidden">
-									<ItemsControl ItemsSource="{Binding Path=FireRewards_Add_List}">
-										<ItemsControl.ItemTemplate>
-											<DataTemplate>
-												<Grid>
-													<Grid.ColumnDefinitions>
-														<ColumnDefinition Width="3*"/>
-														<ColumnDefinition Width="1*"/>
-														<ColumnDefinition Width="30"/>
-													</Grid.ColumnDefinitions>
-
-													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=modifier.Id}" />
-													<TextBox Grid.Column="1" Text="{Binding Path=Threshold}" IsEnabled="False" />
-													<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25"/>
-
-												</Grid>
-											</DataTemplate>
-										</ItemsControl.ItemTemplate>
-									</ItemsControl>
-								</ScrollViewer>
-							</Border>
 							<TextBlock Grid.Column="0" Text="Fire Rewards:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 							<Border Grid.Row="1" Grid.Column="0" BorderBrush="Gray" BorderThickness="2">
 								<ScrollViewer VerticalScrollBarVisibility="Hidden">
@@ -6300,8 +6350,8 @@
 														<ColumnDefinition Width="30"/>
 													</Grid.ColumnDefinitions>
 
-													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=modifier.Id}" ToolTip="{Binding Path=modifier.Id}" />
-													<TextBox Grid.Column="1" Text="{Binding Path=Threshold}" IsEnabled="False" />
+													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=Modifier_ID}" ToolTip="{Binding Path=Modifier_ID}" />
+													<TextBox Grid.Column="1" Text="{Binding Path=Point_Threshold}" IsEnabled="False" />
 													<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25"/>
 
 												</Grid>
@@ -6324,8 +6374,8 @@
 														<ColumnDefinition Width="30"/>
 													</Grid.ColumnDefinitions>
 
-													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=modifier.Id}" />
-													<TextBox Grid.Column="1" Text="{Binding Path=Threshold}" IsEnabled="False" />
+													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=Modifier_ID}" ToolTip="{Binding Path=Modifier_ID}" />
+													<TextBox Grid.Column="1" Text="{Binding Path=Point_Threshold}" IsEnabled="False" />
 													<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25"/>
 
 												</Grid>
@@ -6348,8 +6398,8 @@
 														<ColumnDefinition Width="30"/>
 													</Grid.ColumnDefinitions>
 
-													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=modifier.Id}" />
-													<TextBox Grid.Column="1" Text="{Binding Path=Threshold}" IsEnabled="False" />
+													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=Modifier_ID}" ToolTip="{Binding Path=Modifier_ID}" />
+													<TextBox Grid.Column="1" Text="{Binding Path=Point_Threshold}" IsEnabled="False" />
 													<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25"/>
 
 												</Grid>
@@ -6372,8 +6422,8 @@
 														<ColumnDefinition Width="30"/>
 													</Grid.ColumnDefinitions>
 
-													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=modifier.Id}" />
-													<TextBox Grid.Column="1" Text="{Binding Path=Threshold}" IsEnabled="False" />
+													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=Modifier_ID}" ToolTip="{Binding Path=Modifier_ID}" />
+													<TextBox Grid.Column="1" Text="{Binding Path=Point_Threshold}" IsEnabled="False" />
 													<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25"/>
 
 												</Grid>
@@ -6396,8 +6446,8 @@
 														<ColumnDefinition Width="30"/>
 													</Grid.ColumnDefinitions>
 
-													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=modifier.Id}" />
-													<TextBox Grid.Column="1" Text="{Binding Path=Threshold}" IsEnabled="False" />
+													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=Modifier_ID}" ToolTip="{Binding Path=Modifier_ID}" />
+													<TextBox Grid.Column="1" Text="{Binding Path=Point_Threshold}" IsEnabled="False" />
 													<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25"/>
 
 												</Grid>
@@ -6420,8 +6470,8 @@
 														<ColumnDefinition Width="30"/>
 													</Grid.ColumnDefinitions>
 
-													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=modifier.Id}" />
-													<TextBox Grid.Column="1" Text="{Binding Path=Threshold}" IsEnabled="False" />
+													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=Modifier_ID}" ToolTip="{Binding Path=Modifier_ID}" />
+													<TextBox Grid.Column="1" Text="{Binding Path=Point_Threshold}" IsEnabled="False" />
 													<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25"/>
 
 												</Grid>
@@ -6444,8 +6494,8 @@
 														<ColumnDefinition Width="30"/>
 													</Grid.ColumnDefinitions>
 
-													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=modifier.Id}" />
-													<TextBox Grid.Column="1" Text="{Binding Path=Threshold}" IsEnabled="False" />
+													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=Modifier_ID}" ToolTip="{Binding Path=Modifier_ID}" />
+													<TextBox Grid.Column="1" Text="{Binding Path=Point_Threshold}" IsEnabled="False" />
 													<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25"/>
 
 												</Grid>
@@ -6468,8 +6518,8 @@
 														<ColumnDefinition Width="30"/>
 													</Grid.ColumnDefinitions>
 
-													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=modifier.Id}" />
-													<TextBox Grid.Column="1" Text="{Binding Path=Threshold}" IsEnabled="False" />
+													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=Modifier_ID}" ToolTip="{Binding Path=Modifier_ID}" />
+													<TextBox Grid.Column="1" Text="{Binding Path=Point_Threshold}" IsEnabled="False" />
 													<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25"/>
 
 												</Grid>
@@ -6485,7 +6535,739 @@
 
 					</Grid>
 
-					<Grid x:Name="Edit_Recipe_Grid" Grid.Row="2" Visibility="Hidden">
+					<Grid x:Name="Edit_Recipe_Grid" Grid.Row="2" Visibility="Visible">
+						<Grid.RowDefinitions>
+								<RowDefinition Height="30"/>
+								<RowDefinition Height="30"/>
+								<RowDefinition Height="30"/>
+								<RowDefinition Height="30"/>
+								<RowDefinition Height="30"/>
+								<RowDefinition Height="30"/>
+								<RowDefinition Height="30"/>
+								<RowDefinition Height="30"/>
+								<RowDefinition Height="30"/>
+								<RowDefinition Height="30"/>
+								<RowDefinition Height="10*"/>
+								<RowDefinition Height="9*"/>
+								<RowDefinition Height="30"/>
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="270"/>
+								<ColumnDefinition Width="220"/>
+								<ColumnDefinition Width="220"/>
+								<ColumnDefinition Width="500"/>
+								<ColumnDefinition Width="*"/>
+							</Grid.ColumnDefinitions>
+
+							<Button Grid.Row="20" Grid.Column="0" Grid.ColumnSpan="10" Content="Update Recipe in Database!"  Margin="10,0,10,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+						        Click="UpdateRecipeToDatabase_BTN_Click"/>
+
+
+							<TextBlock Grid.Row="0" Grid.Column="0" Text="Name:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+							<ComboBox x:Name="RecipeName_Edit_CB" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="Gray" Margin="60,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+										 ItemsSource="{Binding Path=CurrentRecipesInDatabase, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+										 SelectionChanged="RecipeName_Edit_CB_OnSelectionChanged">
+								<ComboBox.ItemTemplate>
+									<DataTemplate>
+										<TextBlock Text="{Binding Name}" Foreground="Black"/>
+									</DataTemplate>
+								</ComboBox.ItemTemplate>
+							</ComboBox>
+	
+							<TextBlock Grid.Row="2" Grid.Column="0" Text="Required Quality:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+							<TextBox x:Name="RecipeQualityThreshold_Edit_TB" Grid.Row="2" Grid.Column="0" Background="Gray" Margin="100,0,0,0" Width="160" HorizontalAlignment="Left" VerticalAlignment="Center"
+										 Text="{Binding Path=CurrentRecipeEditing.QualityThreshold,  UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+							<TextBlock Grid.Row="3" Grid.Column="0" Text="Required Level:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+							<TextBox x:Name="RecipeRequiredLevel_Edit_TB" Grid.Row="3" Grid.Column="0" Background="Gray" Margin="100,0,0,0" Width="160" HorizontalAlignment="Left" VerticalAlignment="Center"
+										 Text="{Binding Path=CurrentRecipeEditing.RequiredLevel, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+							<!--<TextBlock Grid.Row="4" Grid.Column="0" Text="Required Quality:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+						<TextBox Grid.Row="4" Grid.Column="0" Background="Gray" Margin="100,0,0,0" Width="160" HorizontalAlignment="Left" VerticalAlignment="Center"/>-->
+
+							<TextBlock Grid.Row="4" Grid.Column="0" Text="hours to make (float):" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+							<TextBox x:Name="RecipeTimeToMake_Edit_Tb" Grid.Row="4" Grid.Column="0" Background="Gray" Margin="130,0,0,0" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center"
+										 Text="{Binding Path=CurrentRecipeEditing.TimeToMake , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+							<TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Text="Add Ingredient(Item, Equipable, or Type)" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+							<TextBlock Grid.Row="6" Grid.Column="0" Text="Add Item" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+							<ComboBox x:Name="RecipeIngredientItem_Edit_CB" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Background="Gray" Margin="100,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+						          SelectionChanged="RecipeIngredient_Edit_CB_OnSelectionChanged" >
+								<ComboBox.ItemTemplate>
+									<DataTemplate>
+										<TextBlock Text="{Binding ID}" Foreground="Black"/>
+									</DataTemplate>
+								</ComboBox.ItemTemplate>
+							</ComboBox>
+
+							<TextBlock Grid.Row="7" Grid.Column="0" Text="Add Equipable" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+							<ComboBox x:Name="RecipeIngredientEquipable_Edit_CB" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Background="Gray" Margin="100,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+						 SelectionChanged="RecipeIngredient_Edit_CB_OnSelectionChanged">
+								<ComboBox.ItemTemplate>
+									<DataTemplate>
+										<TextBlock Text="{Binding Path=ID}" Foreground="Black"/>
+									</DataTemplate>
+								</ComboBox.ItemTemplate>
+								<ComboBox.ItemsSource>
+									<CompositeCollection>
+									</CompositeCollection>
+								</ComboBox.ItemsSource>
+
+							</ComboBox>
+
+							<TextBlock Grid.Row="8" Grid.Column="0" Text="Add Type" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+							<ComboBox x:Name="RecipeIngredientsType_Edit_CB" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Background="Gray" Margin="100,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+						          ItemsSource="{Binding Source={StaticResource ECreationType}}" SelectionChanged="RecipeIngredient_Edit_CB_OnSelectionChanged"/>
+
+							<Button Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Content="Add ingredient"  Margin="10,0,10,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+						        Click="RecipeAddIngredient_Edit_BTN_Click"/>
+
+							<TextBlock Grid.Row="1" Grid.Column="1" Text="Base Output Quality:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+							<TextBox x:Name="RecipeBaseOutputQuality_Edit_TB" Grid.Row="1" Grid.Column="1" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center" 
+						         />
+
+							<TextBlock Grid.Row="2" Grid.Column="1" Text="Base Output Rating:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+							<TextBox x:Name="RecipeBaseOutputRating_Edit_TB" Grid.Row="2" Grid.Column="1" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center" 
+						/>
+
+							<TextBlock Grid.Row="3" Grid.Column="1" Text="Base Output Size:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+							<TextBox x:Name="RecipeBaseOutputSize_Edit_TB" Grid.Row="3" Grid.Column="1" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center" 
+						/>
+
+							<TextBlock Grid.Row="4" Grid.Column="1" Text="Base Use Count (null):" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+							<TextBox x:Name="RecipeBaseOutputUseCount_Edit_TB" Grid.Row="4" Grid.Column="1" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center" 
+						/>
+
+
+							<!-- #region Elemental Maxs-->
+
+							<TextBlock Grid.Row="0" Grid.Column="2" Text="Max Fire Points:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+							<TextBox x:Name="RecipeMaxFire_Edit_TB" Grid.Row="0" Grid.Column="2" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center" 
+										 />
+
+							<TextBlock Grid.Row="1" Grid.Column="2" Text="Max Ice Points:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+							<TextBox x:Name="RecipeMaxIce_Edit_TB"  Grid.Row="1" Grid.Column="2" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center"
+						/>
+
+							<TextBlock Grid.Row="2" Grid.Column="2" Text="Max Earth Points:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+							<TextBox x:Name="RecipeMaxEarth_Edit_TB" Grid.Row="2" Grid.Column="2" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center"
+						/>
+
+							<TextBlock Grid.Row="3" Grid.Column="2" Text="Max Water Points:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+							<TextBox x:Name="RecipeMaxWater_Edit_TB" Grid.Row="3" Grid.Column="2" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center"
+						         />
+
+							<TextBlock Grid.Row="4" Grid.Column="2" Text="Max Lightning Points:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+							<TextBox x:Name="RecipeMaxLightning_Edit_TB" Grid.Row="4" Grid.Column="2" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center"
+						         />
+
+							<TextBlock Grid.Row="5" Grid.Column="2" Text="Max Explosive Points:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+							<TextBox x:Name="RecipeMaxExplosive_Edit_TB" Grid.Row="5" Grid.Column="2" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center"
+						         />
+
+							<TextBlock Grid.Row="6" Grid.Column="2" Text="Max Shadow Points:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+							<TextBox x:Name="RecipeMaxShadow_Edit_TB" Grid.Row="6" Grid.Column="2" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center"
+						        />
+
+							<TextBlock Grid.Row="7" Grid.Column="2" Text="Max Luminous Points:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+							<TextBox x:Name="RecipeMaxLuminous_Edit_TB" Grid.Row="7" Grid.Column="2" Background="Gray" Margin="130,0,0,0" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center"
+						         />
+
+
+							<!--#endregion-->
+
+							<!--#region elemental point rewards-->
+
+							<TextBlock Grid.Row="0" Grid.Column="3" Text="Add Fire reward:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+							<ComboBox x:Name="RecipeFireReward_Edit_CB" Grid.Row="0" Grid.Column="3"  Background="Gray" Margin="140,0,0,0" Width="220" 
+												ItemsSource="{Binding CurrentGameplayModifiersInDatabase}" HorizontalAlignment="Left" VerticalAlignment="Center"
+							SelectionChanged="SkillLinkedModifier_Edit_CB_OnSelectionChanged">
+								<ComboBox.ItemTemplate>
+									<DataTemplate>
+										<TextBlock Text="{Binding Id}" Foreground="Black"/>
+									</DataTemplate>
+								</ComboBox.ItemTemplate>
+							</ComboBox>
+							<TextBlock Grid.Row="0" Grid.Column="3" Text="Threshold:" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+							<TextBox x:Name="FireRewardThreshold_Edit_TB" Grid.Row="0" Grid.Column="3" Text="0" Background="Gray" Margin="0,0,70,0" Width="60" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+							<Button Grid.Row="0" Grid.Column="4" Content="+"  Width="25" Height="25" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"
+										Click="AddFireReward_Edit_BTN_Click"/>
+
+							<TextBlock Grid.Row="1" Grid.Column="3" Text="Add Ice reward:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+							<ComboBox x:Name="RecipeIceReward_Edit_CB" Grid.Row="1" Grid.Column="3"  Background="Gray" Margin="140,0,0,0" Width="220" 
+											ItemsSource="{Binding CurrentGameplayModifiersInDatabase}" HorizontalAlignment="Left" VerticalAlignment="Center"
+							SelectionChanged="SkillLinkedModifier_Edit_CB_OnSelectionChanged">
+								<ComboBox.ItemTemplate>
+									<DataTemplate>
+										<TextBlock Text="{Binding Id}" Foreground="Black"/>
+									</DataTemplate>
+								</ComboBox.ItemTemplate>
+							</ComboBox>
+							<TextBlock Grid.Row="1" Grid.Column="3" Text="Threshold:" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+							<TextBox x:Name="IceRewardThreshold_Edit_TB" Grid.Row="1" Grid.Column="3" Text="0" Background="Gray" Margin="0,0,70,0" Width="60" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+							<Button Grid.Row="1" Grid.Column="4" Content="+"  Width="25" Height="25" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"
+										Click="AddIceReward_Edit_BTN_Click"/>
+
+							<TextBlock Grid.Row="2" Grid.Column="3" Text="Add Earth reward:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+							<ComboBox x:Name="RecipeEarthReward_Edit_CB" Grid.Row="2" Grid.Column="3"  Background="Gray" Margin="140,0,0,0" Width="220"
+											ItemsSource="{Binding CurrentGameplayModifiersInDatabase}" HorizontalAlignment="Left" VerticalAlignment="Center"
+							SelectionChanged="SkillLinkedModifier_Edit_CB_OnSelectionChanged">
+								<ComboBox.ItemTemplate>
+									<DataTemplate>
+										<TextBlock Text="{Binding Id}" Foreground="Black"/>
+									</DataTemplate>
+								</ComboBox.ItemTemplate>
+							</ComboBox>
+							<TextBlock Grid.Row="2" Grid.Column="3" Text="Threshold:" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+							<TextBox x:Name="EarthRewardThreshold_Edit_TB" Grid.Row="2" Grid.Column="3" Text="0" Background="Gray" Margin="0,0,70,0" Width="60" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+							<Button Grid.Row="2" Grid.Column="4" Content="+"  Width="25" Height="25" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"
+						        Click="AddEarthReward_Edit_BTN_Click"/>
+
+							<TextBlock Grid.Row="3" Grid.Column="3" Text="Add Water reward:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+							<ComboBox x:Name="RecipeWaterReward_Edit_CB" Grid.Row="3" Grid.Column="3"  Background="Gray" Margin="140,0,0,0" Width="220" 
+											ItemsSource="{Binding CurrentGameplayModifiersInDatabase}" HorizontalAlignment="Left" VerticalAlignment="Center"
+							SelectionChanged="SkillLinkedModifier_Edit_CB_OnSelectionChanged">
+								<ComboBox.ItemTemplate>
+									<DataTemplate>
+										<TextBlock Text="{Binding Id}" Foreground="Black"/>
+									</DataTemplate>
+								</ComboBox.ItemTemplate>
+							</ComboBox>
+							<TextBlock Grid.Row="3" Grid.Column="3" Text="Threshold:" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+							<TextBox x:Name="WaterRewardThreshold_Edit_TB" Grid.Row="3" Grid.Column="3" Text="0" Background="Gray" Margin="0,0,70,0" Width="60" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+							<Button Grid.Row="3" Grid.Column="4" Content="+"  Width="25" Height="25" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"
+						        Click="AddWaterReward_Edit_BTN_Click"/>
+
+
+							<TextBlock Grid.Row="4" Grid.Column="3" Text="Add Lightning reward:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+							<ComboBox x:Name="RecipeLightningReward_Edit_CB" Grid.Row="4" Grid.Column="3"  Background="Gray" Margin="140,0,0,0" Width="220" 
+											ItemsSource="{Binding CurrentGameplayModifiersInDatabase}" HorizontalAlignment="Left" VerticalAlignment="Center"
+							SelectionChanged="SkillLinkedModifier_Edit_CB_OnSelectionChanged">
+								<ComboBox.ItemTemplate>
+									<DataTemplate>
+										<TextBlock Text="{Binding Id}" Foreground="Black"/>
+									</DataTemplate>
+								</ComboBox.ItemTemplate>
+							</ComboBox>
+							<TextBlock Grid.Row="4" Grid.Column="3" Text="Threshold:" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+							<TextBox x:Name="LightningRewardThreshold_Edit_TB" Grid.Row="4" Grid.Column="3" Text="0" Background="Gray" Margin="0,0,70,0" Width="60" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+							<Button Grid.Row="4" Grid.Column="4" Content="+"  Width="25" Height="25" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"
+						        Click="AddLightningReward_Edit_BTN_Click"/>
+
+							<TextBlock Grid.Row="5" Grid.Column="3" Text="Add Explsoive reward:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+							<ComboBox x:Name="RecipeExplosiveReward_Edit_CB" Grid.Row="5" Grid.Column="3"  Background="Gray" Margin="140,0,0,0" Width="220"
+											ItemsSource="{Binding CurrentGameplayModifiersInDatabase}" HorizontalAlignment="Left" VerticalAlignment="Center"
+							SelectionChanged="SkillLinkedModifier_Edit_CB_OnSelectionChanged">
+								<ComboBox.ItemTemplate>
+									<DataTemplate>
+										<TextBlock Text="{Binding Id}" Foreground="Black"/>
+									</DataTemplate>
+								</ComboBox.ItemTemplate>
+							</ComboBox>
+							<TextBlock Grid.Row="5" Grid.Column="3" Text="Threshold:" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+							<TextBox x:Name="ExplosiveRewardThreshold_Edit_TB" Grid.Row="5" Grid.Column="3" Text="0" Background="Gray" Margin="0,0,70,0" Width="60" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+							<Button Grid.Row="5" Grid.Column="4" Content="+"  Width="25" Height="25" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"
+						        Click="AddExplosiveReward_Edit_BTN_Click"/>
+
+							<TextBlock Grid.Row="6" Grid.Column="3" Text="Add Shadow reward:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+							<ComboBox x:Name="RecipeShadowReward_Edit_CB" Grid.Row="6" Grid.Column="3"  Background="Gray" Margin="140,0,0,0" Width="220" 
+											ItemsSource="{Binding CurrentGameplayModifiersInDatabase}" HorizontalAlignment="Left" VerticalAlignment="Center"
+							SelectionChanged="SkillLinkedModifier_Edit_CB_OnSelectionChanged">
+								<ComboBox.ItemTemplate>
+									<DataTemplate>
+										<TextBlock Text="{Binding Id}" Foreground="Black"/>
+									</DataTemplate>
+								</ComboBox.ItemTemplate>
+							</ComboBox>
+							<TextBlock Grid.Row="6" Grid.Column="3" Text="Threshold:" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+							<TextBox x:Name="ShadowRewardThreshold_Edit_TB" Grid.Row="6" Grid.Column="3" Text="0" Background="Gray" Margin="0,0,70,0" Width="60" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+							<Button Grid.Row="6" Grid.Column="4" Content="+"  Width="25" Height="25" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"
+						        Click="AddShadowReward_Edit_BTN_Click"/>
+
+							<TextBlock Grid.Row="7" Grid.Column="3" Text="Add Luminious reward:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+							<ComboBox x:Name="RecipeLuminiousReward_Edit_CB" Grid.Row="7" Grid.Column="3"  Background="Gray" Margin="140,0,0,0" Width="220" 
+											ItemsSource="{Binding CurrentGameplayModifiersInDatabase}" HorizontalAlignment="Left" VerticalAlignment="Center"
+							SelectionChanged="SkillLinkedModifier_Edit_CB_OnSelectionChanged">
+								<ComboBox.ItemTemplate>
+									<DataTemplate>
+										<TextBlock Text="{Binding Id}" Foreground="Black"/>
+									</DataTemplate>
+								</ComboBox.ItemTemplate>
+							</ComboBox>
+							<TextBlock Grid.Row="7" Grid.Column="3" Text="Threshold:" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+							<TextBox x:Name="LuminiousRewardThreshold_Edit_TB" Grid.Row="7" Grid.Column="3" Text="0" Background="Gray" Margin="0,0,70,0" Width="60" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+							<Button Grid.Row="7" Grid.Column="4" Content="+"  Width="25" Height="25" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"
+						        Click="AddLuminiousReward_Edit_BTN_Click"/>
+
+
+							<!--#endregion-->
+
+							<!--#region Ingredients-->
+
+							<Grid Grid.Row="10">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="*"/>
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+								</Grid.ColumnDefinitions>
+
+								<TextBlock Text="Required Ingredients" Foreground="White" HorizontalAlignment="Center"/>
+								<ItemsControl x:Name="RecipesIngredients_Edit_IC" Grid.Row="2"  BorderBrush="Transparent" Foreground="White" BorderThickness="2">
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											<Grid>
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="*"/>
+													<ColumnDefinition Width="30"/>
+												</Grid.ColumnDefinitions>
+
+												<TextBlock Grid.Column="0" Foreground="White" Text="{Binding Path=. }"/>
+												<Button x:Name="RemoveItemEffect_BTN" Content="-" Width="20" Grid.Column="1" Foreground="Black"
+											        Click="RemoveIngredient_Edit_BTN_Click"/>
+												<!--<TextBlock Grid.Column="1" Foreground="White" >
+												<TextBlock.Style>
+													<Style TargetType="TextBlock">
+														<Setter Property="Text" Value="{Binding.}"/>
+														-->
+												<!--<Style.Triggers>
+															<DataTrigger Binding="{Binding Path=ID}" >
+																<Setter></Setter>
+															</DataTrigger>
+														</Style.Triggers>-->
+												<!--
+													</Style>
+												</TextBlock.Style>
+											</TextBlock>-->
+
+											</Grid>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+
+								<TextBlock Grid.Column="1" Text="Creation Type" Foreground="White" HorizontalAlignment="Center"/>
+								<ItemsControl x:Name="RecipesCreationType_Edit_IC" Grid.Row="2" Grid.Column="1">
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											<Grid>
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="20"/>
+													<ColumnDefinition Width="200"/>
+												</Grid.ColumnDefinitions>
+
+												<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+												<CheckBox x:Name="EditCheckbox" Grid.Column="0" Foreground="White" Click="AddRecipeCreationType_CB_OnClick"/>
+											</Grid>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+
+
+							</Grid>
+
+							<!--#endregion-->
+
+							<!--#region stats -->
+							<Grid x:Name="RecipesStats_Edit_Grid" Grid.Row="10" Grid.Column="1" Grid.RowSpan="12">
+
+								<Grid.RowDefinitions>
+									<RowDefinition Height="0"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="0"/>
+									<RowDefinition Height="0"/>
+									<RowDefinition Height="0"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="20"/>
+								</Grid.RowDefinitions>
+
+								<TextBlock Grid.Row="1" Grid.Column="0" Text="Health Increase:" Foreground="White" Margin="10,0,0,0"/>
+								<TextBox x:Name="RecipesMaxHP_Edit_TB" Grid.Row="1" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+								<TextBlock Grid.Row="2" Grid.Column="0" Text="Mana Increase:" Foreground="White" Margin="10,0,0,0"/>
+								<TextBox x:Name="RecipesMaxMP_Edit_TB" Grid.Row="2" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+								<TextBlock Grid.Row="6" Grid.Column="0" Text="Attack Stat Increase:" Foreground="White" Margin="10,0,0,0"/>
+								<TextBox x:Name="RecipesAtk_Edit_TB" Grid.Row="6" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+								<TextBlock Grid.Row="7" Grid.Column="0" Text="Defense Stat Increase:" Foreground="White" Margin="10,0,0,0"/>
+								<TextBox x:Name="RecipesDef_Edit_TB" Grid.Row="7" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+								<TextBlock Grid.Row="8" Grid.Column="0" Text="Dexterity Stat Increase:" Foreground="White" Margin="10,0,0,0"/>
+								<TextBox x:Name="RecipesDex_Edit_TB" Grid.Row="8" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+								<TextBlock Grid.Row="9" Grid.Column="0" Text="Agility Stat Increase:" Foreground="White" Margin="10,0,0,0"/>
+								<TextBox x:Name="RecipesAgl_Edit_TB" Grid.Row="9" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+								<TextBlock Grid.Row="10" Grid.Column="0" Text="Morality Stat Increase:" Foreground="White" Margin="10,0,0,0"/>
+								<TextBox x:Name="RecipesMor_Edit_TB" Grid.Row="10" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+								<TextBlock Grid.Row="11" Grid.Column="0" Text="Wisdom Stat Increase:" Foreground="White" Margin="10,0,0,0"/>
+								<TextBox x:Name="RecipesWis_Edit_TB" Grid.Row="11" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+								<TextBlock Grid.Row="12" Grid.Column="0" Text="Resistance Stat Increase:" Foreground="White" Margin="10,0,0,0"/>
+								<TextBox x:Name="RecipesRes_Edit_TB" Grid.Row="12" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+								<TextBlock Grid.Row="13" Grid.Column="0" Text="Luck Stat Increase:" Foreground="White" Margin="10,0,0,0"/>
+								<TextBox x:Name="RecipesLuc_Edit_TB" Grid.Row="13" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+								<TextBlock Grid.Row="14" Grid.Column="0" Text="Risk Stat Increase:" Foreground="White" Margin="10,0,0,0"/>
+								<TextBox x:Name="RecipesRsk_Edit_TB" Grid.Row="14" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+								<TextBlock Grid.Row="15" Grid.Column="0" Text="Intelligence Stat Increase:" Foreground="White" Margin="10,0,0,0"/>
+								<TextBox x:Name="RecipesItl_Edit_TB" Grid.Row="15" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+							</Grid>
+							<!--#endregion-->
+
+							<!--#region WeaknessAndStrengths-->
+							<Grid Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="3">
+
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition />
+									<ColumnDefinition />
+									<ColumnDefinition />
+									<ColumnDefinition />
+								</Grid.ColumnDefinitions>
+
+								<Grid.RowDefinitions>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="10"/>
+									<RowDefinition Height="*"/>
+								</Grid.RowDefinitions>
+
+								<TextBlock Text="Magic Weaknesses" Foreground="White" HorizontalAlignment="Center"/>
+								<TextBlock Grid.Column="1" Text="Weapon Weaknesses" Foreground="White" HorizontalAlignment="Center"/>
+								<TextBlock Grid.Column="2" Text="Magic Strength" Foreground="White" HorizontalAlignment="Center"/>
+								<TextBlock Grid.Column="3" Text="Weapon Strength" Foreground="White" HorizontalAlignment="Center"/>
+
+								<ItemsControl x:Name="RecipesMagicWeakness_Edit_IC" Grid.Row="2">
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											<Grid>
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="20"/>
+													<ColumnDefinition Width="200"/>
+												</Grid.ColumnDefinitions>
+
+												<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+												<CheckBox x:Name="AddMagWeak_CB" Grid.Column="0" Foreground="White" />
+											</Grid>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+
+								<ItemsControl x:Name="RecipesWeakness_Edit_IC" Grid.Row="2" Grid.Column="1">
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											<Grid>
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="20"/>
+													<ColumnDefinition Width="200"/>
+												</Grid.ColumnDefinitions>
+
+												<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+												<CheckBox x:Name="AddWeak_CB" Grid.Column="0" Foreground="White" />
+											</Grid>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+
+								<ItemsControl x:Name="RecipesMagicStrength_Edit_IC" Grid.Row="2" Grid.Column="2">
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											<Grid>
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="20"/>
+													<ColumnDefinition Width="200"/>
+												</Grid.ColumnDefinitions>
+
+												<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+												<CheckBox x:Name="AddMagicStrength_CB" Grid.Column="0" Foreground="White"/>
+											</Grid>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+
+								<ItemsControl x:Name="RecipesStrength_Edit_IC" Grid.Row="2" Grid.Column="3">
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											<Grid>
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="20"/>
+													<ColumnDefinition Width="200"/>
+												</Grid.ColumnDefinitions>
+
+												<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=., Converter={StaticResource DefaultEnumToStringConverter}}"></TextBlock>
+												<CheckBox x:Name="AddStrength_CB" Grid.Column="0" Foreground="White" />
+											</Grid>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+
+								<GridSplitter Grid.Row="1" Height="2" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+
+
+								<GridSplitter Grid.Row="1" Width="2" Grid.Column="0" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+								<GridSplitter Grid.Row="1" Width="2" Grid.Column="1" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+								<GridSplitter Grid.Row="1" Width="2" Grid.Column="2" Grid.RowSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
+							              Margin="-2,0,-2,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+							</Grid>
+
+
+							<!--#endregion-->
+
+
+							<!--#region Rewards Item Controls-->
+
+							<Grid Grid.Row="11" Grid.ColumnSpan="5" Margin="0,10,0,0">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="30"/>
+									<RowDefinition Height="*"/>
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition />
+									<ColumnDefinition />
+									<ColumnDefinition />
+									<ColumnDefinition />
+									<ColumnDefinition />
+									<ColumnDefinition />
+									<ColumnDefinition />
+									<ColumnDefinition />
+								</Grid.ColumnDefinitions>
+
+								<TextBlock Grid.Column="0" Text="Fire Rewards:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+								<Border Grid.Row="1" Grid.Column="0" BorderBrush="Gray" BorderThickness="2">
+									<ScrollViewer VerticalScrollBarVisibility="Hidden">
+										<ItemsControl ItemsSource="{Binding Path=FireRewards_Edit_List}">
+											<ItemsControl.ItemTemplate>
+												<DataTemplate>
+													<Grid>
+														<Grid.ColumnDefinitions>
+															<ColumnDefinition Width="3*"/>
+															<ColumnDefinition Width="1*"/>
+															<ColumnDefinition Width="30"/>
+														</Grid.ColumnDefinitions>
+
+														<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=modifier.Id}" />
+														<TextBox Grid.Column="1" Text="{Binding Path=Threshold}" IsEnabled="False" />
+														<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25"/>
+
+													</Grid>
+												</DataTemplate>
+											</ItemsControl.ItemTemplate>
+										</ItemsControl>
+									</ScrollViewer>
+								</Border>
+								<TextBlock Grid.Column="0" Text="Fire Rewards:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+								<Border Grid.Row="1" Grid.Column="0" BorderBrush="Gray" BorderThickness="2">
+									<ScrollViewer VerticalScrollBarVisibility="Hidden">
+									<ItemsControl x:Name="RecipeRewardFire_Edit_IC" ItemsSource="{Binding Path=FireRewards_Edit_List}">
+											<ItemsControl.ItemTemplate>
+												<DataTemplate>
+													<Grid>
+														<Grid.ColumnDefinitions>
+															<ColumnDefinition Width="3*"/>
+															<ColumnDefinition Width="1*"/>
+															<ColumnDefinition Width="30"/>
+														</Grid.ColumnDefinitions>
+
+													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=Modifier_ID, Mode=OneWay}" ToolTip="{Binding Path=Modifier_ID, Mode=OneWay}" />
+													<TextBox Grid.Column="1" Text="{Binding Path=Point_Threshold, Mode=OneWay}" IsEnabled="False" />
+													<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25" Click="RemoveRewardFromIC_BTN_Click"/>
+
+													</Grid>
+												</DataTemplate>
+											</ItemsControl.ItemTemplate>
+										</ItemsControl>
+									</ScrollViewer>
+								</Border>
+
+								<TextBlock Grid.Column="1" Text="Ice Rewards:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+								<Border Grid.Row="1" Grid.Column="1" BorderBrush="Gray" BorderThickness="2">
+									<ScrollViewer VerticalScrollBarVisibility="Hidden">
+									<ItemsControl x:Name="RecipeRewardIce_Edit_IC" ItemsSource="{Binding Path=IceRewards_Edit_List}">
+											<ItemsControl.ItemTemplate>
+												<DataTemplate>
+													<Grid>
+														<Grid.ColumnDefinitions>
+															<ColumnDefinition Width="3*"/>
+															<ColumnDefinition Width="1*"/>
+															<ColumnDefinition Width="30"/>
+														</Grid.ColumnDefinitions>
+
+														<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=Modifier_ID, Mode=OneWay}" ToolTip="{Binding Path=Modifier_ID, Mode=OneWay}" />
+														<TextBox Grid.Column="1" Text="{Binding Path=Point_Threshold, Mode =OneWay}" IsEnabled="False" />
+													<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25" Click="RemoveRewardFromIC_BTN_Click"/>
+
+													</Grid>
+												</DataTemplate>
+											</ItemsControl.ItemTemplate>
+										</ItemsControl>
+									</ScrollViewer>
+								</Border>
+
+								<TextBlock Grid.Column="2" Text="Earth Rewards:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+								<Border Grid.Row="1" Grid.Column="2" BorderBrush="Gray" BorderThickness="2">
+									<ScrollViewer VerticalScrollBarVisibility="Hidden">
+									<ItemsControl x:Name="RecipeRewardEarth_Edit_IC" ItemsSource="{Binding Path=EarthRewards_Edit_List}" >
+											<ItemsControl.ItemTemplate>
+												<DataTemplate>
+													<Grid>
+														<Grid.ColumnDefinitions>
+															<ColumnDefinition Width="3*"/>
+															<ColumnDefinition Width="1*"/>
+															<ColumnDefinition Width="30"/>
+														</Grid.ColumnDefinitions>
+
+													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=Modifier_ID , Mode=OneWay}" ToolTip="{Binding Path=Modifier_ID, Mode=OneWay}" />
+													<TextBox Grid.Column="1" Text="{Binding Path=Point_Threshold, Mode=OneWay}" IsEnabled="False" />
+													<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25" Click="RemoveRewardFromIC_BTN_Click"/>
+
+													</Grid>
+												</DataTemplate>
+											</ItemsControl.ItemTemplate>
+										</ItemsControl>
+									</ScrollViewer>
+								</Border>
+
+								<TextBlock Grid.Column="3" Text="Water Rewards:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+								<Border Grid.Row="1" Grid.Column="3" BorderBrush="Gray" BorderThickness="2">
+									<ScrollViewer VerticalScrollBarVisibility="Hidden">
+									<ItemsControl x:Name="RecipeRewardWater_Edit_IC" ItemsSource="{Binding Path=WaterRewards_Edit_List}" >
+											<ItemsControl.ItemTemplate>
+												<DataTemplate>
+													<Grid>
+														<Grid.ColumnDefinitions>
+															<ColumnDefinition Width="3*"/>
+															<ColumnDefinition Width="1*"/>
+															<ColumnDefinition Width="30"/>
+														</Grid.ColumnDefinitions>
+
+													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=Modifier_ID, Mode=OneWay}" ToolTip="{Binding Path=Modifier_ID, Mode=OneWay}" />
+													<TextBox Grid.Column="1" Text="{Binding Path=Point_Threshold, Mode=OneWay}" IsEnabled="False" />
+													<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25" Click="RemoveRewardFromIC_BTN_Click"/>
+
+													</Grid>
+												</DataTemplate>
+											</ItemsControl.ItemTemplate>
+										</ItemsControl>
+									</ScrollViewer>
+								</Border>
+
+								<TextBlock Grid.Column="4" Text="Lightning Rewards:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+								<Border Grid.Row="1" Grid.Column="4" BorderBrush="Gray" BorderThickness="2">
+									<ScrollViewer VerticalScrollBarVisibility="Hidden">
+									<ItemsControl x:Name="RecipeRewardLightning_Edit_IC" ItemsSource="{Binding Path=LightningRewards_Edit_List}">
+											<ItemsControl.ItemTemplate>
+												<DataTemplate>
+													<Grid>
+														<Grid.ColumnDefinitions>
+															<ColumnDefinition Width="3*"/>
+															<ColumnDefinition Width="1*"/>
+															<ColumnDefinition Width="30"/>
+														</Grid.ColumnDefinitions>
+
+													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=Modifier_ID, Mode=OneWay}" ToolTip="{Binding Path=Modifier_ID, Mode=OneWay}" />
+													<TextBox Grid.Column="1" Text="{Binding Path=Point_Threshold, Mode=OneWay}" IsEnabled="False" />
+													<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25" Click="RemoveRewardFromIC_BTN_Click"/>
+
+													</Grid>
+												</DataTemplate>
+											</ItemsControl.ItemTemplate>
+										</ItemsControl>
+									</ScrollViewer>
+								</Border>
+
+								<TextBlock Grid.Column="5" Text="Explosive Rewards:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+								<Border Grid.Row="1" Grid.Column="5" BorderBrush="Gray" BorderThickness="2">
+									<ScrollViewer VerticalScrollBarVisibility="Hidden">
+									<ItemsControl x:Name="RecipeRewardExplosive_Edit_IC" ItemsSource="{Binding Path=ExplosiveRewards_Edit_List}" >
+											<ItemsControl.ItemTemplate>
+												<DataTemplate>
+													<Grid>
+														<Grid.ColumnDefinitions>
+															<ColumnDefinition Width="3*"/>
+															<ColumnDefinition Width="1*"/>
+															<ColumnDefinition Width="30"/>
+														</Grid.ColumnDefinitions>
+
+													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=Modifier_ID, Mode=OneWay}" ToolTip="{Binding Path=Modifier_ID, Mode=OneWay}" />
+													<TextBox Grid.Column="1" Text="{Binding Path=Point_Threshold, Mode=OneWay}" IsEnabled="False" />
+													<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25" Click="RemoveRewardFromIC_BTN_Click"/>
+
+													</Grid>
+												</DataTemplate>
+											</ItemsControl.ItemTemplate>
+										</ItemsControl>
+									</ScrollViewer>
+								</Border>
+
+								<TextBlock Grid.Column="6" Text="Shadow Rewards:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+								<Border Grid.Row="1" Grid.Column="6" BorderBrush="Gray" BorderThickness="2">
+									<ScrollViewer VerticalScrollBarVisibility="Hidden">
+									<ItemsControl x:Name="RecipeRewardShadow_Edit_IC" ItemsSource="{Binding Path=ShadowRewards_Edit_List}">
+											<ItemsControl.ItemTemplate>
+												<DataTemplate>
+													<Grid>
+														<Grid.ColumnDefinitions>
+															<ColumnDefinition Width="3*"/>
+															<ColumnDefinition Width="1*"/>
+															<ColumnDefinition Width="30"/>
+														</Grid.ColumnDefinitions>
+
+													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=Modifier_ID, Mode=OneWay}" ToolTip="{Binding Path=Modifier_ID, Mode=OneWay}" />
+													<TextBox Grid.Column="1" Text="{Binding Path=Point_Threshold, Mode=OneWay}" IsEnabled="False" />
+													<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25" Click="RemoveRewardFromIC_BTN_Click"/>
+
+													</Grid>
+												</DataTemplate>
+											</ItemsControl.ItemTemplate>
+										</ItemsControl>
+									</ScrollViewer>
+								</Border>
+
+								<TextBlock Grid.Column="7" Text="Luminous Rewards:" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+								<Border Grid.Row="1" Grid.Column="7" BorderBrush="Gray" BorderThickness="2">
+									<ScrollViewer VerticalScrollBarVisibility="Hidden">
+									<ItemsControl x:Name="RecipeRewardLuminous_Edit_IC" ItemsSource="{Binding Path=LuminousRewards_Edit_List}">
+											<ItemsControl.ItemTemplate>
+												<DataTemplate>
+													<Grid>
+														<Grid.ColumnDefinitions>
+															<ColumnDefinition Width="3*"/>
+															<ColumnDefinition Width="1*"/>
+															<ColumnDefinition Width="30"/>
+														</Grid.ColumnDefinitions>
+
+													<TextBlock Grid.Row="0" Foreground="White" Text="{Binding Path=Modifier_ID, Mode=OneWay}" ToolTip="{Binding Path=Modifier_ID, Mode=OneWay}" />
+													<TextBox Grid.Column="1" Text="{Binding Path=Point_Threshold, Mode=OneWay}" IsEnabled="False" />
+													<Button Grid.Column="2" Content="-" Margin="0,0,5,0" Width="25" Height="25" Click="RemoveRewardFromIC_BTN_Click"/>
+
+													</Grid>
+												</DataTemplate>
+											</ItemsControl.ItemTemplate>
+										</ItemsControl>
+									</ScrollViewer>
+								</Border>
+
+							</Grid>
+
+							<!--#endregion-->
+
 
 					</Grid>
 				</Grid>

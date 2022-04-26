@@ -103,8 +103,8 @@ namespace Forms.DatabaseTool
 				if (currentSkill.Modifier_FK != null && currentSkill.Modifier_FK != "") //ONLY SHOW modifiers if they EXIST
 				{
 					SkillLinkedModifier_Edit_CB.SelectedIndex =
-						(CurrenGameplayModifiersInDatabase.IndexOf(
-							CurrenGameplayModifiersInDatabase.Single(x => x.Id == currentSkill.Modifier_FK)
+						(CurrentGameplayModifiersInDatabase.IndexOf(
+							CurrentGameplayModifiersInDatabase.Single(x => x.Id == currentSkill.Modifier_FK)
 						));
 
 					DisplayGameplayModifiersToIC(SkillAllMods_Edit_IC, (ModifierData)SkillLinkedModifier_Edit_CB.SelectedValue,
@@ -131,9 +131,9 @@ namespace Forms.DatabaseTool
 			ComboBox CB = sender as ComboBox;
 			if (CB.SelectedIndex != -1)
 			{
-				if (CurrenGameplayModifiersInDatabase.Contains(CurrenGameplayModifiersInDatabase[CB.SelectedIndex]))
+				if (CurrentGameplayModifiersInDatabase.Contains(CurrentGameplayModifiersInDatabase[CB.SelectedIndex]))
 				{
-					ModifierData mdata = CurrenGameplayModifiersInDatabase[CB.SelectedIndex];
+					ModifierData mdata = CurrentGameplayModifiersInDatabase[CB.SelectedIndex];
 
 					//DisplayGameplayModifiersToIC(SkillAllMods_Add_IC, mdata, SkillsCurrentLinkedModifiers_Add_AllMods, true);
 					DisplayGameplayModifiersToIC(SkillAllMods_Edit_IC, mdata, SkillsCurrentLinkedModifiers_Edit_AllMods, false);
@@ -217,7 +217,7 @@ namespace Forms.DatabaseTool
 
 				{
 					//EditJobsDB_LB.ItemsSource = CurrentJobsInDatabase;
-					GameplayModifierName_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
+					GameplayModifierName_CB.ItemsSource = CurrentGameplayModifiersInDatabase;
 					//GameplayModifierName_CB.SelectedIndex = absindex;
 
 				}
@@ -229,9 +229,9 @@ namespace Forms.DatabaseTool
 			ComboBox CB = sender as ComboBox;
 			if (CB.SelectedIndex != -1)
 			{
-				if (CurrenGameplayModifiersInDatabase.Contains(CurrenGameplayModifiersInDatabase[CB.SelectedIndex]))
+				if (CurrentGameplayModifiersInDatabase.Contains(CurrentGameplayModifiersInDatabase[CB.SelectedIndex]))
 				{
-					ModifierData mdata = CurrenGameplayModifiersInDatabase[CB.SelectedIndex];
+					ModifierData mdata = CurrentGameplayModifiersInDatabase[CB.SelectedIndex];
 
 
 					//DisplayGameplayModifiersToIC(SkillAllMods_Add_IC, mdata, SkillsCurrentLinkedModifiers_Add_AllMods, true);
@@ -317,7 +317,7 @@ namespace Forms.DatabaseTool
 				finally
 				{
 					//EditJobsDB_LB.ItemsSource = CurrentJobsInDatabase;
-					//GameplayModifierName_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
+					//GameplayModifierName_CB.ItemsSource = CurrentGameplayModifiersInDatabase;
 					//GameplayModifierName_CB.SelectedIndex = absindex;
 				}
 			}

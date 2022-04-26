@@ -18,9 +18,9 @@ namespace Forms.DatabaseTool
 		private List<int?> gameplayModifiersAdd_vals = new List<int?>(11);
 		private List<int?> gameplayModifiersEdit_vals = new List<int?>(11);
 		
-		public ObservableCollection<ModifierData> CurrenGameplayModifiersInDatabase { get; set; }
-		public ObservableCollection<ModifierData> CurrenGameplayModifiersInDatabase_Effects { get; set; }
-		public ObservableCollection<ModifierData> CurrenGameplayModifiersInDatabase_Traits { get; set; }
+		public ObservableCollection<ModifierData> CurrentGameplayModifiersInDatabase { get; set; }
+		public ObservableCollection<ModifierData> CurrentGameplayModifiersInDatabase_Effects { get; set; }
+		public ObservableCollection<ModifierData> CurrentGameplayModifiersInDatabase_Traits { get; set; }
 
 
 		public ObservableCollection<Tuple<string, String>> CurrentGameplayModifier_Edit_AllMods { get; set; }
@@ -30,9 +30,9 @@ namespace Forms.DatabaseTool
 		{
 			CurrentGameplayModifier_Edit_AllMods = new ObservableCollection<Tuple<String, String>>();
 
-			CurrenGameplayModifiersInDatabase = new ObservableCollection<ModifierData>();
-			CurrenGameplayModifiersInDatabase_Effects = new ObservableCollection<ModifierData>();
-			CurrenGameplayModifiersInDatabase_Traits = new ObservableCollection<ModifierData>();
+			CurrentGameplayModifiersInDatabase = new ObservableCollection<ModifierData>();
+			CurrentGameplayModifiersInDatabase_Effects = new ObservableCollection<ModifierData>();
+			CurrentGameplayModifiersInDatabase_Traits = new ObservableCollection<ModifierData>();
 			
 			//Set up the default null values in the lists
 			SetupGameplayModifiersLists();
@@ -106,15 +106,15 @@ namespace Forms.DatabaseTool
 
 				foreach (ModifierData md in varlist.ToList())
 				{
-					CurrenGameplayModifiersInDatabase.Add(md);
+					CurrentGameplayModifiersInDatabase.Add(md);
 					//Load the modifiers in to the filtered Collections
 					if (md.bEffect)
 					{
-						CurrenGameplayModifiersInDatabase_Effects.Add(md);
+						CurrentGameplayModifiersInDatabase_Effects.Add(md);
 					}
 					else
 					{
-						CurrenGameplayModifiersInDatabase_Traits.Add(md);
+						CurrentGameplayModifiersInDatabase_Traits.Add(md);
 					}
 				}
 			}
@@ -126,44 +126,44 @@ namespace Forms.DatabaseTool
 			finally
 			{
 				//EditJobsDB_LB.ItemsSource = CurrentJobsInDatabase;
-				GameplayModifierName_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
-				WeaponEffects_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase_Effects;
-				WeaponTraits_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase_Traits;
-				WeaponEffects_Edit_CB.ItemsSource = CurrenGameplayModifiersInDatabase_Effects;
-				WeaponTraits_Edit_CB.ItemsSource = CurrenGameplayModifiersInDatabase_Traits;
+				GameplayModifierName_CB.ItemsSource = CurrentGameplayModifiersInDatabase;
+				WeaponEffects_Add_CB.ItemsSource = CurrentGameplayModifiersInDatabase_Effects;
+				WeaponTraits_Add_CB.ItemsSource = CurrentGameplayModifiersInDatabase_Traits;
+				WeaponEffects_Edit_CB.ItemsSource = CurrentGameplayModifiersInDatabase_Effects;
+				WeaponTraits_Edit_CB.ItemsSource = CurrentGameplayModifiersInDatabase_Traits;
 
-				ItemEquipEffects_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase_Effects;
-				ItemEquipTraits_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase_Traits;
+				ItemEquipEffects_Add_CB.ItemsSource = CurrentGameplayModifiersInDatabase_Effects;
+				ItemEquipTraits_Add_CB.ItemsSource = CurrentGameplayModifiersInDatabase_Traits;
 
-				GameplayModifierCombinedModifier_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
-				GameplayModifierCombine2_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
+				GameplayModifierCombinedModifier_Add_CB.ItemsSource = CurrentGameplayModifiersInDatabase;
+				GameplayModifierCombine2_CB.ItemsSource = CurrentGameplayModifiersInDatabase;
 
-				ItemEquipEffects_edit_CB.ItemsSource = CurrenGameplayModifiersInDatabase_Effects;
-				ItemEquipTraits_Edit_CB.ItemsSource = CurrenGameplayModifiersInDatabase_Traits;
+				ItemEquipEffects_edit_CB.ItemsSource = CurrentGameplayModifiersInDatabase_Effects;
+				ItemEquipTraits_Edit_CB.ItemsSource = CurrentGameplayModifiersInDatabase_Traits;
 
-				SkillLinkedModifier_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
-				SkillLinkedModifier_Edit_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
+				SkillLinkedModifier_Add_CB.ItemsSource = CurrentGameplayModifiersInDatabase;
+				SkillLinkedModifier_Edit_CB.ItemsSource = CurrentGameplayModifiersInDatabase;
 
-				AccessoryEquipEffects_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase_Effects;
-				AccessoryEquipTraits_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase_Traits;
+				AccessoryEquipEffects_Add_CB.ItemsSource = CurrentGameplayModifiersInDatabase_Effects;
+				AccessoryEquipTraits_Add_CB.ItemsSource = CurrentGameplayModifiersInDatabase_Traits;
 
-				AccessoryEquipEffects_Edit_CB.ItemsSource = CurrenGameplayModifiersInDatabase_Effects;
-				AccessoryEquipTraits_Edit_CB.ItemsSource = CurrenGameplayModifiersInDatabase_Traits;
+				AccessoryEquipEffects_Edit_CB.ItemsSource = CurrentGameplayModifiersInDatabase_Effects;
+				AccessoryEquipTraits_Edit_CB.ItemsSource = CurrentGameplayModifiersInDatabase_Traits;
 
-				ClothesEquipEffects_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase_Effects;
-				ClothesEquipTraits_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase_Traits;
+				ClothesEquipEffects_Add_CB.ItemsSource = CurrentGameplayModifiersInDatabase_Effects;
+				ClothesEquipTraits_Add_CB.ItemsSource = CurrentGameplayModifiersInDatabase_Traits;
 
-				ClothesEquipEffects_Edit_CB.ItemsSource = CurrenGameplayModifiersInDatabase_Effects;
-				ClothesEquipTraits_Edit_CB.ItemsSource = CurrenGameplayModifiersInDatabase_Traits;
+				ClothesEquipEffects_Edit_CB.ItemsSource = CurrentGameplayModifiersInDatabase_Effects;
+				ClothesEquipTraits_Edit_CB.ItemsSource = CurrentGameplayModifiersInDatabase_Traits;
 
-				RecipeFireReward_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
-				RecipeIceReward_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
-				RecipeEarthReward_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
-				RecipeWaterReward_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
-				RecipeLightningReward_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
-				RecipeExplosiveReward_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
-				RecipeShadowReward_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
-				RecipeLuminiousReward_Add_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
+				RecipeFireReward_Add_CB.ItemsSource = CurrentGameplayModifiersInDatabase;
+				RecipeIceReward_Add_CB.ItemsSource = CurrentGameplayModifiersInDatabase;
+				RecipeEarthReward_Add_CB.ItemsSource = CurrentGameplayModifiersInDatabase;
+				RecipeWaterReward_Add_CB.ItemsSource = CurrentGameplayModifiersInDatabase;
+				RecipeLightningReward_Add_CB.ItemsSource = CurrentGameplayModifiersInDatabase;
+				RecipeExplosiveReward_Add_CB.ItemsSource = CurrentGameplayModifiersInDatabase;
+				RecipeShadowReward_Add_CB.ItemsSource = CurrentGameplayModifiersInDatabase;
+				RecipeLuminiousReward_Add_CB.ItemsSource = CurrentGameplayModifiersInDatabase;
 			}
 
 
@@ -278,9 +278,9 @@ namespace Forms.DatabaseTool
 			CurrentGameplayModifier_Edit_AllMods.Clear();
 			int index = GameplayModifierName_CB.SelectedIndex;
 
-			//GameplayModifierName_TB.Text = CurrenGameplayModifiersInDatabase[index].ModifierName;
-			GameplayModifierFuncPTR_Edit_TB.Text = CurrenGameplayModifiersInDatabase[index].Function_PTR;
-			GameplayModifierEffect_Edit_CB.IsChecked = CurrenGameplayModifiersInDatabase[index].bEffect;
+			//GameplayModifierName_TB.Text = CurrentGameplayModifiersInDatabase[index].ModifierName;
+			GameplayModifierFuncPTR_Edit_TB.Text = CurrentGameplayModifiersInDatabase[index].Function_PTR;
+			GameplayModifierEffect_Edit_CB.IsChecked = CurrentGameplayModifiersInDatabase[index].bEffect;
 
 			//TODO: linked skill here
 
@@ -291,30 +291,30 @@ namespace Forms.DatabaseTool
 
 			//Load all the modifiers to the check boxes [BINDING]
 			SetEditModifiersInDatabase(index, ChanceEnum_Edit_IC,
-				(int?)CurrenGameplayModifiersInDatabase[index].Chance_Modifiers, EChanceEffectModifiers.NONE);
+				(int?)CurrentGameplayModifiersInDatabase[index].Chance_Modifiers, EChanceEffectModifiers.NONE);
 			SetEditModifiersInDatabase(index, TurnEnum_Edit_IC,
-				(int?)CurrenGameplayModifiersInDatabase[index].Turn_Modifiers, ETurnEffectModifiers.NONE);
+				(int?)CurrentGameplayModifiersInDatabase[index].Turn_Modifiers, ETurnEffectModifiers.NONE);
 			SetEditModifiersInDatabase(index, DamageEnum_Edit_IC,
-				(int?)CurrenGameplayModifiersInDatabase[index].Damage_Modifiers, EDamageModifiers.NONE);
+				(int?)CurrentGameplayModifiersInDatabase[index].Damage_Modifiers, EDamageModifiers.NONE);
 			SetEditModifiersInDatabase(index, SeverityEnum_Edit_IC,
-				(int?)CurrenGameplayModifiersInDatabase[index].Severity_Modifiers, ESeverityEffectModifiers.NONE);
+				(int?)CurrentGameplayModifiersInDatabase[index].Severity_Modifiers, ESeverityEffectModifiers.NONE);
 			SetEditModifiersInDatabase(index, MagicDamageEnum_Edit_IC,
-				(int?)CurrenGameplayModifiersInDatabase[index].Magic_Damage_Modifiers, EMagicDamageModifiers.NONE);
+				(int?)CurrentGameplayModifiersInDatabase[index].Magic_Damage_Modifiers, EMagicDamageModifiers.NONE);
 
 			SetEditModifiersInDatabase(index, MagicDefenseEnum_Edit_IC,
-				(int?)CurrenGameplayModifiersInDatabase[index].Magic_Defense_Modifiers, EMagicDefenseModifiers.NONE);
+				(int?)CurrentGameplayModifiersInDatabase[index].Magic_Defense_Modifiers, EMagicDefenseModifiers.NONE);
 			SetEditModifiersInDatabase(index, StatEnum_Edit_IC,
-				(int?)CurrenGameplayModifiersInDatabase[index].Stat_Modifiers, EStatEffectModifiers.NONE);
+				(int?)CurrentGameplayModifiersInDatabase[index].Stat_Modifiers, EStatEffectModifiers.NONE);
 			SetEditModifiersInDatabase(index, StatusEnum_Edit_IC,
-				(int?)CurrenGameplayModifiersInDatabase[index].Status_Effect_Modifiers, EStatusEffectModifiers.NONE);
+				(int?)CurrentGameplayModifiersInDatabase[index].Status_Effect_Modifiers, EStatusEffectModifiers.NONE);
 			SetEditModifiersInDatabase(index, NullifyStatusEnum_Edit_IC,
-				(int?)CurrenGameplayModifiersInDatabase[index].Nullify_Status_Effect_Modifiers,
+				(int?)CurrentGameplayModifiersInDatabase[index].Nullify_Status_Effect_Modifiers,
 				ENullifyStatusEffectModifiers.NONE);
 			SetEditModifiersInDatabase(index, NonBattleEnum_Edit_IC,
-				(int?)CurrenGameplayModifiersInDatabase[index].NonBattle_Modifiers, ENonBattleEffectModifiers.NONE);
+				(int?)CurrentGameplayModifiersInDatabase[index].NonBattle_Modifiers, ENonBattleEffectModifiers.NONE);
 
 			SetEditModifiersInDatabase(index, SpecialEnum_Edit_IC,
-				(int?)CurrenGameplayModifiersInDatabase[index].Special_Modifiers, ESpecialEffectModifiers.NONE);
+				(int?)CurrentGameplayModifiersInDatabase[index].Special_Modifiers, ESpecialEffectModifiers.NONE);
 
 			ModifierAllMods_Edit_IC.ItemsSource = CurrentGameplayModifier_Edit_AllMods;
 		}
@@ -322,30 +322,30 @@ namespace Forms.DatabaseTool
 		private void ResetCheckboxes()
 		{
 			SetEditModifiersInDatabase(0, ChanceEnum_Edit_IC,
-				(int?)CurrenGameplayModifiersInDatabase[0].Chance_Modifiers, EChanceEffectModifiers.NONE, true);
+				(int?)CurrentGameplayModifiersInDatabase[0].Chance_Modifiers, EChanceEffectModifiers.NONE, true);
 			SetEditModifiersInDatabase(0, TurnEnum_Edit_IC,
-				(int?)CurrenGameplayModifiersInDatabase[0].Turn_Modifiers, ETurnEffectModifiers.NONE, true);
+				(int?)CurrentGameplayModifiersInDatabase[0].Turn_Modifiers, ETurnEffectModifiers.NONE, true);
 			SetEditModifiersInDatabase(0, DamageEnum_Edit_IC,
-				(int?)CurrenGameplayModifiersInDatabase[0].Damage_Modifiers, EDamageModifiers.NONE, true);
+				(int?)CurrentGameplayModifiersInDatabase[0].Damage_Modifiers, EDamageModifiers.NONE, true);
 			SetEditModifiersInDatabase(0, SeverityEnum_Edit_IC,
-				(int?)CurrenGameplayModifiersInDatabase[0].Severity_Modifiers, ESeverityEffectModifiers.NONE, true);
+				(int?)CurrentGameplayModifiersInDatabase[0].Severity_Modifiers, ESeverityEffectModifiers.NONE, true);
 			SetEditModifiersInDatabase(0, MagicDamageEnum_Edit_IC,
-				(int?)CurrenGameplayModifiersInDatabase[0].Magic_Damage_Modifiers, EMagicDamageModifiers.NONE, true);
+				(int?)CurrentGameplayModifiersInDatabase[0].Magic_Damage_Modifiers, EMagicDamageModifiers.NONE, true);
 
 			SetEditModifiersInDatabase(0, MagicDefenseEnum_Edit_IC,
-				(int?)CurrenGameplayModifiersInDatabase[0].Magic_Defense_Modifiers, EMagicDefenseModifiers.NONE, true);
+				(int?)CurrentGameplayModifiersInDatabase[0].Magic_Defense_Modifiers, EMagicDefenseModifiers.NONE, true);
 			SetEditModifiersInDatabase(0, StatEnum_Edit_IC,
-				(int?)CurrenGameplayModifiersInDatabase[0].Stat_Modifiers, EStatEffectModifiers.NONE, true);
+				(int?)CurrentGameplayModifiersInDatabase[0].Stat_Modifiers, EStatEffectModifiers.NONE, true);
 			SetEditModifiersInDatabase(0, StatusEnum_Edit_IC,
-				(int?)CurrenGameplayModifiersInDatabase[0].Status_Effect_Modifiers, EStatusEffectModifiers.NONE, true);
+				(int?)CurrentGameplayModifiersInDatabase[0].Status_Effect_Modifiers, EStatusEffectModifiers.NONE, true);
 			SetEditModifiersInDatabase(0, NullifyStatusEnum_Edit_IC,
-				(int?)CurrenGameplayModifiersInDatabase[0].Nullify_Status_Effect_Modifiers,
+				(int?)CurrentGameplayModifiersInDatabase[0].Nullify_Status_Effect_Modifiers,
 				ENullifyStatusEffectModifiers.NONE, true);
 			SetEditModifiersInDatabase(0, NonBattleEnum_Edit_IC,
-				(int?)CurrenGameplayModifiersInDatabase[0].NonBattle_Modifiers, ENonBattleEffectModifiers.NONE, true);
+				(int?)CurrentGameplayModifiersInDatabase[0].NonBattle_Modifiers, ENonBattleEffectModifiers.NONE, true);
 
 			SetEditModifiersInDatabase(0, SpecialEnum_Edit_IC,
-				(int?)CurrenGameplayModifiersInDatabase[0].Special_Modifiers, ESpecialEffectModifiers.NONE, true);
+				(int?)CurrentGameplayModifiersInDatabase[0].Special_Modifiers, ESpecialEffectModifiers.NONE, true);
 
 
 		}
@@ -446,7 +446,7 @@ namespace Forms.DatabaseTool
 		{
 			//before we send the SQL update query we need to update the info in memory.
 			int absindex = GameplayModifierName_CB.SelectedIndex;
-			ModifierData modifierData = CurrenGameplayModifiersInDatabase[absindex];
+			ModifierData modifierData = CurrentGameplayModifiersInDatabase[absindex];
 			modifierData.Function_PTR = GameplayModifierFuncPTR_Edit_TB.Text;
 			modifierData.bEffect = (bool)GameplayModifierEffect_Edit_CB.IsChecked;
 			modifierData.Skills_FK = GameplayModifierSkillLinked_Edit_CB.Text;
@@ -492,7 +492,7 @@ namespace Forms.DatabaseTool
 
 				//foreach (ModifierData md in varlist.ToList())
 				//{
-				//	CurrenGameplayModifiersInDatabase.Add(md);
+				//	CurrentGameplayModifiersInDatabase.Add(md);
 				//}
 			}
 			catch (Exception ex)
@@ -503,7 +503,7 @@ namespace Forms.DatabaseTool
 			finally
 			{
 				//EditJobsDB_LB.ItemsSource = CurrentJobsInDatabase;
-				GameplayModifierName_CB.ItemsSource = CurrenGameplayModifiersInDatabase;
+				GameplayModifierName_CB.ItemsSource = CurrentGameplayModifiersInDatabase;
 				GameplayModifierName_CB.SelectedIndex = absindex;
 			}
 
@@ -661,7 +661,7 @@ namespace Forms.DatabaseTool
 			//Traverse UP the viusal tree until the ROOT is found THEN AND ONLY then can you use indexof
 			var item = (VisualTreeHelper.GetParent(sender as CheckBox) as Grid).DataContext;
 			int index = ChanceEnum_Edit_IC.Items.IndexOf(item);
-			ModifierData modifierData = CurrenGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex];
+			ModifierData modifierData = CurrentGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex];
 
 			if (modifierData.Chance_Modifiers == null)
 			{
@@ -679,7 +679,7 @@ namespace Forms.DatabaseTool
 					modifierData.Chance_Modifiers -= (int)Math.Pow(2, index);
 				}
 			}
-			CurrenGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex] = modifierData;
+			CurrentGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex] = modifierData;
 			GameplayModifierName_CB.SelectedIndex = absindex; //keep the combobox data.
 		}
 
@@ -689,7 +689,7 @@ namespace Forms.DatabaseTool
 			//Traverse UP the viusal tree until the ROOT is found THEN AND ONLY then can you use indexof
 			var item = (VisualTreeHelper.GetParent(sender as CheckBox) as Grid).DataContext;
 			int index = TurnEnum_Edit_IC.Items.IndexOf(item);
-			ModifierData modifierData = CurrenGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex];
+			ModifierData modifierData = CurrentGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex];
 
 			if (modifierData.Turn_Modifiers == null)
 			{
@@ -707,7 +707,7 @@ namespace Forms.DatabaseTool
 					modifierData.Turn_Modifiers -= (int)Math.Pow(2, index);
 				}
 			}
-			CurrenGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex] = modifierData;
+			CurrentGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex] = modifierData;
 			GameplayModifierName_CB.SelectedIndex = absindex;
 		}
 
@@ -717,7 +717,7 @@ namespace Forms.DatabaseTool
 			//Traverse UP the viusal tree until the ROOT is found THEN AND ONLY then can you use indexof
 			var item = (VisualTreeHelper.GetParent(sender as CheckBox) as Grid).DataContext;
 			int index = DamageEnum_Edit_IC.Items.IndexOf(item);
-			ModifierData modifierData = CurrenGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex];
+			ModifierData modifierData = CurrentGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex];
 
 			if (modifierData.Damage_Modifiers == null)
 			{
@@ -735,7 +735,7 @@ namespace Forms.DatabaseTool
 					modifierData.Damage_Modifiers -= (int)Math.Pow(2, index);
 				}
 			}
-			CurrenGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex] = modifierData;
+			CurrentGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex] = modifierData;
 			GameplayModifierName_CB.SelectedIndex = absindex;
 		}
 
@@ -745,7 +745,7 @@ namespace Forms.DatabaseTool
 			//Traverse UP the viusal tree until the ROOT is found THEN AND ONLY then can you use indexof
 			var item = (VisualTreeHelper.GetParent(sender as CheckBox) as Grid).DataContext;
 			int index = SeverityEnum_Edit_IC.Items.IndexOf(item);
-			ModifierData modifierData = CurrenGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex];
+			ModifierData modifierData = CurrentGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex];
 
 			if (modifierData.Severity_Modifiers == null)
 			{
@@ -763,7 +763,7 @@ namespace Forms.DatabaseTool
 					modifierData.Severity_Modifiers -= (int)Math.Pow(2, index);
 				}
 			}
-			CurrenGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex] = modifierData;
+			CurrentGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex] = modifierData;
 			GameplayModifierName_CB.SelectedIndex = absindex;
 		}
 
@@ -773,7 +773,7 @@ namespace Forms.DatabaseTool
 			//Traverse UP the viusal tree until the ROOT is found THEN AND ONLY then can you use indexof
 			var item = (VisualTreeHelper.GetParent(sender as CheckBox) as Grid).DataContext;
 			int index = MagicDamageEnum_Add_IC.Items.IndexOf(item);
-			ModifierData modifierData = CurrenGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex];
+			ModifierData modifierData = CurrentGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex];
 
 			if (modifierData.Magic_Damage_Modifiers == null)
 			{
@@ -791,7 +791,7 @@ namespace Forms.DatabaseTool
 					modifierData.Magic_Damage_Modifiers -= (int)Math.Pow(2, index);
 				}
 			}
-			CurrenGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex] = modifierData;
+			CurrentGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex] = modifierData;
 			GameplayModifierName_CB.SelectedIndex = absindex;
 		}
 
@@ -801,7 +801,7 @@ namespace Forms.DatabaseTool
 			//Traverse UP the viusal tree until the ROOT is found THEN AND ONLY then can you use indexof
 			var item = (VisualTreeHelper.GetParent(sender as CheckBox) as Grid).DataContext;
 			int index = MagicDefenseEnum_Edit_IC.Items.IndexOf(item);
-			ModifierData modifierData = CurrenGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex];
+			ModifierData modifierData = CurrentGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex];
 
 			if (modifierData.Magic_Defense_Modifiers == null)
 			{
@@ -819,7 +819,7 @@ namespace Forms.DatabaseTool
 					modifierData.Magic_Defense_Modifiers -= (int)Math.Pow(2, index);
 				}
 			}
-			CurrenGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex] = modifierData;
+			CurrentGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex] = modifierData;
 			GameplayModifierName_CB.SelectedIndex = absindex;
 		}
 
@@ -829,7 +829,7 @@ namespace Forms.DatabaseTool
 			//Traverse UP the viusal tree until the ROOT is found THEN AND ONLY then can you use indexof
 			var item = (VisualTreeHelper.GetParent(sender as CheckBox) as Grid).DataContext;
 			int index = StatEnum_Edit_IC.Items.IndexOf(item);
-			ModifierData modifierData = CurrenGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex];
+			ModifierData modifierData = CurrentGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex];
 
 			if (modifierData.Stat_Modifiers == null)
 			{
@@ -847,7 +847,7 @@ namespace Forms.DatabaseTool
 					modifierData.Stat_Modifiers -= (int)Math.Pow(2, index);
 				}
 			}
-			CurrenGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex] = modifierData;
+			CurrentGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex] = modifierData;
 			GameplayModifierName_CB.SelectedIndex = absindex;
 		}
 
@@ -857,7 +857,7 @@ namespace Forms.DatabaseTool
 			//Traverse UP the viusal tree until the ROOT is found THEN AND ONLY then can you use indexof
 			var item = (VisualTreeHelper.GetParent(sender as CheckBox) as Grid).DataContext;
 			int index = StatusEnum_Edit_IC.Items.IndexOf(item);
-			ModifierData modifierData = CurrenGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex];
+			ModifierData modifierData = CurrentGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex];
 
 			if (modifierData.Status_Effect_Modifiers == null)
 			{
@@ -875,7 +875,7 @@ namespace Forms.DatabaseTool
 					modifierData.Status_Effect_Modifiers -= (int)Math.Pow(2, index);
 				}
 			}
-			CurrenGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex] = modifierData;
+			CurrentGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex] = modifierData;
 			GameplayModifierName_CB.SelectedIndex = absindex;
 		}
 
@@ -885,7 +885,7 @@ namespace Forms.DatabaseTool
 			//Traverse UP the viusal tree until the ROOT is found THEN AND ONLY then can you use indexof
 			var item = (VisualTreeHelper.GetParent(sender as CheckBox) as Grid).DataContext;
 			int index = NullifyStatusEnum_Edit_IC.Items.IndexOf(item);
-			ModifierData modifierData = CurrenGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex];
+			ModifierData modifierData = CurrentGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex];
 
 			if (modifierData.Nullify_Status_Effect_Modifiers == null)
 			{
@@ -903,7 +903,7 @@ namespace Forms.DatabaseTool
 					modifierData.Nullify_Status_Effect_Modifiers -= (int)Math.Pow(2, index);
 				}
 			}
-			CurrenGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex] = modifierData;
+			CurrentGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex] = modifierData;
 			GameplayModifierName_CB.SelectedIndex = absindex;
 		}
 
@@ -913,7 +913,7 @@ namespace Forms.DatabaseTool
 			//Traverse UP the viusal tree until the ROOT is found THEN AND ONLY then can you use indexof
 			var item = (VisualTreeHelper.GetParent(sender as CheckBox) as Grid).DataContext;
 			int index = NonBattleEnum_Edit_IC.Items.IndexOf(item);
-			ModifierData modifierData = CurrenGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex];
+			ModifierData modifierData = CurrentGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex];
 
 			if (modifierData.NonBattle_Modifiers == null)
 			{
@@ -931,7 +931,7 @@ namespace Forms.DatabaseTool
 					modifierData.NonBattle_Modifiers -= (int)Math.Pow(2, index);
 				}
 			}
-			CurrenGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex] = modifierData;
+			CurrentGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex] = modifierData;
 			GameplayModifierName_CB.SelectedIndex = absindex;
 		}
 
@@ -941,7 +941,7 @@ namespace Forms.DatabaseTool
 			//Traverse UP the viusal tree until the ROOT is found THEN AND ONLY then can you use indexof
 			var item = (VisualTreeHelper.GetParent(sender as CheckBox) as Grid).DataContext;
 			int index = SpecialEnum_Edit_IC.Items.IndexOf(item);
-			ModifierData modifierData = CurrenGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex];
+			ModifierData modifierData = CurrentGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex];
 
 			if (modifierData.Special_Modifiers == null)
 			{
@@ -959,7 +959,7 @@ namespace Forms.DatabaseTool
 					modifierData.Special_Modifiers -= (int)Math.Pow(2, index);
 				}
 			}
-			CurrenGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex] = modifierData;
+			CurrentGameplayModifiersInDatabase[GameplayModifierName_CB.SelectedIndex] = modifierData;
 			GameplayModifierName_CB.SelectedIndex = absindex;
 		}
 
