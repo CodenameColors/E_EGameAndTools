@@ -202,7 +202,16 @@ namespace Forms.DatabaseTool
 					int.TryParse(WeaponsRes_Add_TB.Text, out int resResult) &&
 					int.TryParse(WeaponsLuc_Add_TB.Text, out int LucResult) &&
 					int.TryParse(WeaponsRsk_Add_TB.Text, out int RskResult) &&
-					int.TryParse(WeaponsItl_Add_TB.Text, out int itlResult)
+					int.TryParse(WeaponsItl_Add_TB.Text, out int itlResult) &&
+
+					int.TryParse(Weapon_pointCo_Min_Size_Add_TB.Text, out int minSize) &&
+					int.TryParse(Weapon_pointCo_Max_Size_Add_TB.Text, out int maxSize) &&
+					int.TryParse(Weapon_pointCo_Min_Qual_Add_TB.Text, out int minQual) &&
+					int.TryParse(Weapon_pointCo_Max_Qual_Add_TB.Text, out int maxQual) &&
+					int.TryParse(Weapon_pointCo_Min_Rare_Add_TB.Text, out int minRare) &&
+					int.TryParse(Weapon_pointCo_Max_Rare_Add_TB.Text, out int maxRare) &&
+					int.TryParse(Weapon_pointCo_Min_Points_Add_TB.Text, out int minPoints) &&
+					int.TryParse(Weapon_pointCo_Max_Points_Add_TB.Text, out int maxPoints)
 					)
 			{
 				String masterfile = (SQLDatabasePath);
@@ -324,6 +333,45 @@ namespace Forms.DatabaseTool
 					#endregion
 					_sqlite_conn.Insert(weakstrToAdd);
 
+
+					#region Point Coefficents
+
+					//Set up the Point coefficents object.
+					Createsql = "SELECT * FROM `point_coeffiencts`;";
+					List<Point_Coeffiencts> pcList = _sqlite_conn.Query<Point_Coeffiencts>(Createsql);
+					int newID_stat_pc = (pcList.Count == 0 ? 0 : pcList.Max(x => x.ID));
+
+					//Set up the point coefficent object!
+					int pc_piece_types = 0;
+					foreach (UIElement element in Weapon_Piece_Types_Add_Grid.Children)
+					{
+						if (element is CheckBox cb)
+						{
+							if ((bool)(cb as CheckBox).IsChecked)
+							{
+								pc_piece_types += (int)Math.Pow(2, Grid.GetRow(cb));
+							}
+						}
+					}
+
+					Point_Coeffiencts pointCoeffiencts = new Point_Coeffiencts()
+					{
+						ID = newID_stat_pc + 1,
+						Max_Size = maxSize,
+						Min_Size = minSize,
+						Min_Quality = minQual,
+						Max_Quality = maxQual,
+						Min_Rarity = minRare,
+						Max_Rarity = maxRare,
+						Min_Points = minPoints,
+						Max_Points = maxPoints,
+						possible_piece_types = pc_piece_types
+					};
+					_sqlite_conn.Insert(pointCoeffiencts);
+
+					#endregion
+
+
 					//Set up the weapon object!
 					Weapons weapon = new Weapons()
 					{
@@ -332,7 +380,11 @@ namespace Forms.DatabaseTool
 						//Inflicting_value = inflictval,  // This doesn't exist anymore. was phased out by Str&weak stats
 						Weapon_Type = (int)((EWeaponType)WeaponType_Add_CB.SelectedValue),
 						Weight = weightval,
-						Rarity = (int)((ERarityType)WeaponRarity_Add_CB.SelectedValue)
+						Rarity = (int)((ERarityType)WeaponRarity_Add_CB.SelectedValue),
+						Stats_FK = basestat.ID,
+						Weakness_Strength_FK = weakstrToAdd.ID,
+						Point_Coeffiencts_FK = pointCoeffiencts.ID
+
 					};
 
 					//GET THE MAGIC TYPE ENUMERATED BITS
@@ -469,7 +521,38 @@ namespace Forms.DatabaseTool
 				WeaponsWeaponStrength_Edit_IC.UpdateLayout();
 				WeaponsWeaponStrength_Edit_IC.UpdateLayout();
 				#endregion
-				
+
+
+				#region point coefficents
+				Createsql = "SELECT * FROM `point_coeffiencts`;";
+				List<Point_Coeffiencts> pcList = _sqlite_conn.Query<Point_Coeffiencts>(Createsql);
+
+				Point_Coeffiencts pointCoeffiencts = pcList.Single(x => x.ID == tempWeapon.Point_Coeffiencts_FK);
+				tempWeapon.PointCoeffiencts = pointCoeffiencts;
+				Weapon_pointCo_Min_Size_Edit_TB.Text = pointCoeffiencts.Min_Size.ToString();
+				Weapon_pointCo_Max_Size_Edit_TB.Text = pointCoeffiencts.Max_Size.ToString();
+				Weapon_pointCo_Min_Qual_Edit_TB.Text = pointCoeffiencts.Min_Quality.ToString();
+				Weapon_pointCo_Max_Qual_Edit_TB.Text = pointCoeffiencts.Max_Quality.ToString();
+				Weapon_pointCo_Min_Rare_Edit_TB.Text = pointCoeffiencts.Min_Rarity.ToString();
+				Weapon_pointCo_Max_Rare_Edit_TB.Text = pointCoeffiencts.Max_Rarity.ToString();
+				Weapon_pointCo_Min_Points_Edit_TB.Text = pointCoeffiencts.Min_Points.ToString();
+				Weapon_pointCo_Max_Points_Edit_TB.Text = pointCoeffiencts.Max_Points.ToString();
+
+				//Set up the point coefficent checkboxes
+				foreach (UIElement element in Weapon_Piece_Types_Edit_Grid.Children)
+				{
+					if (element is CheckBox cb1)
+					{
+						int grid = Grid.GetRow(cb1);
+						if ((pointCoeffiencts.possible_piece_types & (0x1 << grid)) > 0)
+						{
+							cb1.IsChecked = true;
+						}
+						else cb1.IsChecked = false;
+
+					}
+				}
+				#endregion
 
 
 				#region Elemental "Binding"
@@ -562,7 +645,16 @@ namespace Forms.DatabaseTool
 				 int.TryParse(WeaponsRes_Edit_TB.Text, out int resResult) &&
 				 int.TryParse(WeaponsLuc_Edit_TB.Text, out int LucResult) &&
 				 int.TryParse(WeaponsRsk_Edit_TB.Text, out int RskResult) &&
-				 int.TryParse(WeaponsItl_Edit_TB.Text, out int itlResult)
+				 int.TryParse(WeaponsItl_Edit_TB.Text, out int itlResult) &&
+
+				 int.TryParse(Weapon_pointCo_Min_Size_Edit_TB.Text, out int minSize) &&
+				 int.TryParse(Weapon_pointCo_Max_Size_Edit_TB.Text, out int maxSize) &&
+				 int.TryParse(Weapon_pointCo_Min_Qual_Edit_TB.Text, out int minQual) &&
+				 int.TryParse(Weapon_pointCo_Max_Qual_Edit_TB.Text, out int maxQual) &&
+				 int.TryParse(Weapon_pointCo_Min_Rare_Edit_TB.Text, out int minRare) &&
+				 int.TryParse(Weapon_pointCo_Max_Rare_Edit_TB.Text, out int maxRare) &&
+				 int.TryParse(Weapon_pointCo_Min_Points_Edit_TB.Text, out int minPoints) &&
+				 int.TryParse(Weapon_pointCo_Max_Points_Edit_TB.Text, out int maxPoints)
 			)
 			{
 
@@ -616,6 +708,8 @@ namespace Forms.DatabaseTool
 											String.Format("{0} = {1},", "weight", wepdata.Weight) +
 
 											String.Format("{0} = {1},", "rarity", wepdata.Rarity) +
+											String.Format("{0} = {1}, ", "stats_fk", wepdata.Stats_FK) +
+											String.Format("{0} = {1}, ", "point_coeffiencts_fk", wepdata.Point_Coeffiencts_FK) +
 											String.Format("{0} = {1} ", "weakness_strength_fk", wepdata.Weakness_Strength_FK) +
 											String.Format("WHERE id='{0}'", wepdata.ID);
 
@@ -676,6 +770,46 @@ namespace Forms.DatabaseTool
 											String.Format("WHERE id='{0}'", weaknessStrengths.ID);
 					_sqlite_conn.Query<weaknesses_strengths>(Createsql);
 
+					//Set up the point coefficent object!
+					int pc_piece_types = 0;
+					foreach (UIElement element in Weapon_Piece_Types_Edit_Grid.Children)
+					{
+						if (element is CheckBox cb)
+						{
+							if ((bool)(cb as CheckBox).IsChecked)
+							{
+								pc_piece_types += (int)Math.Pow(2, Grid.GetRow(cb));
+							}
+						}
+					}
+
+					Point_Coeffiencts pointCoeffiencts = new Point_Coeffiencts()
+					{
+						ID = wepdata.Point_Coeffiencts_FK,
+						Max_Size = maxSize,
+						Min_Size = minSize,
+						Min_Quality = minQual,
+						Max_Quality = maxQual,
+						Min_Rarity = minRare,
+						Max_Rarity = maxRare,
+						Min_Points = minPoints,
+						Max_Points = maxPoints,
+						possible_piece_types = pc_piece_types
+					};
+					Createsql = "UPDATE `point_coeffiencts` " +
+					            "SET " +
+					            String.Format("{0} = {1},", "min_size", pointCoeffiencts.Min_Size) +
+					            String.Format("{0} = {1},", "max_size", pointCoeffiencts.Max_Size) +
+					            String.Format("{0} = {1},", "min_quality", pointCoeffiencts.Min_Quality) +
+					            String.Format("{0} = {1}, ", "max_quality", pointCoeffiencts.Max_Quality) +
+					            String.Format("{0} = {1}, ", "min_rarity", pointCoeffiencts.Min_Rarity) +
+					            String.Format("{0} = {1}, ", "max_rarity", pointCoeffiencts.Max_Rarity) +
+					            String.Format("{0} = {1}, ", "min_points", pointCoeffiencts.Min_Points) +
+					            String.Format("{0} = {1}, ", "max_points", pointCoeffiencts.Max_Points) +
+					            String.Format("{0} = {1} ", "possible_piece_types", pointCoeffiencts.possible_piece_types) +
+
+					            String.Format("WHERE id='{0}'", pointCoeffiencts.ID);
+					_sqlite_conn.Query<Point_Coeffiencts>(Createsql);
 
 					//Delete all the associated keys
 					#region Key Deletion And reinsertion

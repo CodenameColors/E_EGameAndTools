@@ -3027,9 +3027,9 @@
 						<TextBlock Grid.Row="1" Text="Damage = Check |  Heal = No Check:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 						<CheckBox x:Name="ItemIsDamage_Edit_CB" Grid.Row="1" Width="20" Margin="210,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
-						<TextBlock Grid.Row="3" Text="Weapon Type:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<TextBlock Grid.Row="3" Text="Item Type:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 						<ComboBox x:Name="ItemWeaponType_Edit_CB" Grid.Row="3" Width="200" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
-						          ItemsSource="{Binding Source={StaticResource EWeaponType}}">
+						          ItemsSource="{Binding Source={StaticResource EItemType}}">
 						</ComboBox>
 
 						<!--1.0.0.2v-->
@@ -3049,7 +3049,7 @@
 						<CheckBox x:Name="ItemAllies_Edit_CB" Grid.Row="1" Width="20" Background="DimGray" Foreground="White" Margin="410,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
 
-						<TextBlock Grid.Row="4" Text="Weapon Rarity:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<TextBlock Grid.Row="4" Text="Item Rarity:" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 						<ComboBox x:Name="ItemRarity_Edit_CB" Grid.Row="4" Width="200" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
 						          ItemsSource="{Binding Source={StaticResource ERarityType}}">
 						</ComboBox>
@@ -3337,6 +3337,257 @@
 									</DataTemplate>
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
+
+							<TextBlock Grid.Row="0" Grid.Column="4" Text="Point Co-efficents:" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="100,0,0,0"/>
+							<Grid Grid.Row="1" Grid.Column="4">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="*"/>
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+								</Grid.ColumnDefinitions>
+
+								<TextBlock Grid.Row="0" Grid.Column="0" Text="Min Size:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Item_pointCo_Min_Size_Edit_TB" Grid.Row="0" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="0" Grid.Column="0" Text="Max Size:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Item_pointCo_Max_Size_Edit_TB" Grid.Row="0" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="1" Grid.Column="0" Text="Min Quality:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Item_pointCo_Min_Qual_Edit_TB" Grid.Row="1" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="1" Grid.Column="0" Text="Max Quality:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Item_pointCo_Max_Qual_Edit_TB" Grid.Row="1" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="2" Grid.Column="0" Text="Min Rarity:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Item_pointCo_Min_Rare_Edit_TB" Grid.Row="2" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="2" Grid.Column="0" Text="Max Rarity:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Item_pointCo_Max_Rare_Edit_TB" Grid.Row="2" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="4" Grid.Column="0" Text="Min Points:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Item_pointCo_Min_Points_Edit_TB" Grid.Row="4" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="4" Grid.Column="0" Text="Max Points:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Item_pointCo_Max_Points_Edit_TB" Grid.Row="4" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<ScrollViewer x:Name="Item_Piece_Types_Edit_SV" Grid.Row="5" Grid.Column="0" VerticalAlignment="Stretch">
+									<ItemsControl x:Name="Item_Piece_Types_Edit_IC">
+										<Grid x:Name="Item_Piece_Types_Edit_Grid">
+											<Grid.RowDefinitions>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+											</Grid.RowDefinitions>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="3*"/>
+												<ColumnDefinition Width="60"/>
+												<ColumnDefinition Width="30"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Row="0" Foreground="White" Text="Piece 0:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Column="1" Source="/Resources/PuzzlePieces/piece_0.png" Width="60" Height="60" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+											<CheckBox Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="1" Foreground="White" Text="Piece 1:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="1" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_1.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="1" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="2" Foreground="White" Text="Piece 2:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="2" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_2.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="2" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="3" Foreground="White" Text="Piece 3:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="3" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_3.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="3" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="4" Foreground="White" Text="Piece 4:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="4" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_4.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="4" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="5" Foreground="White" Text="Piece 5:" HorizontalAlignment="Left" VerticalAlignment="Center"
+																Margin="10,0,0,0"/>
+											<Image Grid.Row="5" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_5.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="5" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="6" Foreground="White" Text="Piece 6:" HorizontalAlignment="Left" VerticalAlignment="Center"
+																Margin="10,0,0,0"/>
+											<Image Grid.Row="6" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_6.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="6" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="7" Foreground="White" Text="Piece 7:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="7" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_7.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="7" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="8" Foreground="White" Text="Piece 8:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="8" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_8.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="8" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="9" Foreground="White" Text="Piece 9:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="9" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_9.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="9" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="10" Foreground="White" Text="Piece 10:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="10" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_10.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="10" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="11" Foreground="White" Text="Piece 11:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="11" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_11.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="11" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="12" Foreground="White" Text="Piece 12:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="12" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_12.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="12" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="13" Foreground="White" Text="Piece 13:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="13" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_13.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="13" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="14" Foreground="White" Text="Piece 14:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="14" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_14.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="14" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="15" Foreground="White" Text="Piece 15:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="15" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_15.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="15" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="16" Foreground="White" Text="Piece 16:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="16" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_16.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="16" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="17" Foreground="White" Text="Piece 17:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="17" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_17.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="17" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="18" Foreground="White" Text="Piece 18:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="18" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_18.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="18" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="19" Foreground="White" Text="Piece 19:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="19" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_19.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="19" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="20" Foreground="White" Text="Piece 20:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="20" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_20.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="20" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="21" Foreground="White" Text="Piece 21:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="21" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_21.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="21" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="22" Foreground="White" Text="Piece 22:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="22" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_22.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="22" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="23" Foreground="White" Text="Piece 23:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="23" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_23.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="23" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="24" Foreground="White" Text="Piece 24:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="24" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_24.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="24" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="25" Foreground="White" Text="Piece 25:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="25" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_25.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="25" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="26" Foreground="White" Text="Piece 26:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="26" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_26.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="26" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="27" Foreground="White" Text="Piece 27:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="27" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_27.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="27" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="28" Foreground="White" Text="Piece 28:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="28" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_28.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="28" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="29" Foreground="White" Text="Piece 29:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="29" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_29.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="29" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="30" Foreground="White" Text="Piece 30:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="30" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_30.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="30" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="31" Foreground="White" Text="Piece 31:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="31" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_31.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="31" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+										</Grid>
+										
+									</ItemsControl>
+								</ScrollViewer>
+
+							</Grid>
+
+
 
 							<GridSplitter Grid.Row="1" Height="2" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
 							              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
@@ -3687,6 +3938,256 @@
 									</DataTemplate>
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
+							<TextBlock Grid.Row="0" Grid.Column="4" Text="Point Co-efficents:" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="100,0,0,0"/>
+							<Grid Grid.Row="1" Grid.Column="4">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="*"/>
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+								</Grid.ColumnDefinitions>
+
+								<TextBlock Grid.Row="0" Grid.Column="0" Text="Min Size:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Item_pointCo_Min_Size_Add_TB" Grid.Row="0" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="0" Grid.Column="0" Text="Max Size:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Item_pointCo_Max_Size_Add_TB" Grid.Row="0" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="1" Grid.Column="0" Text="Min Quality:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Item_pointCo_Min_Qual_Add_TB" Grid.Row="1" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="1" Grid.Column="0" Text="Max Quality:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Item_pointCo_Max_Qual_Add_TB" Grid.Row="1" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="2" Grid.Column="0" Text="Min Rarity:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Item_pointCo_Min_Rare_Add_TB" Grid.Row="2" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="2" Grid.Column="0" Text="Max Rarity:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Item_pointCo_Max_Rare_Add_TB" Grid.Row="2" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="4" Grid.Column="0" Text="Min Points:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Item_pointCo_Min_Points_Add_TB" Grid.Row="4" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="4" Grid.Column="0" Text="Max Points:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Item_pointCo_Max_Points_Add_TB" Grid.Row="4" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<ScrollViewer x:Name="Item_Piece_Types_Add_SV" Grid.Row="5" Grid.Column="0" VerticalAlignment="Stretch">
+									<ItemsControl x:Name="Item_Piece_Types_Add_IC">
+										<Grid x:Name="Item_Piece_Types_Add_Grid">
+											<Grid.RowDefinitions>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+											</Grid.RowDefinitions>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="3*"/>
+												<ColumnDefinition Width="60"/>
+												<ColumnDefinition Width="30"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Row="0" Foreground="White" Text="Piece 0:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Column="1" Source="/Resources/PuzzlePieces/piece_0.png" Width="60" Height="60" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+											<CheckBox Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="1" Foreground="White" Text="Piece 1:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="1" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_1.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="1" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="2" Foreground="White" Text="Piece 2:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="2" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_2.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="2" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="3" Foreground="White" Text="Piece 3:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="3" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_3.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="3" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="4" Foreground="White" Text="Piece 4:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="4" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_4.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="4" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="5" Foreground="White" Text="Piece 5:" HorizontalAlignment="Left" VerticalAlignment="Center"
+																Margin="10,0,0,0"/>
+											<Image Grid.Row="5" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_5.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="5" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="6" Foreground="White" Text="Piece 6:" HorizontalAlignment="Left" VerticalAlignment="Center"
+																Margin="10,0,0,0"/>
+											<Image Grid.Row="6" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_6.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="6" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="7" Foreground="White" Text="Piece 7:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="7" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_7.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="7" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="8" Foreground="White" Text="Piece 8:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="8" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_8.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="8" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="9" Foreground="White" Text="Piece 9:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="9" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_9.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="9" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="10" Foreground="White" Text="Piece 10:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="10" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_10.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="10" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="11" Foreground="White" Text="Piece 11:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="11" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_11.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="11" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="12" Foreground="White" Text="Piece 12:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="12" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_12.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="12" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="13" Foreground="White" Text="Piece 13:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="13" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_13.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="13" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="14" Foreground="White" Text="Piece 14:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="14" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_14.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="14" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="15" Foreground="White" Text="Piece 15:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="15" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_15.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="15" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="16" Foreground="White" Text="Piece 16:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="16" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_16.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="16" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="17" Foreground="White" Text="Piece 17:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="17" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_17.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="17" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="18" Foreground="White" Text="Piece 18:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="18" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_18.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="18" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="19" Foreground="White" Text="Piece 19:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="19" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_19.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="19" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="20" Foreground="White" Text="Piece 20:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="20" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_20.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="20" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="21" Foreground="White" Text="Piece 21:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="21" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_21.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="21" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="22" Foreground="White" Text="Piece 22:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="22" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_22.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="22" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="23" Foreground="White" Text="Piece 23:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="23" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_23.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="23" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="24" Foreground="White" Text="Piece 24:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="24" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_24.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="24" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="25" Foreground="White" Text="Piece 25:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="25" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_25.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="25" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="26" Foreground="White" Text="Piece 26:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="26" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_26.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="26" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="27" Foreground="White" Text="Piece 27:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="27" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_27.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="27" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="28" Foreground="White" Text="Piece 28:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="28" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_28.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="28" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="29" Foreground="White" Text="Piece 29:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="29" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_29.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="29" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="30" Foreground="White" Text="Piece 30:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="30" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_30.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="30" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="31" Foreground="White" Text="Piece 31:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="31" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_31.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="31" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+										</Grid>
+
+									</ItemsControl>
+								</ScrollViewer>
+
+							</Grid>
+
+
 
 							<GridSplitter Grid.Row="1" Height="2" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
 							              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
@@ -3723,7 +4224,7 @@
 					<Button Content="Change to Add" Width="100" Margin="160,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
 				        Click="ChangeGridToAdd"/>
 
-					<Grid Grid.Row="2" x:Name="Accessory_Edit_Grid" Visibility="Visible">
+					<Grid Grid.Row="2" x:Name="Accessory_Edit_Grid" Visibility="Hidden">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="30"/>
 							<RowDefinition Height="30"/>
@@ -4070,6 +4571,258 @@
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
 
+
+							<TextBlock Grid.Row="0" Grid.Column="4" Text="Point Co-efficents:" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="100,0,0,0"/>
+							<Grid Grid.Row="1" Grid.Column="4">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="*"/>
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+								</Grid.ColumnDefinitions>
+
+								<TextBlock Grid.Row="0" Grid.Column="0" Text="Min Size:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Accessory_pointCo_Min_Size_Edit_TB" Grid.Row="0" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="0" Grid.Column="0" Text="Max Size:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Accessory_pointCo_Max_Size_Edit_TB" Grid.Row="0" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="1" Grid.Column="0" Text="Min Quality:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Accessory_pointCo_Min_Qual_Edit_TB" Grid.Row="1" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="1" Grid.Column="0" Text="Max Quality:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Accessory_pointCo_Max_Qual_Edit_TB" Grid.Row="1" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="2" Grid.Column="0" Text="Min Rarity:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Accessory_pointCo_Min_Rare_Edit_TB" Grid.Row="2" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="2" Grid.Column="0" Text="Max Rarity:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Accessory_pointCo_Max_Rare_Edit_TB" Grid.Row="2" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="4" Grid.Column="0" Text="Min Points:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Accessory_pointCo_Min_Points_Edit_TB" Grid.Row="4" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="4" Grid.Column="0" Text="Max Points:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Accessory_pointCo_Max_Points_Edit_TB" Grid.Row="4" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<ScrollViewer x:Name="Accessory_Piece_Types_Edit_SV" Grid.Row="5" Grid.Column="0" VerticalAlignment="Stretch">
+									<ItemsControl x:Name="Accessory_Piece_Types_Edit_IC">
+										<Grid x:Name="Accessory_Piece_Types_Edit_Grid">
+											<Grid.RowDefinitions>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+											</Grid.RowDefinitions>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="3*"/>
+												<ColumnDefinition Width="60"/>
+												<ColumnDefinition Width="30"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Row="0" Foreground="White" Text="Piece 0:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Column="1" Source="/Resources/PuzzlePieces/piece_0.png" Width="60" Height="60" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+											<CheckBox Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="1" Foreground="White" Text="Piece 1:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="1" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_1.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="1" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="2" Foreground="White" Text="Piece 2:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="2" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_2.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="2" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="3" Foreground="White" Text="Piece 3:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="3" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_3.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="3" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="4" Foreground="White" Text="Piece 4:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="4" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_4.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="4" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="5" Foreground="White" Text="Piece 5:" HorizontalAlignment="Left" VerticalAlignment="Center"
+																Margin="10,0,0,0"/>
+											<Image Grid.Row="5" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_5.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="5" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="6" Foreground="White" Text="Piece 6:" HorizontalAlignment="Left" VerticalAlignment="Center"
+																Margin="10,0,0,0"/>
+											<Image Grid.Row="6" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_6.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="6" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="7" Foreground="White" Text="Piece 7:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="7" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_7.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="7" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="8" Foreground="White" Text="Piece 8:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="8" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_8.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="8" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="9" Foreground="White" Text="Piece 9:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="9" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_9.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="9" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="10" Foreground="White" Text="Piece 10:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="10" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_10.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="10" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="11" Foreground="White" Text="Piece 11:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="11" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_11.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="11" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="12" Foreground="White" Text="Piece 12:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="12" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_12.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="12" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="13" Foreground="White" Text="Piece 13:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="13" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_13.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="13" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="14" Foreground="White" Text="Piece 14:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="14" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_14.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="14" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="15" Foreground="White" Text="Piece 15:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="15" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_15.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="15" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="16" Foreground="White" Text="Piece 16:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="16" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_16.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="16" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="17" Foreground="White" Text="Piece 17:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="17" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_17.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="17" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="18" Foreground="White" Text="Piece 18:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="18" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_18.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="18" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="19" Foreground="White" Text="Piece 19:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="19" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_19.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="19" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="20" Foreground="White" Text="Piece 20:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="20" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_20.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="20" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="21" Foreground="White" Text="Piece 21:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="21" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_21.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="21" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="22" Foreground="White" Text="Piece 22:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="22" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_22.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="22" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="23" Foreground="White" Text="Piece 23:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="23" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_23.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="23" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="24" Foreground="White" Text="Piece 24:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="24" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_24.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="24" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="25" Foreground="White" Text="Piece 25:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="25" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_25.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="25" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="26" Foreground="White" Text="Piece 26:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="26" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_26.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="26" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="27" Foreground="White" Text="Piece 27:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="27" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_27.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="27" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="28" Foreground="White" Text="Piece 28:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="28" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_28.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="28" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="29" Foreground="White" Text="Piece 29:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="29" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_29.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="29" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="30" Foreground="White" Text="Piece 30:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="30" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_30.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="30" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="31" Foreground="White" Text="Piece 31:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="31" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_31.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="31" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+										</Grid>
+
+									</ItemsControl>
+								</ScrollViewer>
+
+							</Grid>
+
+
+
 							<GridSplitter Grid.Row="1" Height="2" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
 							              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
 							<GridSplitter Grid.Row="1" Grid.Column="0" Height="2" Grid.ColumnSpan="1" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
@@ -4087,7 +4840,7 @@
 
 					</Grid>
 
-					<Grid Grid.Row="2" x:Name="Accessory_Add_Grid" Visibility="Hidden">
+					<Grid Grid.Row="2" x:Name="Accessory_Add_Grid" Visibility="Visible">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="30"/>
 							<RowDefinition Height="30"/>
@@ -4406,6 +5159,259 @@
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
 
+
+							<TextBlock Grid.Row="0" Grid.Column="4" Text="Point Co-efficents:" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="100,0,0,0"/>
+							<Grid Grid.Row="1" Grid.Column="4">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="*"/>
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+								</Grid.ColumnDefinitions>
+
+								<TextBlock Grid.Row="0" Grid.Column="0" Text="Min Size:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Accessory_pointCo_Min_Size_Add_TB" Grid.Row="0" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="0" Grid.Column="0" Text="Max Size:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Accessory_pointCo_Max_Size_Add_TB" Grid.Row="0" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="1" Grid.Column="0" Text="Min Quality:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Accessory_pointCo_Min_Qual_Add_TB" Grid.Row="1" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="1" Grid.Column="0" Text="Max Quality:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Accessory_pointCo_Max_Qual_Add_TB" Grid.Row="1" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="2" Grid.Column="0" Text="Min Rarity:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Accessory_pointCo_Min_Rare_Add_TB" Grid.Row="2" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="2" Grid.Column="0" Text="Max Rarity:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Accessory_pointCo_Max_Rare_Add_TB" Grid.Row="2" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="4" Grid.Column="0" Text="Min Points:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Accessory_pointCo_Min_Points_Add_TB" Grid.Row="4" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="4" Grid.Column="0" Text="Max Points:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Accessory_pointCo_Max_Points_Add_TB" Grid.Row="4" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<ScrollViewer x:Name="Accessory_Piece_Types_Add_SV" Grid.Row="5" Grid.Column="0" VerticalAlignment="Stretch">
+									<ItemsControl x:Name="Accessory_Piece_Types_Add_IC">
+										<Grid x:Name="Accessory_Piece_Types_Add_Grid">
+											<Grid.RowDefinitions>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+											</Grid.RowDefinitions>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="3*"/>
+												<ColumnDefinition Width="60"/>
+												<ColumnDefinition Width="30"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Row="0" Foreground="White" Text="Piece 0:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Column="1" Source="/Resources/PuzzlePieces/piece_0.png" Width="60" Height="60" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+											<CheckBox Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="1" Foreground="White" Text="Piece 1:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="1" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_1.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="1" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="2" Foreground="White" Text="Piece 2:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="2" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_2.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="2" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="3" Foreground="White" Text="Piece 3:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="3" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_3.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="3" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="4" Foreground="White" Text="Piece 4:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="4" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_4.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="4" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="5" Foreground="White" Text="Piece 5:" HorizontalAlignment="Left" VerticalAlignment="Center"
+																Margin="10,0,0,0"/>
+											<Image Grid.Row="5" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_5.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="5" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="6" Foreground="White" Text="Piece 6:" HorizontalAlignment="Left" VerticalAlignment="Center"
+																Margin="10,0,0,0"/>
+											<Image Grid.Row="6" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_6.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="6" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="7" Foreground="White" Text="Piece 7:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="7" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_7.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="7" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="8" Foreground="White" Text="Piece 8:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="8" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_8.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="8" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="9" Foreground="White" Text="Piece 9:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="9" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_9.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="9" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="10" Foreground="White" Text="Piece 10:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="10" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_10.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="10" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="11" Foreground="White" Text="Piece 11:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="11" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_11.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="11" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="12" Foreground="White" Text="Piece 12:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="12" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_12.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="12" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="13" Foreground="White" Text="Piece 13:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="13" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_13.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="13" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="14" Foreground="White" Text="Piece 14:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="14" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_14.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="14" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="15" Foreground="White" Text="Piece 15:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="15" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_15.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="15" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="16" Foreground="White" Text="Piece 16:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="16" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_16.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="16" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="17" Foreground="White" Text="Piece 17:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="17" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_17.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="17" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="18" Foreground="White" Text="Piece 18:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="18" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_18.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="18" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="19" Foreground="White" Text="Piece 19:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="19" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_19.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="19" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="20" Foreground="White" Text="Piece 20:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="20" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_20.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="20" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="21" Foreground="White" Text="Piece 21:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="21" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_21.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="21" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="22" Foreground="White" Text="Piece 22:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="22" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_22.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="22" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="23" Foreground="White" Text="Piece 23:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="23" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_23.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="23" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="24" Foreground="White" Text="Piece 24:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="24" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_24.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="24" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="25" Foreground="White" Text="Piece 25:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="25" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_25.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="25" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="26" Foreground="White" Text="Piece 26:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="26" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_26.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="26" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="27" Foreground="White" Text="Piece 27:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="27" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_27.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="27" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="28" Foreground="White" Text="Piece 28:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="28" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_28.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="28" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="29" Foreground="White" Text="Piece 29:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="29" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_29.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="29" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="30" Foreground="White" Text="Piece 30:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="30" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_30.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="30" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="31" Foreground="White" Text="Piece 31:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="31" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_31.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="31" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+										</Grid>
+
+									</ItemsControl>
+								</ScrollViewer>
+
+							</Grid>
+
+
+
+
 							<GridSplitter Grid.Row="1" Height="2" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
 							              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
 							<GridSplitter Grid.Row="1" Grid.Column="0" Height="2" Grid.ColumnSpan="1" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
@@ -4442,7 +5448,7 @@
 					<Button Content="Change to Add" Width="100" Margin="160,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
 				        Click="ChangeGridToAdd"/>
 
-					<Grid Grid.Row="2" x:Name="Clothes_Edit_Grid" Visibility="Visible">
+					<Grid Grid.Row="2" x:Name="Clothes_Edit_Grid" Visibility="Hidden">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="30"/>
 							<RowDefinition Height="30"/>
@@ -4697,7 +5703,7 @@
 								<ColumnDefinition Width="250"/>
 								<ColumnDefinition Width="250"/>
 								<ColumnDefinition Width="250"/>
-								<ColumnDefinition Width="150"/>
+								<ColumnDefinition Width="*"/>
 							</Grid.ColumnDefinitions>
 
 							<TextBlock Grid.Column="1" Text="Effects Equipped" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -4788,6 +5794,258 @@
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
 
+
+							<TextBlock Grid.Row="0" Grid.Column="4" Text="Point Co-efficents:" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="100,0,0,0"/>
+							<Grid Grid.Row="1" Grid.Column="4">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="*"/>
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition/>
+
+								</Grid.ColumnDefinitions>
+
+								<TextBlock Grid.Row="0" Grid.Column="0" Text="Min Size:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Clothes_pointCo_Min_Size_Edit_TB" Grid.Row="0" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="0" Grid.Column="0" Text="Max Size:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Clothes_pointCo_Max_Size_Edit_TB" Grid.Row="0" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="1" Grid.Column="0" Text="Min Quality:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Clothes_pointCo_Min_Qual_Edit_TB" Grid.Row="1" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="1" Grid.Column="0" Text="Max Quality:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Clothes_pointCo_Max_Qual_Edit_TB" Grid.Row="1" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="2" Grid.Column="0" Text="Min Rarity:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Clothes_pointCo_Min_Rare_Edit_TB" Grid.Row="2" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="2" Grid.Column="0" Text="Max Rarity:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Clothes_pointCo_Max_Rare_Edit_TB" Grid.Row="2" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="4" Grid.Column="0" Text="Min Points:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Clothes_pointCo_Min_Points_Edit_TB" Grid.Row="4" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="4" Grid.Column="0" Text="Max Points:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Clothes_pointCo_Max_Points_Edit_TB" Grid.Row="4" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<ScrollViewer x:Name="Clothes_Piece_Types_Edit_SV" Grid.Row="5" Grid.Column="0" VerticalAlignment="Stretch">
+									<ItemsControl x:Name="Clothes_Piece_Types_Edit_IC">
+										<Grid x:Name="Clothes_Piece_Types_Edit_Grid">
+											<Grid.RowDefinitions>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+											</Grid.RowDefinitions>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="3*"/>
+												<ColumnDefinition Width="60"/>
+												<ColumnDefinition Width="30"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Row="0" Foreground="White" Text="Piece 0:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Column="1" Source="/Resources/PuzzlePieces/piece_0.png" Width="60" Height="60" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+											<CheckBox Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="1" Foreground="White" Text="Piece 1:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="1" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_1.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="1" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="2" Foreground="White" Text="Piece 2:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="2" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_2.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="2" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="3" Foreground="White" Text="Piece 3:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="3" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_3.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="3" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="4" Foreground="White" Text="Piece 4:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="4" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_4.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="4" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="5" Foreground="White" Text="Piece 5:" HorizontalAlignment="Left" VerticalAlignment="Center"
+																Margin="10,0,0,0"/>
+											<Image Grid.Row="5" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_5.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="5" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="6" Foreground="White" Text="Piece 6:" HorizontalAlignment="Left" VerticalAlignment="Center"
+																Margin="10,0,0,0"/>
+											<Image Grid.Row="6" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_6.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="6" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="7" Foreground="White" Text="Piece 7:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="7" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_7.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="7" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="8" Foreground="White" Text="Piece 8:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="8" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_8.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="8" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="9" Foreground="White" Text="Piece 9:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="9" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_9.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="9" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="10" Foreground="White" Text="Piece 10:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="10" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_10.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="10" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="11" Foreground="White" Text="Piece 11:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="11" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_11.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="11" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="12" Foreground="White" Text="Piece 12:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="12" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_12.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="12" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="13" Foreground="White" Text="Piece 13:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="13" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_13.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="13" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="14" Foreground="White" Text="Piece 14:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="14" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_14.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="14" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="15" Foreground="White" Text="Piece 15:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="15" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_15.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="15" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="16" Foreground="White" Text="Piece 16:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="16" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_16.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="16" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="17" Foreground="White" Text="Piece 17:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="17" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_17.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="17" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="18" Foreground="White" Text="Piece 18:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="18" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_18.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="18" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="19" Foreground="White" Text="Piece 19:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="19" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_19.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="19" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="20" Foreground="White" Text="Piece 20:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="20" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_20.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="20" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="21" Foreground="White" Text="Piece 21:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="21" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_21.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="21" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="22" Foreground="White" Text="Piece 22:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="22" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_22.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="22" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="23" Foreground="White" Text="Piece 23:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="23" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_23.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="23" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="24" Foreground="White" Text="Piece 24:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="24" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_24.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="24" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="25" Foreground="White" Text="Piece 25:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="25" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_25.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="25" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="26" Foreground="White" Text="Piece 26:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="26" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_26.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="26" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="27" Foreground="White" Text="Piece 27:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="27" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_27.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="27" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="28" Foreground="White" Text="Piece 28:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="28" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_28.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="28" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="29" Foreground="White" Text="Piece 29:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="29" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_29.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="29" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="30" Foreground="White" Text="Piece 30:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="30" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_30.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="30" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="31" Foreground="White" Text="Piece 31:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="31" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_31.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="31" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+										</Grid>
+
+									</ItemsControl>
+								</ScrollViewer>
+
+							</Grid>
+
+
+
 							<GridSplitter Grid.Row="1" Height="2" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
 							              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
 							<GridSplitter Grid.Row="1" Grid.Column="0" Height="2" Grid.ColumnSpan="1" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
@@ -4805,7 +6063,7 @@
 
 					</Grid>
 
-					<Grid Grid.Row="2" x:Name="Clothes_Add_Grid" Visibility="Hidden">
+					<Grid Grid.Row="2" x:Name="Clothes_Add_Grid" Visibility="Visible">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="30"/>
 							<RowDefinition Height="30"/>
@@ -4888,7 +6146,7 @@
 						<Grid x:Name="ClothesStats_Add_Grid" Grid.Row="0" Grid.Column="1" RowSpan="20">
 
 							<Grid.RowDefinitions>
-								<RowDefinition Height="20"/>
+								<RowDefinition Height="2"/>
 								<RowDefinition Height="20"/>
 								<RowDefinition Height="20"/>
 								<RowDefinition Height="5"/>
@@ -5047,10 +6305,10 @@
 								<RowDefinition Height="*"/>
 							</Grid.RowDefinitions>
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="150"/>
-								<ColumnDefinition Width="150"/>
-								<ColumnDefinition Width="150"/>
-								<ColumnDefinition Width="150"/>
+								<ColumnDefinition Width="200"/>
+								<ColumnDefinition Width="200"/>
+								<ColumnDefinition Width="200"/>
+								<ColumnDefinition Width="200"/>
 								<ColumnDefinition />
 							</Grid.ColumnDefinitions>
 
@@ -5123,6 +6381,258 @@
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
 
+
+							<TextBlock Grid.Row="0" Grid.Column="4" Text="Point Co-efficents:" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="100,0,0,0"/>
+							<Grid Grid.Row="1" Grid.Column="4">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="*"/>
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="2*"/>
+									<ColumnDefinition/>
+								</Grid.ColumnDefinitions>
+
+								<TextBlock Grid.Row="0" Grid.Column="0" Text="Min Size:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Clothes_pointCo_Min_Size_Add_TB" Grid.Row="0" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="0" Grid.Column="0" Text="Max Size:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Clothes_pointCo_Max_Size_Add_TB" Grid.Row="0" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="1" Grid.Column="0" Text="Min Quality:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Clothes_pointCo_Min_Qual_Add_TB" Grid.Row="1" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="1" Grid.Column="0" Text="Max Quality:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Clothes_pointCo_Max_Qual_Add_TB" Grid.Row="1" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="2" Grid.Column="0" Text="Min Rarity:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Clothes_pointCo_Min_Rare_Add_TB" Grid.Row="2" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="2" Grid.Column="0" Text="Max Rarity:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Clothes_pointCo_Max_Rare_Add_TB" Grid.Row="2" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="4" Grid.Column="0" Text="Min Points:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Clothes_pointCo_Min_Points_Add_TB" Grid.Row="4" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="4" Grid.Column="0" Text="Max Points:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Clothes_pointCo_Max_Points_Add_TB" Grid.Row="4" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<ScrollViewer x:Name="Clothes_Piece_Types_Add_SV" Grid.Row="5" Grid.Column="0" VerticalAlignment="Stretch">
+									<ItemsControl x:Name="Clothes_Piece_Types_Add_IC">
+										<Grid x:Name="Clothes_Piece_Types_Add_Grid">
+											<Grid.RowDefinitions>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+											</Grid.RowDefinitions>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="3*"/>
+												<ColumnDefinition Width="60"/>
+												<ColumnDefinition Width="30"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Row="0" Foreground="White" Text="Piece 0:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Column="1" Source="/Resources/PuzzlePieces/piece_0.png" Width="60" Height="60" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+											<CheckBox Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="1" Foreground="White" Text="Piece 1:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="1" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_1.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="1" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="2" Foreground="White" Text="Piece 2:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="2" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_2.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="2" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="3" Foreground="White" Text="Piece 3:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="3" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_3.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="3" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="4" Foreground="White" Text="Piece 4:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="4" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_4.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="4" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="5" Foreground="White" Text="Piece 5:" HorizontalAlignment="Left" VerticalAlignment="Center"
+																Margin="10,0,0,0"/>
+											<Image Grid.Row="5" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_5.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="5" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="6" Foreground="White" Text="Piece 6:" HorizontalAlignment="Left" VerticalAlignment="Center"
+																Margin="10,0,0,0"/>
+											<Image Grid.Row="6" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_6.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="6" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="7" Foreground="White" Text="Piece 7:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="7" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_7.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="7" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="8" Foreground="White" Text="Piece 8:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="8" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_8.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="8" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="9" Foreground="White" Text="Piece 9:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="9" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_9.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="9" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="10" Foreground="White" Text="Piece 10:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="10" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_10.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="10" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="11" Foreground="White" Text="Piece 11:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="11" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_11.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="11" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="12" Foreground="White" Text="Piece 12:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="12" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_12.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="12" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="13" Foreground="White" Text="Piece 13:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="13" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_13.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="13" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="14" Foreground="White" Text="Piece 14:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="14" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_14.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="14" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="15" Foreground="White" Text="Piece 15:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="15" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_15.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="15" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="16" Foreground="White" Text="Piece 16:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="16" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_16.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="16" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="17" Foreground="White" Text="Piece 17:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="17" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_17.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="17" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="18" Foreground="White" Text="Piece 18:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="18" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_18.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="18" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="19" Foreground="White" Text="Piece 19:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="19" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_19.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="19" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="20" Foreground="White" Text="Piece 20:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="20" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_20.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="20" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="21" Foreground="White" Text="Piece 21:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="21" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_21.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="21" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="22" Foreground="White" Text="Piece 22:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="22" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_22.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="22" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="23" Foreground="White" Text="Piece 23:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="23" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_23.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="23" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="24" Foreground="White" Text="Piece 24:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="24" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_24.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="24" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="25" Foreground="White" Text="Piece 25:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="25" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_25.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="25" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="26" Foreground="White" Text="Piece 26:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="26" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_26.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="26" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="27" Foreground="White" Text="Piece 27:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="27" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_27.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="27" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="28" Foreground="White" Text="Piece 28:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="28" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_28.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="28" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="29" Foreground="White" Text="Piece 29:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="29" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_29.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="29" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="30" Foreground="White" Text="Piece 30:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="30" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_30.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="30" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="31" Foreground="White" Text="Piece 31:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="31" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_31.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="31" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+										</Grid>
+
+									</ItemsControl>
+								</ScrollViewer>
+
+							</Grid>
+
+
+
 							<GridSplitter Grid.Row="1" Height="2" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
 							              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
 							<GridSplitter Grid.Row="1" Grid.Column="0" Height="2" Grid.ColumnSpan="1" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
@@ -5159,7 +6669,7 @@
 					<Button Content="Change to Add" Width="100" Margin="160,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
 				        Click="ChangeGridToAdd"/>
 
-					<Grid x:Name="Weapons_Add_Grid" Grid.Row="2" Visibility="Visible">
+					<Grid x:Name="Weapons_Add_Grid" Grid.Row="2" Visibility="Hidden">
 
 						<Grid.RowDefinitions>
 							<RowDefinition Height="30"/>
@@ -5397,10 +6907,10 @@
 								<RowDefinition Height="*"/>
 							</Grid.RowDefinitions>
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="150"/>
-								<ColumnDefinition Width="150"/>
-								<ColumnDefinition Width="150"/>
-								<ColumnDefinition Width="150"/>
+								<ColumnDefinition Width="200"/>
+								<ColumnDefinition Width="200"/>
+								<ColumnDefinition Width="200"/>
+								<ColumnDefinition Width="200"/>
 								<ColumnDefinition/>
 							</Grid.ColumnDefinitions>
 
@@ -5460,6 +6970,254 @@
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
 
+							<TextBlock Grid.Row="0" Grid.Column="4" Text="Point Co-efficents:" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="100,0,0,0"/>
+							<Grid Grid.Row="1" Grid.Column="4">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="*"/>
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="2*"/>
+									<ColumnDefinition/>
+								</Grid.ColumnDefinitions>
+
+								<TextBlock Grid.Row="0" Grid.Column="0" Text="Min Size:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Weapon_pointCo_Min_Size_Add_TB" Grid.Row="0" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="0" Grid.Column="0" Text="Max Size:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Weapon_pointCo_Max_Size_Add_TB" Grid.Row="0" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="1" Grid.Column="0" Text="Min Quality:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Weapon_pointCo_Min_Qual_Add_TB" Grid.Row="1" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="1" Grid.Column="0" Text="Max Quality:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Weapon_pointCo_Max_Qual_Add_TB" Grid.Row="1" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="2" Grid.Column="0" Text="Min Rarity:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Weapon_pointCo_Min_Rare_Add_TB" Grid.Row="2" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="2" Grid.Column="0" Text="Max Rarity:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Weapon_pointCo_Max_Rare_Add_TB" Grid.Row="2" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="4" Grid.Column="0" Text="Min Points:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Weapon_pointCo_Min_Points_Add_TB" Grid.Row="4" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="4" Grid.Column="0" Text="Max Points:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Weapon_pointCo_Max_Points_Add_TB" Grid.Row="4" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<ScrollViewer x:Name="Weapon_Piece_Types_Add_SV" Grid.Row="5" Grid.Column="0" VerticalAlignment="Stretch">
+									<ItemsControl x:Name="Weapon_Piece_Types_Add_IC">
+										<Grid x:Name="Weapon_Piece_Types_Add_Grid">
+											<Grid.RowDefinitions>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+											</Grid.RowDefinitions>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="3*"/>
+												<ColumnDefinition Width="60"/>
+												<ColumnDefinition Width="30"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Row="0" Foreground="White" Text="Piece 0:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Column="1" Source="/Resources/PuzzlePieces/piece_0.png" Width="60" Height="60" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+											<CheckBox Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="1" Foreground="White" Text="Piece 1:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="1" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_1.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="1" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="2" Foreground="White" Text="Piece 2:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="2" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_2.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="2" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="3" Foreground="White" Text="Piece 3:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="3" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_3.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="3" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="4" Foreground="White" Text="Piece 4:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="4" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_4.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="4" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="5" Foreground="White" Text="Piece 5:" HorizontalAlignment="Left" VerticalAlignment="Center"
+																Margin="10,0,0,0"/>
+											<Image Grid.Row="5" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_5.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="5" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="6" Foreground="White" Text="Piece 6:" HorizontalAlignment="Left" VerticalAlignment="Center"
+																Margin="10,0,0,0"/>
+											<Image Grid.Row="6" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_6.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="6" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="7" Foreground="White" Text="Piece 7:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="7" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_7.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="7" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="8" Foreground="White" Text="Piece 8:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="8" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_8.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="8" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="9" Foreground="White" Text="Piece 9:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="9" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_9.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="9" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="10" Foreground="White" Text="Piece 10:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="10" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_10.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="10" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="11" Foreground="White" Text="Piece 11:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="11" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_11.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="11" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="12" Foreground="White" Text="Piece 12:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="12" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_12.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="12" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="13" Foreground="White" Text="Piece 13:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="13" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_13.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="13" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="14" Foreground="White" Text="Piece 14:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="14" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_14.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="14" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="15" Foreground="White" Text="Piece 15:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="15" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_15.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="15" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="16" Foreground="White" Text="Piece 16:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="16" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_16.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="16" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="17" Foreground="White" Text="Piece 17:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="17" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_17.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="17" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="18" Foreground="White" Text="Piece 18:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="18" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_18.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="18" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="19" Foreground="White" Text="Piece 19:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="19" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_19.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="19" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="20" Foreground="White" Text="Piece 20:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="20" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_20.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="20" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="21" Foreground="White" Text="Piece 21:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="21" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_21.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="21" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="22" Foreground="White" Text="Piece 22:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="22" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_22.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="22" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="23" Foreground="White" Text="Piece 23:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="23" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_23.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="23" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="24" Foreground="White" Text="Piece 24:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="24" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_24.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="24" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="25" Foreground="White" Text="Piece 25:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="25" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_25.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="25" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="26" Foreground="White" Text="Piece 26:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="26" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_26.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="26" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="27" Foreground="White" Text="Piece 27:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="27" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_27.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="27" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="28" Foreground="White" Text="Piece 28:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="28" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_28.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="28" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="29" Foreground="White" Text="Piece 29:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="29" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_29.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="29" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="30" Foreground="White" Text="Piece 30:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="30" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_30.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="30" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="31" Foreground="White" Text="Piece 31:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="31" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_31.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="31" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+										</Grid>
+
+									</ItemsControl>
+								</ScrollViewer>
+
+							</Grid>
 
 							<GridSplitter Grid.Row="1" Height="2" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
 							              Margin="-2,0,-2,0" HorizontalAlignment="Stretch" VerticalAlignment="Top">
@@ -5478,7 +7236,7 @@
 
 					</Grid>
 
-					<Grid x:Name="Weapons_Edit_Grid" Grid.Row="2" Visibility="Hidden">
+					<Grid x:Name="Weapons_Edit_Grid" Grid.Row="2" Visibility="Visible">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="30"/>
 							<RowDefinition Height="30"/>
@@ -5724,10 +7482,10 @@
 								<RowDefinition Height="*"/>
 							</Grid.RowDefinitions>
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="150"/>
-								<ColumnDefinition Width="150"/>
-								<ColumnDefinition Width="150"/>
-								<ColumnDefinition Width="150"/>
+								<ColumnDefinition Width="200"/>
+								<ColumnDefinition Width="200"/>
+								<ColumnDefinition Width="200"/>
+								<ColumnDefinition Width="200"/>
 								<ColumnDefinition />
 							</Grid.ColumnDefinitions>
 
@@ -5786,6 +7544,256 @@
 									</DataTemplate>
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
+
+
+							<TextBlock Grid.Row="0" Grid.Column="4" Text="Point Co-efficents:" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="100,0,0,0"/>
+							<Grid Grid.Row="1" Grid.Column="4">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="25"/>
+									<RowDefinition Height="*"/>
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="2*"/>
+									<ColumnDefinition/>
+								</Grid.ColumnDefinitions>
+
+								<TextBlock Grid.Row="0" Grid.Column="0" Text="Min Size:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Weapon_pointCo_Min_Size_Edit_TB" Grid.Row="0" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="0" Grid.Column="0" Text="Max Size:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Weapon_pointCo_Max_Size_Edit_TB" Grid.Row="0" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="1" Grid.Column="0" Text="Min Quality:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Weapon_pointCo_Min_Qual_Edit_TB" Grid.Row="1" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="1" Grid.Column="0" Text="Max Quality:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Weapon_pointCo_Max_Qual_Edit_TB" Grid.Row="1" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="2" Grid.Column="0" Text="Min Rarity:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Weapon_pointCo_Min_Rare_Edit_TB" Grid.Row="2" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="2" Grid.Column="0" Text="Max Rarity:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Weapon_pointCo_Max_Rare_Edit_TB" Grid.Row="2" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="4" Grid.Column="0" Text="Min Points:" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
+								<TextBox x:Name="Weapon_pointCo_Min_Points_Edit_TB" Grid.Row="4" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="80,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<TextBlock Grid.Row="4" Grid.Column="0" Text="Max Points:" Foreground="White" VerticalAlignment="Center" Margin="150,0,0,0"/>
+								<TextBox x:Name="Weapon_pointCo_Max_Points_Edit_TB" Grid.Row="4" Grid.Column="0" Text="0" Width="50" Background="Gray" Margin="220,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+								<ScrollViewer x:Name="Weapon_Piece_Types_Edit_SV" Grid.Row="5" Grid.Column="0" VerticalAlignment="Stretch">
+									<ItemsControl x:Name="Weapon_Piece_Types_Edit_IC">
+										<Grid x:Name="Weapon_Piece_Types_Edit_Grid">
+											<Grid.RowDefinitions>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+												<RowDefinition Height="60"/>
+											</Grid.RowDefinitions>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="3*"/>
+												<ColumnDefinition Width="60"/>
+												<ColumnDefinition Width="30"/>
+											</Grid.ColumnDefinitions>
+
+											<TextBlock Grid.Row="0" Foreground="White" Text="Piece 0:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Column="1" Source="/Resources/PuzzlePieces/piece_0.png" Width="60" Height="60" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+											<CheckBox Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="1" Foreground="White" Text="Piece 1:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="1" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_1.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="1" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="2" Foreground="White" Text="Piece 2:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="2" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_2.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="2" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="3" Foreground="White" Text="Piece 3:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="3" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_3.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="3" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="4" Foreground="White" Text="Piece 4:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="4" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_4.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="4" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="5" Foreground="White" Text="Piece 5:" HorizontalAlignment="Left" VerticalAlignment="Center"
+																Margin="10,0,0,0"/>
+											<Image Grid.Row="5" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_5.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="5" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="6" Foreground="White" Text="Piece 6:" HorizontalAlignment="Left" VerticalAlignment="Center"
+																Margin="10,0,0,0"/>
+											<Image Grid.Row="6" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_6.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="6" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="7" Foreground="White" Text="Piece 7:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="7" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_7.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="7" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="8" Foreground="White" Text="Piece 8:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="8" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_8.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="8" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="9" Foreground="White" Text="Piece 9:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="9" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_9.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="9" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="10" Foreground="White" Text="Piece 10:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="10" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_10.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="10" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="11" Foreground="White" Text="Piece 11:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="11" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_11.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="11" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="12" Foreground="White" Text="Piece 12:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="12" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_12.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="12" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="13" Foreground="White" Text="Piece 13:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="13" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_13.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="13" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="14" Foreground="White" Text="Piece 14:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="14" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_14.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="14" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="15" Foreground="White" Text="Piece 15:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="15" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_15.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="15" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="16" Foreground="White" Text="Piece 16:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="16" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_16.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="16" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="17" Foreground="White" Text="Piece 17:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="17" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_17.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="17" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="18" Foreground="White" Text="Piece 18:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="18" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_18.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="18" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="19" Foreground="White" Text="Piece 19:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="19" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_19.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="19" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="20" Foreground="White" Text="Piece 20:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="20" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_20.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="20" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="21" Foreground="White" Text="Piece 21:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="21" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_21.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="21" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="22" Foreground="White" Text="Piece 22:" HorizontalAlignment="Left" VerticalAlignment="Center"
+            Margin="10,0,0,0"/>
+											<Image Grid.Row="22" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_22.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="22" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="23" Foreground="White" Text="Piece 23:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="23" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_23.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="23" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="24" Foreground="White" Text="Piece 24:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="24" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_24.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="24" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="25" Foreground="White" Text="Piece 25:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="25" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_25.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="25" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="26" Foreground="White" Text="Piece 26:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="26" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_26.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="26" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="27" Foreground="White" Text="Piece 27:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="27" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_27.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="27" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="28" Foreground="White" Text="Piece 28:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="28" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_28.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="28" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="29" Foreground="White" Text="Piece 29:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="29" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_29.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="29" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="30" Foreground="White" Text="Piece 30:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="30" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_30.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="30" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+											<TextBlock Grid.Row="31" Foreground="White" Text="Piece 31:" HorizontalAlignment="Left" VerticalAlignment="Center"
+											           Margin="10,0,0,0"/>
+											<Image Grid.Row="31" Grid.Column="1" Source="/Resources/PuzzlePieces/piece_31.png" Width="60" Height="60"/>
+											<CheckBox Grid.Row="31" Grid.Column="2" Margin="0,0,5,0" Width="25" Height="25"/>
+
+										</Grid>
+
+									</ItemsControl>
+								</ScrollViewer>
+
+							</Grid>
 
 
 							<GridSplitter Grid.Row="1" Height="2" Grid.ColumnSpan="100" ResizeDirection="Rows" IsEnabled="False" Background="Gray"
@@ -7272,7 +9280,110 @@
 					</Grid>
 				</Grid>
 			</TabItem>
+			<TabItem Header="Inventory">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="30"/>
+						<RowDefinition Height="30"/>
+						<RowDefinition Height="30"/>
+						<RowDefinition Height="30"/>
+						<RowDefinition Height="30"/>
+						<RowDefinition Height="30"/>
+						<RowDefinition Height="*"/>
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
 
+					<TextBlock Grid.Row="0" Grid.Column="0" Text="All Inventory Items (not only items):" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="100,0,0,0"/>
+					<Grid Grid.Row="1" Margin="10,0,0,0" Grid.Column="0" Grid.ColumnSpan="2"  >
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="30"/>
+							<ColumnDefinition Width="200"/>
+							<ColumnDefinition Width="200"/>
+							<ColumnDefinition Width="200"/>
+						</Grid.ColumnDefinitions>
+						<TextBlock Grid.Column="0" Foreground="White" Text="ID"/>
+						<TextBlock Grid.Column="1" Foreground="White" Text="Requested Name"/>
+						<TextBlock Grid.Column="2" Foreground="White" Text="Requested ID"/>
+					</Grid>
+
+					<ScrollViewer x:Name="InventoryPiece_Types_Edit_SV" Grid.Row="2" Grid.RowSpan="5" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Stretch">
+					<ItemsControl x:Name="InventoryMagicTypesEquip_Edit_IC" Grid.Row="1" Grid.Column="0"  Margin="10,10,10,10" Foreground="White" VerticalAlignment="Top" Background=" Transparent"
+						ItemsSource="{Binding CurrentInventoryItems}">
+												
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="30"/>
+										<ColumnDefinition Width="200"/>
+										<ColumnDefinition Width="200"/>
+										<ColumnDefinition Width="200"/>
+									</Grid.ColumnDefinitions>
+
+									<TextBlock Grid.Column="0" Foreground="White" Text="{Binding Path=.ID}"/>
+									<TextBlock Grid.Column="1" Foreground="White" Text="{Binding Path=.Req_ID}"/>
+									<TextBlock Grid.Column="2" Foreground="White" Text="{Binding Path=.Req_Type}"/>
+									<Button Grid.Column="3" Content="Delete" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="10,0,10,0"/>
+
+								</Grid>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</ScrollViewer>
+
+					<TextBlock Grid.Row="2" Grid.Column="2" Text="Add an Item?" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+					<ComboBox x:Name ="InventoryItemToAdd_CB"  Grid.Row="2" Grid.Column="2" Width="200" ItemsSource="{Binding CurrentItemsInDatabase}" Background="Gray" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+					          >
+						<ComboBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding ID}" Foreground="Black"/>
+							</DataTemplate>
+						</ComboBox.ItemTemplate>
+					</ComboBox>
+					<Button Grid.Row="2" Grid.Column="3" Content="Add" VerticalAlignment="Center" 
+					        Click="AddInventoryItem_BTN_OnClick"/>
+
+					<TextBlock Grid.Row="3" Grid.Column="2" Text="Add an Accessory?" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+					<ComboBox Grid.Row="3" Grid.Column="2" Width="200" ItemsSource="{Binding CurrentItemsInDatabase}" Background="Gray" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+					          >
+						<ComboBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding ID}" Foreground="Black"/>
+							</DataTemplate>
+						</ComboBox.ItemTemplate>
+					</ComboBox>
+					<Button Grid.Row="3" Grid.Column="3" Content="Add" VerticalAlignment="Center" />
+
+					<TextBlock Grid.Row="4" Grid.Column="2" Text="Add an Clothes?" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+					<ComboBox Grid.Row="4" Grid.Column="2" Width="200" ItemsSource="{Binding CurrentClothesInDatabase}" Background="Gray" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+					>
+						<ComboBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding ID}" Foreground="Black"/>
+							</DataTemplate>
+						</ComboBox.ItemTemplate>
+					</ComboBox>
+					<Button Grid.Row="4" Grid.Column="3" Content="Add" VerticalAlignment="Center" />
+
+					<TextBlock Grid.Row="5" Grid.Column="2" Text="Add an Clothes?" Foreground="White" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+					<ComboBox Grid.Row="5" Grid.Column="2" Width="200" ItemsSource="{Binding CurrentWeaponInDatabase}" Background="Gray" Margin="100,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+					>
+						<ComboBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding ID}" Foreground="Black"/>
+							</DataTemplate>
+						</ComboBox.ItemTemplate>
+					</ComboBox>
+					<Button Grid.Row="5" Grid.Column="3" Content="Add" VerticalAlignment="Center" />
+
+				</Grid>
+				
+			</TabItem>
 		</TabControl>
 		<TextBlock Grid.Row="2" Text="Status:" Foreground="White" Margin="5,5,400,5"></TextBlock>
 		<TextBlock x:Name="GlobalStatusLog_TB" Grid.Row="2" Background="Gray" Foreground="White" Margin="66,5,5,5"></TextBlock>

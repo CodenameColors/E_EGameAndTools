@@ -9,6 +9,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using BixBite;
 using BixBite.Characters;
 using BixBite.Combat;
 using BixBite.Crafting;
@@ -66,7 +67,10 @@ namespace Forms.DatabaseTool
 
 		public ObservableCollection<FollowUpAttack> CurrentFollowUpAttacksInDatabase { get; set; }
 
-		
+		public ObservableCollection<Point_Coeffiencts> CurrentPointCoeffiencts { get; set; }
+
+		public ObservableCollection<Inventory> CurrentInventoryItems { get; set; }
+
 		#endregion
 
 
@@ -87,6 +91,10 @@ namespace Forms.DatabaseTool
 			MainWindow_Clothes();
 			MainWindow_Recipes();
 
+			CurrentInventoryItems = new ObservableCollection<Inventory>();
+			//CurrentPointCoeffiencts = new ObservableCollection<Point_Coeffiencts>();
+			//LoadPointCoefficentsFromDatabase();
+
 			DataContext = this;
 
 		}
@@ -102,6 +110,18 @@ namespace Forms.DatabaseTool
 			LoadItemGrid();
 		}
 
+		private void LoadInventoryItemsFromDatabase()
+		{
+			String Createsql = String.Empty;
+			Createsql = ("SELECT * FROM `inventory`;");
+
+			IEnumerable<Inventory> varlist = _sqlite_conn.Query<Inventory>(Createsql);
+			foreach (Inventory inventoryItem in varlist.ToList())
+			{
+				CurrentInventoryItems.Add(inventoryItem);
+			}
+		}
+
 		private void LoadItemGrid()
 		{
 			foreach (EItemType val in Enum.GetValues(typeof(EItemType)))
@@ -109,6 +129,18 @@ namespace Forms.DatabaseTool
 				if(val == 0) continue;
 				ItemTypesEquip_Add_IC.Items.Add(val);
 				ItemTypesEquip_Edit_IC.Items.Add(val);
+			}
+		}
+
+		private void LoadPointCoefficentsFromDatabase()
+		{
+			String Createsql = String.Empty;
+			Createsql = ("SELECT * FROM `point_coeffiencts`;");
+
+			IEnumerable<Point_Coeffiencts> varlist = _sqlite_conn.Query<Point_Coeffiencts>(Createsql);
+			foreach (Point_Coeffiencts pointCoeffiencts in varlist.ToList())
+			{
+				CurrentPointCoeffiencts.Add(pointCoeffiencts);
 			}
 		}
 
@@ -159,7 +191,6 @@ namespace Forms.DatabaseTool
 		}
 
 		#endregion
-
 
 		#region Load/Add Magic Types
 		private void LoadMagicTypesItemControls()
@@ -424,6 +455,7 @@ namespace Forms.DatabaseTool
 			LoadAccessoriesFromDatabase();
 			LoadClothesFromDatabase();
 			LoadRecipeFromDatabase();
+			LoadInventoryItemsFromDatabase();
 
 			SetOutputLog(String.Format("Successfully opened {0} database", dlg.FileName));
 
@@ -981,9 +1013,69 @@ namespace Forms.DatabaseTool
 		}
 
 
-	
+		private void AddInventoryItem_BTN_OnClick(object sender, RoutedEventArgs e)
+		{
+			ComboBox cb = InventoryItemToAdd_CB;
+			String Createsql = "";
+			if (cb.SelectedItem == null) return;
+			else
+			{
+				Item selectedItem = (Item) cb.SelectedItem;
+				//We need to fill up the selected items external data objects.
+				Createsql = String.Format("SELECT * FROM `point_coeffiencts` where id = {0};", selectedItem.Point_Coeffiencts_FK  );
+				List<Point_Coeffiencts> queryResults = _sqlite_conn.Query<Point_Coeffiencts>(Createsql);
+				selectedItem.PointCoeffiencts = (Point_Coeffiencts)queryResults.First();
+
+				Createsql = String.Format("SELECT * FROM `base_stats` where id = {0};", selectedItem.Stats_FK);
+				List<BaseStats> queryResults_base = _sqlite_conn.Query<BaseStats>(Createsql);
+				selectedItem.Stats = (BaseStats)queryResults_base.First();
+
+				Createsql = String.Format("SELECT * FROM `weaknesses_strengths` where id = {0};", selectedItem.Weakness_Strength_FK);
+				List<weaknesses_strengths> queryResults_weak = _sqlite_conn.Query<weaknesses_strengths>(Createsql);
+				selectedItem.WeaknessAndStrengths = (weaknesses_strengths)queryResults_weak.First();
 
 
+				//Let's create the item we are trying to spawn into the game
+				Createsql = String.Format("SELECT * FROM `created_items`;");
+				List<Created_Items> pcList = _sqlite_conn.Query<Created_Items>(Createsql);
+				int maxID = (pcList.Count == 0 ? 0 : pcList.Max(x => x.ID));
+
+				Created_Items newItem = new Created_Items(selectedItem, Player.Instance){ID = maxID  +1};
+
+				//At this point the actual newItem is set up with all the correct data and is ready for game use.
+				//Let's put it in the database!
+				String masterfile = (SQLDatabasePath);
+				_sqlite_conn = new SQLiteConnection(masterfile);
+				
+
+				try
+				{
+					_sqlite_conn.Insert(newItem);
+					SetOutputLog(String.Format("Successfully added created_item to DB: {0}", newItem.ID));
+
+					//If we have created a new REAL item. so let's add it to the inventory!
+					Createsql = String.Format("SELECT * FROM `inventory`;");
+					List<Inventory> invList = _sqlite_conn.Query<Inventory>(Createsql);
+					int invMax = (invList.Count == 0 ? 0 : invList.Max(x => x.ID));
+
+					Inventory inventoryItem = new Inventory()
+					{
+						ID = invMax+1,
+						Req_ID = newItem.ID,
+						Req_Name =  newItem.Name,
+						Req_Type = "created_items"
+					};
+					_sqlite_conn.Insert(inventoryItem);
+					SetOutputLog(String.Format("Successfully added new created_item to DB/INVENTORY: {0}", inventoryItem.Req_Name));
+				}
+				catch (Exception ex)
+				{
+					SetOutputLog("Error when added item to [created_Item] Table: " + ex.Message);
+				}
+
+
+			}
+		}
 	}
 
 

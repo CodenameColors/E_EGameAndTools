@@ -183,7 +183,16 @@ namespace Forms.DatabaseTool
 					int.TryParse(AccessoriesRes_Add_TB.Text, out int resResult) &&
 					int.TryParse(AccessoriesLuc_Add_TB.Text, out int LucResult) &&
 					int.TryParse(AccessoriesRsk_Add_TB.Text, out int RskResult) &&
-					int.TryParse(AccessoriesItl_Add_TB.Text, out int itlResult)
+					int.TryParse(AccessoriesItl_Add_TB.Text, out int itlResult) &&
+
+					int.TryParse(Accessory_pointCo_Min_Size_Add_TB.Text, out int minSize) &&
+					int.TryParse(Accessory_pointCo_Max_Size_Add_TB.Text, out int maxSize) &&
+					int.TryParse(Accessory_pointCo_Min_Qual_Add_TB.Text, out int minQual) &&
+					int.TryParse(Accessory_pointCo_Max_Qual_Add_TB.Text, out int maxQual) &&
+					int.TryParse(Accessory_pointCo_Min_Rare_Add_TB.Text, out int minRare) &&
+					int.TryParse(Accessory_pointCo_Max_Rare_Add_TB.Text, out int maxRare) &&
+					int.TryParse(Accessory_pointCo_Min_Points_Add_TB.Text, out int minPoints) &&
+					int.TryParse(Accessory_pointCo_Max_Points_Add_TB.Text, out int maxPoints)
 					) //  1.0.0.2v
 			{
 				//At this point you can add to the database.
@@ -306,6 +315,42 @@ namespace Forms.DatabaseTool
 					#endregion
 					_sqlite_conn.Insert(weakstrToAdd);
 
+					#region Point Coefficents
+
+					//Set up the Point coefficents object.
+					Createsql = "SELECT * FROM `point_coeffiencts`;";
+					List<Point_Coeffiencts> pcList = _sqlite_conn.Query<Point_Coeffiencts>(Createsql);
+					int newID_stat_pc = (pcList.Count == 0 ? 0 : pcList.Max(x => x.ID));
+
+					//Set up the point coefficent object!
+					int pc_piece_types = 0;
+					foreach (UIElement element in Accessory_Piece_Types_Add_Grid.Children)
+					{
+						if (element is CheckBox cb)
+						{
+							if ((bool)(cb as CheckBox).IsChecked)
+							{
+								pc_piece_types += (int)Math.Pow(2, Grid.GetRow(cb));
+							}
+						}
+					}
+
+					Point_Coeffiencts pointCoeffiencts = new Point_Coeffiencts()
+					{
+						ID = newID_stat_pc + 1,
+						Max_Size = maxSize,
+						Min_Size = minSize,
+						Min_Quality = minQual,
+						Max_Quality = maxQual,
+						Min_Rarity = minRare,
+						Max_Rarity = maxRare,
+						Min_Points = minPoints,
+						Max_Points = maxPoints,
+						possible_piece_types = pc_piece_types
+					};
+					_sqlite_conn.Insert(pointCoeffiencts);
+
+					#endregion
 
 					//Set up the weapon object!
 					Accessories accessories = new Accessories()
@@ -317,6 +362,7 @@ namespace Forms.DatabaseTool
 						Function_PTR = AccessoryFuncPTR_Add_TB.Text, //1.0.0.3v
 
 						Stats_FK = basestat.ID,
+						Point_Coeffiencts_FK = pointCoeffiencts.ID,
 						Weakness_Strength_FK = weakstrToAdd.ID
 					};
 
@@ -525,7 +571,17 @@ namespace Forms.DatabaseTool
 					int.TryParse(AccessoriesRes_Edit_TB.Text, out int resResult) &&
 					int.TryParse(AccessoriesLuc_Edit_TB.Text, out int LucResult) &&
 					int.TryParse(AccessoriesRsk_Edit_TB.Text, out int RskResult) &&
-					int.TryParse(AccessoriesItl_Edit_TB.Text, out int itlResult)
+					int.TryParse(AccessoriesItl_Edit_TB.Text, out int itlResult) &&
+
+					int.TryParse(Accessory_pointCo_Min_Size_Edit_TB.Text, out int minSize) &&
+					int.TryParse(Accessory_pointCo_Max_Size_Edit_TB.Text, out int maxSize) &&
+					int.TryParse(Accessory_pointCo_Min_Qual_Edit_TB.Text, out int minQual) &&
+					int.TryParse(Accessory_pointCo_Max_Qual_Edit_TB.Text, out int maxQual) &&
+					int.TryParse(Accessory_pointCo_Min_Rare_Edit_TB.Text, out int minRare) &&
+					int.TryParse(Accessory_pointCo_Max_Rare_Edit_TB.Text, out int maxRare) &&
+					int.TryParse(Accessory_pointCo_Min_Points_Edit_TB.Text, out int minPoints) &&
+					int.TryParse(Accessory_pointCo_Max_Points_Edit_TB.Text, out int maxPoints)
+
 				) //1.0.0.2v
 			{
 
@@ -576,6 +632,8 @@ namespace Forms.DatabaseTool
 											String.Format("{0} = '{1}',", "function_ptr", accessorydata.Function_PTR) + //1.0.0.3v
 
 											String.Format("{0} = {1},", "rarity", accessorydata.Rarity) +
+											String.Format("{0} = {1},", "stats_fk", accessorydata.Stats_FK) +
+											String.Format("{0} = {1}, ", "point_coeffiencts_fk", accessorydata.Point_Coeffiencts_FK) +
 											String.Format("{0} = {1} ", "weakness_strength_fk", accessorydata.Weakness_Strength_FK) +
 											String.Format("WHERE id='{0}'", accessorydata.ID);
 					_sqlite_conn.Query<Accessory>(Createsql);
@@ -636,6 +694,47 @@ namespace Forms.DatabaseTool
 
 											String.Format("WHERE id='{0}'", weaknessStrengths.ID);
 					_sqlite_conn.Query<weaknesses_strengths>(Createsql);
+
+					//Set up the point coefficent object!
+					int pc_piece_types = 0;
+					foreach (UIElement element in Accessory_Piece_Types_Edit_Grid.Children)
+					{
+						if (element is CheckBox cb)
+						{
+							if ((bool)(cb as CheckBox).IsChecked)
+							{
+								pc_piece_types += (int)Math.Pow(2, Grid.GetRow(cb));
+							}
+						}
+					}
+
+					Point_Coeffiencts pointCoeffiencts = new Point_Coeffiencts()
+					{
+						ID = accessorydata.Point_Coeffiencts_FK,
+						Max_Size = maxSize,
+						Min_Size = minSize,
+						Min_Quality = minQual,
+						Max_Quality = maxQual,
+						Min_Rarity = minRare,
+						Max_Rarity = maxRare,
+						Min_Points = minPoints,
+						Max_Points = maxPoints,
+						possible_piece_types = pc_piece_types
+					};
+					Createsql = "UPDATE `point_coeffiencts` " +
+					            "SET " +
+					            String.Format("{0} = {1},", "min_size", pointCoeffiencts.Min_Size) +
+					            String.Format("{0} = {1},", "max_size", pointCoeffiencts.Max_Size) +
+					            String.Format("{0} = {1},", "min_quality", pointCoeffiencts.Min_Quality) +
+					            String.Format("{0} = {1}, ", "max_quality", pointCoeffiencts.Max_Quality) +
+					            String.Format("{0} = {1}, ", "min_rarity", pointCoeffiencts.Min_Rarity) +
+					            String.Format("{0} = {1}, ", "max_rarity", pointCoeffiencts.Max_Rarity) +
+					            String.Format("{0} = {1}, ", "min_points", pointCoeffiencts.Min_Points) +
+					            String.Format("{0} = {1}, ", "max_points", pointCoeffiencts.Max_Points) +
+					            String.Format("{0} = {1} ", "possible_piece_types", pointCoeffiencts.possible_piece_types) +
+
+					            String.Format("WHERE id='{0}'", pointCoeffiencts.ID);
+					_sqlite_conn.Query<Point_Coeffiencts>(Createsql);
 
 
 					//Delete all the associated keys
@@ -745,6 +844,37 @@ namespace Forms.DatabaseTool
 			AccessoriesLuc_Edit_TB.Text = currentAccessory.Stats.Luck.ToString();
 			AccessoriesRsk_Edit_TB.Text = currentAccessory.Stats.Risk.ToString();
 			AccessoriesItl_Edit_TB.Text = currentAccessory.Stats.Intelligence.ToString();
+			#endregion
+
+			#region point coefficents
+			Createsql = "SELECT * FROM `point_coeffiencts`;";
+			List<Point_Coeffiencts> pcList = _sqlite_conn.Query<Point_Coeffiencts>(Createsql);
+
+			Point_Coeffiencts pointCoeffiencts = pcList.Single(x => x.ID == currentAccessory.Point_Coeffiencts_FK);
+			currentAccessory.PointCoeffiencts = pointCoeffiencts;
+			Accessory_pointCo_Min_Size_Edit_TB.Text = pointCoeffiencts.Min_Size.ToString();
+			Accessory_pointCo_Max_Size_Edit_TB.Text = pointCoeffiencts.Max_Size.ToString();
+			Accessory_pointCo_Min_Qual_Edit_TB.Text = pointCoeffiencts.Min_Quality.ToString();
+			Accessory_pointCo_Max_Qual_Edit_TB.Text = pointCoeffiencts.Max_Quality.ToString();
+			Accessory_pointCo_Min_Rare_Edit_TB.Text = pointCoeffiencts.Min_Rarity.ToString();
+			Accessory_pointCo_Max_Rare_Edit_TB.Text = pointCoeffiencts.Max_Rarity.ToString();
+			Accessory_pointCo_Min_Points_Edit_TB.Text = pointCoeffiencts.Min_Points.ToString();
+			Accessory_pointCo_Max_Points_Edit_TB.Text = pointCoeffiencts.Max_Points.ToString();
+
+			//Set up the point coefficent checkboxes
+			foreach (UIElement element in Accessory_Piece_Types_Edit_Grid.Children)
+			{
+				if (element is CheckBox cb)
+				{
+					int grid = Grid.GetRow(cb);
+					if ((pointCoeffiencts.possible_piece_types & (0x1 << grid)) > 0)
+					{
+						cb.IsChecked = true;
+					}
+					else cb.IsChecked = false;
+
+				}
+			}
 			#endregion
 
 			//Check boxes time!

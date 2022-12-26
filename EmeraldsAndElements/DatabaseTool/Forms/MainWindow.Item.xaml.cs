@@ -214,6 +214,7 @@ namespace Forms.DatabaseTool
 			CurrentItemsInDatabase[ItemName_Edit_CB.SelectedIndex].Traits.RemoveAt(index);
 		}
 
+
 		//Updated this method to include the AoE and targeting variables -AM 8/29/2020 1.0.0.2v
 		//Updated this method to include the function pointer name string variable -AM 9/4/2020 1.0.0.3v
 		private void AddItemToDatabase_BTN_Click(object sender, RoutedEventArgs e)
@@ -235,7 +236,18 @@ namespace Forms.DatabaseTool
 					int.TryParse(ItemRes_Add_TB.Text, out int resResult) &&
 					int.TryParse(ItemLuc_Add_TB.Text, out int LucResult) &&
 					int.TryParse(ItemRsk_Add_TB.Text, out int RskResult) &&
-					int.TryParse(ItemItl_Add_TB.Text, out int itlResult)) //  1.0.0.2v
+					int.TryParse(ItemItl_Add_TB.Text, out int itlResult) &&
+
+					int.TryParse(Item_pointCo_Min_Size_Add_TB.Text, out int minSize) &&
+					int.TryParse(Item_pointCo_Max_Size_Add_TB.Text, out int maxSize) &&
+					int.TryParse(Item_pointCo_Min_Qual_Add_TB.Text, out int minQual) &&
+					int.TryParse(Item_pointCo_Max_Qual_Add_TB.Text, out int maxQual) &&
+					int.TryParse(Item_pointCo_Min_Rare_Add_TB.Text, out int minRare) &&
+					int.TryParse(Item_pointCo_Max_Rare_Add_TB.Text, out int maxRare) &&
+					int.TryParse(Item_pointCo_Min_Points_Add_TB.Text, out int minPoints) &&
+					int.TryParse(Item_pointCo_Max_Points_Add_TB.Text, out int maxPoints)
+
+					) //  1.0.0.2v
 			{
 				//At this point you can add to the database.
 
@@ -358,19 +370,54 @@ namespace Forms.DatabaseTool
 					#endregion
 					_sqlite_conn.Insert(weakstrToAdd);
 
+					//Set up the Point coefficents object.
+					Createsql = "SELECT * FROM `point_coeffiencts`;";
+					List<Point_Coeffiencts> pcList = _sqlite_conn.Query<Point_Coeffiencts>(Createsql);
+					int newID_stat_pc = (pcList.Count == 0 ? 0 : pcList.Max(x => x.ID));
 
-					//Set up the weapon object!
+					//Set up the point coefficent object!
+					int pc_piece_types = 0;
+					foreach (UIElement element in Item_Piece_Types_Add_Grid.Children)
+					{
+						if (element is CheckBox cb)
+						{
+							if ((bool)(cb as CheckBox).IsChecked)
+							{
+								pc_piece_types += (int)Math.Pow(2, Grid.GetRow(cb));
+							}
+						}
+					}
+
+
+					Point_Coeffiencts pointCoeffiencts = new Point_Coeffiencts()
+					{
+						ID = newID_stat_pc + 1,
+						Max_Size = maxSize,
+						Min_Size = minSize,
+						Min_Quality = minQual,
+						Max_Quality = maxQual,
+						Min_Rarity = minRare,
+						Max_Rarity = maxRare,
+						Min_Points = minPoints,
+						Max_Points = maxPoints,
+						possible_piece_types = pc_piece_types
+					};
+					_sqlite_conn.Insert(pointCoeffiencts);
+
+					//Set up the item object!
 					Items item = new Items()
 					{
 						ID = ItemName_Add_TB.Text,
 						bDamage = (bool)ItemIsDamage_Add_CB.IsChecked,
-						//Inflicting_Value = inflictval, // This doesn't exist anymore. was phased out by Str&weak stats
 						Weapon_Type = (int)((EWeaponType)ItemWeaponType_Add_CB.SelectedValue),
 						Rarity = (int)((ERarityType)ItemRarity_Add_CB.SelectedValue),
 						bAllies = (bool)ItemAllies_Add_CB.IsChecked, //1.0.0.2v
 						AoE_W = AoE_W_Val, //1.0.0.2v
 						AoE_H = AoE_H_Val, //1.0.0.2v
 						Weight = weight,
+						Point_Coeffiencts_FK = pointCoeffiencts.ID,
+						Weakness_Strength_FK = weakstrToAdd.ID,
+						Stats_FK = basestat.ID,
 						Function_PTR = ItemFuncPTR_Add_TB.Text //1.0.0.3v
 					};
 
@@ -429,7 +476,7 @@ namespace Forms.DatabaseTool
 				}
 				catch (Exception ex)
 				{
-					Console.WriteLine("Weapons write from database [items] FAILURE | {0}", ex.Message);
+					Console.WriteLine("Items write from database [items] FAILURE | {0}", ex.Message);
 					SetOutputLog(String.Format("Loading/Writing Database [items] failed: {0}", ex.Message));
 				}
 				finally
@@ -522,6 +569,37 @@ namespace Forms.DatabaseTool
 
 			#endregion
 
+			#region point coefficents
+			Createsql = "SELECT * FROM `point_coeffiencts`;";
+			List<Point_Coeffiencts> pcList = _sqlite_conn.Query<Point_Coeffiencts>(Createsql);
+
+			Point_Coeffiencts pointCoeffiencts = pcList.Single(x => x.ID == currentItem.Point_Coeffiencts_FK);
+			currentItem.PointCoeffiencts = pointCoeffiencts;
+			Item_pointCo_Min_Size_Edit_TB.Text = pointCoeffiencts.Min_Size.ToString();
+			Item_pointCo_Max_Size_Edit_TB.Text = pointCoeffiencts.Max_Size.ToString();
+			Item_pointCo_Min_Qual_Edit_TB.Text = pointCoeffiencts.Min_Quality.ToString();
+			Item_pointCo_Max_Qual_Edit_TB.Text = pointCoeffiencts.Max_Quality.ToString();
+			Item_pointCo_Min_Rare_Edit_TB.Text = pointCoeffiencts.Min_Rarity.ToString();
+			Item_pointCo_Max_Rare_Edit_TB.Text = pointCoeffiencts.Max_Rarity.ToString();
+			Item_pointCo_Min_Points_Edit_TB.Text = pointCoeffiencts.Min_Points.ToString();
+			Item_pointCo_Max_Points_Edit_TB.Text = pointCoeffiencts.Max_Points.ToString();
+
+			//Set up the point coefficent checkboxes
+			foreach (UIElement element in Item_Piece_Types_Edit_Grid.Children)
+			{
+				if (element is CheckBox cb)
+				{
+					 int grid = Grid.GetRow(cb);
+					if ((pointCoeffiencts.possible_piece_types & (0x1 << grid)) > 0)
+					{
+						cb.IsChecked = true;
+					}
+					else cb.IsChecked = false;
+
+				}
+			}
+
+			#endregion
 
 			#region Item Types
 			SetItemsTypesData(ItemTypesEquip_Edit_IC, null, EItemType.NONE, true);
@@ -578,7 +656,18 @@ namespace Forms.DatabaseTool
 					int.TryParse(ItemRes_Edit_TB.Text, out int resResult) &&
 					int.TryParse(ItemLuc_Edit_TB.Text, out int LucResult) &&
 					int.TryParse(ItemRsk_Edit_TB.Text, out int RskResult) &&
-					int.TryParse(ItemItl_Edit_TB.Text, out int itlResult)
+					int.TryParse(ItemItl_Edit_TB.Text, out int itlResult) &&
+
+					int.TryParse(Item_pointCo_Min_Size_Edit_TB.Text, out int minSize) &&
+					int.TryParse(Item_pointCo_Max_Size_Edit_TB.Text, out int maxSize) &&
+					int.TryParse(Item_pointCo_Min_Qual_Edit_TB.Text, out int minQual) &&
+					int.TryParse(Item_pointCo_Max_Qual_Edit_TB.Text, out int maxQual) &&
+					int.TryParse(Item_pointCo_Min_Rare_Edit_TB.Text, out int minRare) &&
+					int.TryParse(Item_pointCo_Max_Rare_Edit_TB.Text, out int maxRare) &&
+					int.TryParse(Item_pointCo_Min_Points_Edit_TB.Text, out int minPoints) &&
+					int.TryParse(Item_pointCo_Max_Points_Edit_TB.Text, out int maxPoints)
+
+
 					) //1.0.0.2v
 			{
 
@@ -655,8 +744,10 @@ namespace Forms.DatabaseTool
 											String.Format("{0} = {1},", "ballies", itemdata.bAllies) + //1.0.0.2v
 											String.Format("{0} = '{1}',", "function_ptr", itemdata.Function_PTR) + //1.0.0.3v
 
-											String.Format("{0} = {1},", "rarity", itemdata.Rarity) +
-											String.Format("{0} = {1} ", "weakness_strength_fk", itemdata.Weakness_Strength_FK) +
+											String.Format("{0} = {1}, ", "rarity", itemdata.Rarity) +
+											String.Format("{0} = {1}, ", "weakness_strength_fk", itemdata.Weakness_Strength_FK) +
+											String.Format("{0} = {1}, ", "stats_fk", itemdata.Stats_FK) +
+											String.Format("{0} = {1} ", "point_coeffiencts_fk", itemdata.Point_Coeffiencts_FK) +
 											String.Format("WHERE id='{0}'", itemdata.ID);
 					_sqlite_conn.Query<Item>(Createsql);
 
@@ -717,6 +808,46 @@ namespace Forms.DatabaseTool
 											String.Format("WHERE id='{0}'", weaknessStrengths.ID);
 					_sqlite_conn.Query<weaknesses_strengths>(Createsql);
 
+					//Set up the point coefficent object!
+					int pc_piece_types = 0;
+					foreach (UIElement element in Item_Piece_Types_Edit_Grid.Children)
+					{
+						if (element is CheckBox cb)
+						{
+							if ((bool)(cb as CheckBox).IsChecked)
+							{
+								pc_piece_types += (int)Math.Pow(2, Grid.GetRow(cb));
+							}
+						}
+					}
+
+					Point_Coeffiencts pointCoeffiencts = new Point_Coeffiencts()
+					{
+						ID = itemdata.Point_Coeffiencts_FK,
+						Max_Size = maxSize,
+						Min_Size = minSize,
+						Min_Quality = minQual,
+						Max_Quality = maxQual,
+						Min_Rarity = minRare,
+						Max_Rarity = maxRare,
+						Min_Points = minPoints,
+						Max_Points = maxPoints,
+						possible_piece_types = pc_piece_types
+					};
+					Createsql = "UPDATE `point_coeffiencts` " +
+					            "SET " +
+					            String.Format("{0} = {1},", "min_size", pointCoeffiencts.Min_Size) +
+					            String.Format("{0} = {1},", "max_size", pointCoeffiencts.Max_Size) +
+					            String.Format("{0} = {1},", "min_quality", pointCoeffiencts.Min_Quality) +
+					            String.Format("{0} = {1}, ", "max_quality", pointCoeffiencts.Max_Quality) +
+					            String.Format("{0} = {1}, ", "min_rarity", pointCoeffiencts.Min_Rarity) +
+					            String.Format("{0} = {1}, ", "max_rarity", pointCoeffiencts.Max_Rarity) +
+					            String.Format("{0} = {1}, ", "min_points", pointCoeffiencts.Min_Points) +
+					            String.Format("{0} = {1}, ", "max_points", pointCoeffiencts.Max_Points) +
+					            String.Format("{0} = {1} ", "possible_piece_types", pointCoeffiencts.possible_piece_types) +
+
+					            String.Format("WHERE id='{0}'", pointCoeffiencts.ID);
+					_sqlite_conn.Query<Point_Coeffiencts>(Createsql);
 
 
 					//Delete all the associated keys
@@ -769,8 +900,8 @@ namespace Forms.DatabaseTool
 				}
 				catch (Exception ex)
 				{
-					Console.WriteLine("Gameplay modifier Read from database FAILURE {0}:", ex.Message);
-					SetOutputLog(String.Format("Loading/Reading Database [gameplay modifier] failed: {0}", ex.Message));
+					Console.WriteLine("Item Update from database FAILURE {0}:", ex.Message);
+					SetOutputLog(String.Format("Update Database [Item ] failed: {0}", ex.Message));
 				}
 				finally
 				{

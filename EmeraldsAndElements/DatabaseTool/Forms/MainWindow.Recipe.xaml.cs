@@ -1031,11 +1031,11 @@ namespace Forms.DatabaseTool
 					foreach ( var v in q)
 					{
 						if(v.IndgredientType.ToLower().Contains("item"))
-							rep.RequiredIngredients.Add(new CraftingHelpers.RecipeIngredient(CurrentItemsInDatabase.First(x=>x.ID==v.Key), v.Count));
+							rep.RequiredIngredients.Add(new CraftingHelpers.RecipeIngredient(CurrentItemsInDatabase.First(x=>x.ID==v.Key), v.Count, "Item"));
 						//else if (v.IndgredientType.ToLower().Contains("equipable"))
 						//	rep.RequiredIngredients.Add(new CraftingHelpers.RecipeIngredient(Current.First(x => x.ID == v.Key), v.Count));
 						else if (v.IndgredientType.ToLower().Contains("type"))
-							rep.RequiredIngredients.Add(new CraftingHelpers.RecipeIngredient(Enum.Parse(typeof(ECreationTypes), v.Key) , v.Count));
+							rep.RequiredIngredients.Add(new CraftingHelpers.RecipeIngredient(Enum.Parse(typeof(ECreationTypes), v.Key) , v.Count, "Type"));
 					}
 
 					//Each weapon a list of keys to it. And we must populate that data correctly

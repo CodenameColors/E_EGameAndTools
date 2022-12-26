@@ -136,9 +136,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\GameTools\JobStanceAnalysis\JobStanceAnalysis.csproj">
       <Project>{850e13b2-48e6-419c-a9f2-93adad154337}</Project>
@@ -146,6 +144,38 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\PuzzlePieces\piece_0.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_1.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_10.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_11.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_12.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_13.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_14.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_15.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_16.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_17.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_18.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_19.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_2.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_20.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_21.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_22.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_23.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_24.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_25.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_26.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_27.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_28.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_29.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_3.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_30.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_31.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_4.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_5.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_6.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_7.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_8.png" />
+    <Resource Include="Resources\PuzzlePieces\piece_9.png" />
     <Content Include="SQLite.Interop.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
