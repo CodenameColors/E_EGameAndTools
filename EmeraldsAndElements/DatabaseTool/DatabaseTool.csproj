@@ -41,10 +41,6 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BixBite, Version=1.0.1.9, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ProjectEE\BixBite\bin\Debug\BixBite.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -138,6 +134,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\Bixbite\BixBite.csproj">
+      <Project>{d50deef5-20be-4a57-b0f8-6cb460f71d82}</Project>
+      <Name>BixBite</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GameTools\JobStanceAnalysis\JobStanceAnalysis.csproj">
       <Project>{850e13b2-48e6-419c-a9f2-93adad154337}</Project>
       <Name>JobStanceAnalysis</Name>
